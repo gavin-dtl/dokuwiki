@@ -1,0 +1,71 @@
+1472695603	192.168.1.17	C	work:炫智:6a828:home	gavin	创建		16
+1472695762	192.168.1.17	C	work:炫智:6a828:编译方案选择	gavin	创建		270
+1472697361	192.168.1.17	C	work:炫智:6a638:home	gavin	创建		13
+1472698362	192.168.1.17	C	work:炫智:6a638:msd6a638编绎	gavin	创建		6736
+1472700171	192.168.1.17	E	work:炫智:6a638:msd6a638编绎	gavin			-351
+1472707559	192.168.1.17	C	sidebar	gavin	创建		34
+1472708032	192.168.1.17	E	sidebar	gavin			23
+1472708528	192.168.1.17	E	sidebar	gavin			-19
+1472708659	192.168.1.17	E	sidebar	gavin			9
+1472708733	192.168.1.17	E	sidebar	gavin			-9
+1472694238	127.0.0.1	E	wiki:搭建wiki:home		外部编辑		224
+1472708869	192.168.1.17	E	wiki:搭建wiki:home	gavin			53
+1472710081	192.168.1.17	C	搭建wiki:wiki插件模板	gavin	创建		10
+1472710114	192.168.1.17	E	搭建wiki:wiki插件模板	gavin			79
+1472710199	192.168.1.17	E	搭建wiki:wiki插件模板	gavin			-8
+1472710221	192.168.1.17	E	搭建wiki:wiki插件模板	gavin			1
+1472711483	192.168.1.17	C	android:home	gavin	创建		23
+1472712137	192.168.1.17	C	android:camera:录像存在竖条纹	gavin	创建		37
+1472712216	192.168.1.17	E	android:camera:录像存在竖条纹	gavin			81
+1472712300	192.168.1.17	E	android:camera:录像存在竖条纹	gavin	[现象：] 		123
+1472712308	192.168.1.17	E	android:camera:录像存在竖条纹	gavin	[录像存在竖条纹] 		1
+1472712480	192.168.1.17	E	android:camera:录像存在竖条纹	gavin	[原因分析：] 		261
+1472712587	192.168.1.17	E	android:camera:录像存在竖条纹	gavin	[解决方案：] 		77
+1472712707	192.168.1.17	E	android:camera:录像存在竖条纹	gavin	[解决方案：] 		751
+1472712774	192.168.1.17	E	android:camera:录像存在竖条纹	gavin	[现象：] 		39
+1472712867	192.168.1.17	D	搭建wiki:wiki插件模板	gavin	移除		-82
+1472712928	192.168.1.17	C	wiki:搭建wiki:wiki插件	gavin	创建		80
+1472694253	127.0.0.1	E	work:炫智:a83t:home		外部编辑		58
+1472713008	192.168.1.17	D	work:炫智:a83t:home	gavin	移除		-58
+1472713015	192.168.1.17	D	work:炫智:6a828:home	gavin	移除		-16
+1472694253	127.0.0.1	E	work:home		外部编辑		17
+1472713022	192.168.1.17	D	work:home	gavin	移除		-17
+1472713036	192.168.1.17	D	wiki:搭建wiki:home	gavin	移除		-277
+1472713059	192.168.1.17	D	android:home	gavin	移除		-23
+1472694228	127.0.0.1	E	wiki:site_notice		外部编辑		14
+1472713688	192.168.1.17	E	wiki:site_notice	gavin			1
+1472713702	192.168.1.17	D	wiki:site_notice	gavin	移除		-15
+1472694108	127.0.0.1	E	wiki:navigation		外部编辑		34
+1472713720	192.168.1.17	D	wiki:navigation	gavin	移除		-34
+1472727160	192.168.1.17	E	android:camera:录像存在竖条纹	gavin			6
+1472727203	192.168.1.17	E	android:camera:录像存在竖条纹	gavin	[解决方案：] 		0
+1472730335	192.168.1.17	D	work:炫智:6a638:home	gavin	移除		-13
+1472730484	192.168.1.17	C	wiki:home	gavin	创建		31
+1472731531	192.168.1.17	E	wiki:搭建wiki:wiki插件	gavin			85
+1472731558	192.168.1.17	E	wiki:搭建wiki:wiki插件	gavin			-14
+1472732171	192.168.1.17	E	wiki:搭建wiki:wiki插件	gavin			78
+1472733391	192.168.1.17	E	wiki:home	gavin			99
+1472733415	192.168.1.17	E	wiki:home	gavin	[Welcome My Wiki] 		-71
+1472733422	192.168.1.17	E	wiki:home	gavin	[Welcome My Wiki] 		-27
+1472890954	192.168.3.42	E	wiki:home	gavin			12
+1472906509	192.168.3.42	C	wiki:搭建wiki:修改apache2根路径及默认网页	gavin	创建		415
+1472906531	192.168.3.42	E	wiki:搭建wiki:修改apache2根路径及默认网页	gavin			-141
+1472906602	192.168.3.42	E	wiki:搭建wiki:修改apache2根路径及默认网页	gavin	[修改根路径：] 		162
+1472906826	192.168.3.42	E	wiki:搭建wiki:修改apache2根路径及默认网页	gavin			412
+1472906862	192.168.3.42	E	wiki:搭建wiki:修改apache2根路径及默认网页	gavin	[修改默认网页] 		8
+1472906882	192.168.3.42	E	wiki:搭建wiki:修改apache2根路径及默认网页	gavin	[修改根路径] 		6
+1472903925	127.0.0.1	E	wiki:搭建wiki:wiki插件		外部编辑		0
+1472907136	192.168.3.42	E	wiki:搭建wiki:wiki插件	gavin			50
+1472908116	192.168.3.42	C	start	gavin	创建		44
+1472903925	127.0.0.1	E	wiki:home		外部编辑		0
+1472908131	192.168.3.42	D	wiki:home	gavin	移除		-44
+1472908453	192.168.3.42	E	wiki:搭建wiki:修改apache2根路径及默认网页	gavin	[二、修改默认网页] 		82
+1472908480	192.168.3.42	E	wiki:搭建wiki:修改apache2根路径及默认网页	gavin			-10
+1472903925	127.0.0.1	E	sidebar		外部编辑		0
+1472909476	192.168.3.42	E	sidebar	gavin			84
+1472909558	192.168.3.42	E	sidebar	gavin			56
+1472909595	192.168.3.42	E	sidebar	gavin			1
+1472909626	192.168.3.42	E	sidebar	gavin			1
+1472909789	192.168.3.42	E	sidebar	gavin			-142
+1472903925	127.0.0.1	E	work:炫智:6a638:msd6a638编绎		外部编辑		0
+1472956243	192.168.3.42	E	work:炫智:6a638:msd6a638编绎	gavin			-3

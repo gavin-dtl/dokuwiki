@@ -1,0 +1,5 @@
+  cd lichee
+  ./build.sh config                               //进入硬件平台配置
+  sun8iw6p1 -&gt; android -&gt; linux-3.4 -&gt; xuanzhi    //选好配置后
+  ./build.sh                                      //编译内核
+  _ckgedit_NL

@@ -1,0 +1,14 @@
+=== 导航栏插件 ===
+
+[[https://www.dokuwiki.org/plugin:indexmenu|indexmenu]]
+
+=== 导出PDF ===
+[[https://www.dokuwiki.org/plugin:dw2pdf|dw2pdf]]
+
+=== MarkDown ===
+[[https://www.dokuwiki.org/plugin%3Amarkdownextra|markdown]]
+
+=== 编辑插件 ===
+  - CodeMirror
+  - ckgedit
+

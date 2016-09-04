@@ -1,0 +1,47 @@
+
+<h1 class="sectionedit1" id="修改apache2根路径及默认网页">修改apache2根路径及默认网页</h1>
+<div class="level1">
+
+</div>
+<!-- EDIT1 SECTION "修改apache2根路径及默认网页" [1-53] -->
+<h2 class="sectionedit2" id="一_修改根路径">一、修改根路径</h2>
+<div class="level2">
+<ol>
+<li class="level1"><div class="li"> 修改根路径，/etc/apache2/sites-available/000-default.conf，中的DocumentRoot/var/www/修改为想要的目录，比如：DocumentRoot/home/disk/www/html</div>
+</li>
+<li class="level1"><div class="li"> 添加访问权限</div>
+</li>
+</ol>
+<pre class="code">	&lt;Directory /home/disk/www&gt;
+    		Options Indexes FollowSymLinks
+    		AllowOverride None
+    		Require all granted
+	&lt;/Directory&gt;</pre>
+
+</div>
+<!-- EDIT2 SECTION "一、修改根路径" [54-428] -->
+<h2 class="sectionedit3" id="二_修改默认网页">二、修改默认网页</h2>
+<div class="level2">
+
+<p>
+修改/etc/apache2/mods-available/dir.conf中的内容,原来是：
+</p>
+<pre class="code">	&lt;IfModule mod_dir.c&gt;
+   		DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
+  	&lt;/IfModule&gt;</pre>
+
+<p>
+添加上想要的/wordpress就行啦。
+</p>
+<pre class="code">	&lt;IfModule mod_dir.c&gt;
+  		DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm /wordpress
+	&lt;/IfModule&gt;</pre>
+
+</div>
+<!-- EDIT3 SECTION "二、修改默认网页" [429-851] -->
+<h3 class="sectionedit4" id="三_重启apache服务器">三、重启apache服务器</h3>
+<div class="level3">
+<pre class="code">	sudo apache2ctl -k restart</pre>
+
+</div>
+<!-- EDIT4 SECTION "三、重启apache服务器" [852-] -->

@@ -1,0 +1,36 @@
+====== 录像存在竖条纹 ======
+
+
+===== 现象： =====
+  - 全志平台采用YUYV格式USB摄像头 
+  - 预览拍照均正常
+  - 录像画面静止时正常，运动时存在竖条纹，且运动越快，竖条纹越多
+
+
+===== 原因分析： =====
+
+  - 摄像头原始格式为YUYV，需转换为NV21格式才能进行正常编码预览，转换时，操作ION内存，但是未对内存进行刷新，导致内存数据未得到及时更新，所用导致传输给编码的数据出错，生成竖条纹。
+
+
+===== 解决方案： =====
+
+  - 调用ion_flush_cache刷新ION内存，更新内存，具体如下
+    *<code cpp>
+	if (mVideoFormat != V4L2_PIX_FMT_YUYV
+		&& mCaptureFormat == V4L2_PIX_FMT_YUYV)
+	{
+#ifdef USE_MP_CONVERT
+            YUYVToYUV420C((void*)buf.m.offset, 
+                      (void*)(mVideoBuffer.buf_phy_addr[buf.index] | 0x40000000),
+                      mFrameWidth, 
+                      mFrameHeight);
+            ion_flush_cache((void*)mVideoBuffer.buf_vir_addr[buf.index], mFrameWidth * mFrameHeight * 2);
+#else
+            YUYVToNV21(mMapMem.mem[buf.index], 
+                       (void*)mVideoBuffer.buf_vir_addr[buf.index], 
+                       mFrameWidth, 
+                       mFrameHeight);
+            ion_flush_cache((void*)mVideoBuffer.buf_vir_addr[buf.index], mFrameWidth * mFrameHeight * 2);
+#endif
+	}
+     </code>

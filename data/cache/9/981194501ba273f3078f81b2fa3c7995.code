@@ -1,0 +1,24 @@
+You're building on Linux
+&nbsp;
+    Lunch menu... pick a combo:
+     1. aosp_arm-eng
+     2. aosp_arm64-eng
+     3. aosp_mips-eng
+     4. aosp_mips64-eng
+     5. aosp_x86-eng
+     6. aosp_x86_64-eng
+     7. mini_emulator_x86_64-userdebug
+     8. mini_emulator_arm64-userdebug
+     9. mini_emulator_mips-userdebug
+     10. m_e_arm-userdebug
+     11. mini_emulator_x86-userdebug
+     12. aosp_pitaya-userdebug
+     13. aosp_pitaya32_64-userdebug
+     14. aosp_guava-userdebug
+     15. aosp_arbutus-userdebug
+     16. mstaraddon-eng
+     17. aosp_pitaya32-userdebug
+     18. aosp_carambola-userdebug
+&nbsp;
+   Which would you like? [aosp_arm-eng] 15
+&nbsp;

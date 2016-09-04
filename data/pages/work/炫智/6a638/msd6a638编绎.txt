@@ -1,0 +1,164 @@
+=====MSD6A638编绎方法=====
+
+====如何下载代码====
+  -在自己的家目录下建个6A638的目录，cd 到6A638目录下：
+    *<code shell>$mkdir 6A638</code>
+    *<code shell>$cd 6A638</code>
+  -下载代码：
+    *<code shell>$svn co svn://192.168.1.252/6A638</code>
+  -下载完代码，将代码目录权限修改为0775
+    *<code shell>$chmod -R 0775 6A638</code>
+
+
+====MBoot编绎====
+  -进入6A638/6A638/vendor/mstar/mboot/sboot目录下
+    *<code shell>$cd 6A638/6A638/vendor/mstar/mboot/sboot</code>
+
+  -使用指定配置文件
+    ***第2步不需要执行，.config文件已经修改同步好了**
+    *<code shell>
+	[081B URSA6]
+	$cp ./configs/monet/.config.monet.android.081b.rom_emmc.32bit.tee.ursa6 .config
+	[081B LVDS]
+	$cp ./configs/monet/.config.monet.android.081b.rom_emmc.32bit.tee .config
+	[087B URSA6 AN4.4]
+	$cp ./configs/monet/.config.monet.android.087b.rom_emmc.32bit.tee.ursa6 .config
+	[082B URSA6 ]
+	$cp ./configs/monet/.config.monet.android.082b.rom_emmc.tee.ursa6 .config
+	[087B URSA6 AN5.1]
+	$cp ./configs/monet/.config.monet.android.087b.rom_emmc.tee.ursa6 .config
+	[087B LVDS AN5.1]
+	$cp ./configs/monet/.config.monet.android.087b.rom_emmc.tee.lvds .config
+    </code>
+
+  -进入配置界面
+    *<code shell>$make menuconfig</code>
+  -打开介面后,直接退出保存
+  -编译
+    *<code shell>make clean;make</code>
+  -拷贝out/mboot.bin和out/rom_emmc_boot.bin这两个文件到6A638/images/lollipop/arbutus目录下测试(编译完android源码再执行拷贝,不然会被覆盖)
+
+===PS===
+  PS：如果修改后的Mboot程序确定可用，对比、上传之前，记得将out/mboot.bin和out/rom_emmc_boot.bin这两个文件复制到
+  */6A638/6A638/device/mstar/arbutus/images/prebuilts目录下再对比、上传，可执行如下步骤拷贝。
+  *$./release_mboot_to_monet.sh
+
+
+
+====Kernel编绎====
+  -进入6A638/6A638/vendor/mstar/kernel/3.10.40目录下
+    *<code shell>$cd 6A638/6A638/vendor/mstar/kernel/3.10.40</code>
+  -选择配置文件
+    *第2步不用执行，.config修改过了,执行会出错
+    *<code shell>$cp .config.monet.SMP.arm64.android.emmc.nandflash .config</code>
+
+  -执行脚本
+    <code shell>$./genlink.sh</code>
+  -make menuconfig
+  -编译内核
+    *<code shell>#make clean;make -j12</code>
+  -./release_kernel_to_monet.sh   执行脚本自动把Image拷贝到Android对应目录下
+    ***第6步如果没有修改内核，则不用执行。kernel已经更新过。**
+    *注: 生成的文件Image在 arch/arm64/boot 中,将Image文件更名为kernel然后拷贝到 6A638/device/mstar/arbutus 目录下，并修改名称为kernel下替换原文件
+
+
+
+====Supernova编绎====
+  -进入6A638/6A638/vendor/mstar/supernova/projects目录下
+    *$cd 6A638/6A638/vendor/mstar/supernova/projects
+  -选择配置文件
+    *第2、3步不用执行，第4步已经包括了2、3步
+    *[内置 1G 087B LVDS AN5.1]
+    *$source ./buildsettings/build_Monet_087B_ROM_EMMC_TVOS_DTMB_LVDS_FHD_TEE_Lollipop.sh
+  -make rebuild_all;make image_all
+  -./make_monet_release.sh(包含步骤2、3的编译过程，并release到images目录下了)
+    *注: 生成的文件在: target/dvb.monet/images/ext4目录下
+===PS===
+  编译成功后会提示以下三行：
+  copy image to images/lollipop/arbutus
+  copy image to android
+  success make monet arbutus and release images to images and android!
+
+	
+====Android源码编绎====
+  -进入6A638/6A638目录
+    *$cd 6A638/6A638
+  -执行同步环境配置脚本
+    *$source ./build/envsetup.sh
+  -查看所有项目
+    *$lunch
+  -选择项目
+    *aosp_arbutus-userdebug
+  -编译源码
+    *$make -j12
+  -release镜像文件
+    *$releaseimage.sh
+  -打包升级
+    *$make_usb_upgrade.sh
+
+
+====Image 打包升级生成USB BIN====
+  -执行上面第7步之后会出现以下提示：
+    *<code shell>You're building on Linux
+
+    Lunch menu... pick a combo:
+     1. aosp_arm-eng
+     2. aosp_arm64-eng
+     3. aosp_mips-eng
+     4. aosp_mips64-eng
+     5. aosp_x86-eng
+     6. aosp_x86_64-eng
+     7. mini_emulator_x86_64-userdebug
+     8. mini_emulator_arm64-userdebug
+     9. mini_emulator_mips-userdebug
+     10. m_e_arm-userdebug
+     11. mini_emulator_x86-userdebug
+     12. aosp_pitaya-userdebug
+     13. aosp_pitaya32_64-userdebug
+     14. aosp_guava-userdebug
+     15. aosp_arbutus-userdebug
+     16. mstaraddon-eng
+     17. aosp_pitaya32-userdebug
+     18. aosp_carambola-userdebug
+
+   Which would you like? [aosp_arm-eng] 15
+    </code>
+  -选择 aosp_arbutus-userdebug
+  -Full Upgrade? (Y/n)y
+===PS===
+执行第3步时，可能会报以下错误，再一次从第一步开始执行即可。
+<code shell>
+Full Upgrade? (Y/n)y
+UpgradeImage Generating.....
+: No such file or directory38/6A638/../images/lollipop/arbutus/scripts/set_partition
+: No such file or directory38/6A638/../images/lollipop/arbutus/scripts/[[mboot
+: No such file or directory38/6A638/../images/lollipop/arbutus/scripts/[[recovery
+: No such file or directory38/6A638/../images/lollipop/arbutus/scripts/[[boot
+: No such file or directory38/6A638/../images/lollipop/arbutus/scripts/[[tee
+: No such file or directory38/6A638/../images/lollipop/arbutus/scripts/[[RT_PM
+: No such file or directory38/6A638/../images/lollipop/arbutus/scripts/[[dtb
+: No such file or directory38/6A638/../images/lollipop/arbutus/scripts/[[system
+: No such file or directory38/6A638/../images/lollipop/arbutus/scripts/[[userdata
+: No such file or directory38/6A638/../images/lollipop/arbutus/scripts/[[cache
+: No such file or directory38/6A638/../images/lollipop/arbutus/scripts/[[tvservice
+: No such file or directory38/6A638/../images/lollipop/arbutus/scripts/[[tvconfig
+: No such file or directory38/6A638/../images/lollipop/arbutus/scripts/[[tvdatabase
+: No such file or directory38/6A638/../images/lollipop/arbutus/scripts/[[tvcustomer
+: No such file or directory38/6A638/../images/lollipop/arbutus/scripts/set_config
+cat: TMP_MstarUpgrade.bin: No such file or directory
+rm: cannot remove `TMP_MstarUpgrade.bin': No such file or directory
+</code>
+成功打包显示如下：
+<code shell>
+Full Upgrade? (Y/n)y
+UpgradeImage Generating.....
+script file crc 0xF6EBBA06
+u32ImageSize = 0x1FF6100C
+CRC32 = 0xB0C2DCD1
+1+0 records in
+1+0 records out
+16 bytes (16 B) copied, 2.0196e-05 s, 792 kB/s
+</code> 
+
+====升级====
+   *U盘copy 完后在mboot 控制台下执行custar 即可进行升级

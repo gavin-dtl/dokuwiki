@@ -1,0 +1,21 @@
+a:2:{s:7:"current";a:7:{s:4:"date";a:2:{s:7:"created";i:1472694375;s:8:"modified";i:1472903925;}s:4:"user";s:0:"";s:7:"creator";s:0:"";s:5:"title";s:15:"下载和编译";s:11:"description";a:2:{s:15:"tableofcontents";a:1:{i:0;a:4:{s:3:"hid";s:15:"下载和编译";s:5:"title";s:15:"下载和编译";s:4:"type";s:2:"ul";s:5:"level";i:3;}}s:8:"abstract";s:405:"下载和编译
+
+下载
+
+
+svn co svn://192.168.1.252/a83t/android
+svn co svn://192.168.1.252/a83t/lichee
+svn co svn://192.168.1.252/a83t/stm8s_ass
+
+
+编译
+
+二、编译
+
+	*  lichee
+
+
+  cd lichee
+  ./build.sh config                               //进入硬件平台配置
+  sun8iw6p1 -> android -> linux-3.4 -> xuanzhi    //选好配置后
+  ./build.sh                                      //编译内核";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}s:8:"relation";a:1:{s:10:"firstimage";s:0:"";}}s:10:"persistent";a:3:{s:4:"date";a:1:{s:7:"created";i:1472694375;}s:4:"user";s:0:"";s:7:"creator";s:0:"";}}

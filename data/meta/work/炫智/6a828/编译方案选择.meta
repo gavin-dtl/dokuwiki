@@ -1,0 +1,8 @@
+a:2:{s:7:"current";a:8:{s:4:"date";a:2:{s:7:"created";i:1472695762;s:8:"modified";i:1472903925;}s:7:"creator";s:9:"邓庭亮";s:4:"user";s:5:"gavin";s:11:"last_change";b:0;s:5:"title";s:18:"编译方案选择";s:11:"description";a:2:{s:15:"tableofcontents";a:1:{i:0;a:4:{s:3:"hid";s:18:"编译方案选择";s:5:"title";s:18:"编译方案选择";s:4:"type";s:2:"ul";s:5:"level";i:3;}}s:8:"abstract";s:245:"编译方案选择
+
+
+6A828\vendor\mstar\supernova\projects\config\chips\muji\MST072B_10AEV_14395_TVOS_DTMB\pcb_config.mk
+#Product customer type
+ENABLE_PRODUCT_PUBLIC_LVDS = 0
+ENABLE_PRODUCT_PUBLIC_VBYONE = 0
+ENABLE_PRODUCT_CUSTORMIZED_HAORUN = 1";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}s:8:"relation";a:1:{s:10:"firstimage";s:0:"";}}s:10:"persistent";a:4:{s:4:"date";a:1:{s:7:"created";i:1472695762;}s:7:"creator";s:9:"邓庭亮";s:4:"user";s:5:"gavin";s:11:"last_change";b:0;}}
