@@ -1,0 +1,3 @@
+	<span class="kw2">sudo</span> <span class="kw2">su</span> - gitServer
+	gitosis-init <span class="sy0">&lt;</span> <span class="sy0">/</span>tmp<span class="sy0">/</span>id_rsa.pub
+	<span class="kw2">sudo</span> <span class="kw2">chmod</span> a+x ~gitServer<span class="sy0">/</span>repositories<span class="sy0">/</span>gitosis-admin.git<span class="sy0">/</span>hooks<span class="sy0">/</span>post-update

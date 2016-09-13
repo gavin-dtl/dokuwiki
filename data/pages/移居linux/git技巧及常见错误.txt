@@ -1,0 +1,16 @@
+===== git技巧及常见错误 =====
+
+----
+==== 解决 .gitignore 不生效 ====
+<code bash>
+  git rm -r --cached .
+  git add .
+  git commit -m 'update .gitignore'
+</code>
+
+==== 忽略掉文件权限检查 ====
+error : old mode 100755 new mode 100644 \\
+解决办法 ：让git忽略掉文件权限检查：
+<code bash>
+	git config --add core.filemode false
+</code>

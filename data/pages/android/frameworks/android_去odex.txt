@@ -1,0 +1,15 @@
+===== android 去ODEX =====
+
+==== Failure [INSTALL_FAILED_DEXOPT] ====
+
+==== LOCAL_DEX_PREOPT := false ====
+
+==== 一 编译源码不要生成odex 问题 ====
+  - 禁止apk生成odex： 修改../build/core/package.mk
+      *LOCAL_DEX_PREOPT := ture -> LOCAL_DEX_PREOPT := false
+  - 禁止jar包生成odex： 修改/build/core/java_library.mk
+      *LOCAL_DEX_PREOPT := ture -> LOCAL_DEX_PREOPT := false
+
+====  二：修改framework之后直接make -j4编译后，模拟器运行不起来问题：==== 
+  - 进入../framework/base目录下执行： mm 先编译 framework，
+  - 然后cd ../../退至工程根目录，执行 make systemimage

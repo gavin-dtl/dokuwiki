@@ -1,0 +1,61 @@
+
+<h2 class="sectionedit1" id="命令技巧">命令技巧</h2>
+<div class="level2">
+<hr />
+
+</div>
+<!-- EDIT1 SECTION "命令技巧" [1-31] -->
+<h3 class="sectionedit2" id="常用命令">常用命令</h3>
+<div class="level3">
+<pre class="code bash"><span class="co0"># 查看渲染</span>
+dumpsys SurfaceFlinger
+&nbsp;
+<span class="co0"># 查看应用内存使用情况</span>
+procrank
+&nbsp;
+<span class="co0"># 查看磁盘读写情况</span>
+busybox  iostat   </pre>
+
+</div>
+<!-- EDIT2 SECTION "常用命令" [32-204] -->
+<h3 class="sectionedit3" id="kill_指定名称线程">kill 指定名称线程</h3>
+<div class="level3">
+<pre class="code bash">	<span class="kw2">kill</span> <span class="sy0">`</span>busybox pgrep ethernet_det<span class="sy0">`</span></pre>
+
+</div>
+<!-- EDIT3 SECTION "kill 指定名称线程" [205-296] -->
+<h3 class="sectionedit4" id="挂载">挂载</h3>
+<div class="level3">
+<pre class="code bash">	<span class="kw2">mount</span> <span class="re5">-t</span> vfat <span class="re5">-o</span> <span class="re2">fmask</span>=0000,<span class="re2">dmask</span>=0000,<span class="re2">allow_utime</span>=0022 <span class="sy0">/</span>dev<span class="sy0">/</span>block<span class="sy0">/</span>mmcblk0p1 <span class="sy0">/</span>mnt<span class="sy0">/</span>extsd<span class="sy0">/</span></pre>
+
+</div>
+<!-- EDIT4 SECTION "挂载" [297-424] -->
+<h3 class="sectionedit5" id="内核打印信息">内核打印信息</h3>
+<div class="level3">
+<pre class="code bash">	<span class="kw3">echo</span> <span class="nu0">15</span> <span class="sy0">&gt;</span> <span class="sy0">/</span>sys<span class="sy0">/</span>module<span class="sy0">/</span>sw_keyboard<span class="sy0">/</span>parameters<span class="sy0">/</span>debug_mask 
+	<span class="kw3">echo</span> <span class="nu0">8</span> <span class="sy0">&gt;</span> <span class="sy0">/</span>proc<span class="sy0">/</span>sys<span class="sy0">/</span>kernel<span class="sy0">/</span>printk</pre>
+
+</div>
+<!-- EDIT5 SECTION "内核打印信息" [425-566] -->
+<h3 class="sectionedit6" id="常用出错">常用出错</h3>
+<div class="level3">
+<pre class="code bash">	Fatal signal
+	died</pre>
+
+</div>
+<!-- EDIT6 SECTION "常用出错" [567-631] -->
+<h3 class="sectionedit7" id="彩色打印error">彩色打印error</h3>
+<div class="level3">
+<pre class="code cpp">  <span class="co2">#ifdef DB_ERROR  </span>
+  <span class="co2">#define db_error(...) \  </span>
+  <span class="kw1">do</span> <span class="br0">&#123;</span> \  
+  <span class="kw3">sprintf</span><span class="br0">&#40;</span>db_buf, <span class="st0">&quot;<span class="es5">\033</span>[40;31;1m %s line[%04d] %s() <span class="es5">\033</span>[0m&quot;</span>, 
+  LOG_TAG, __LINE__, __FUNCTION__<span class="br0">&#41;</span><span class="sy4">;</span> \  
+  ALOG<span class="br0">&#40;</span>LOG_ERROR, db_buf, <span class="co2">##__VA_ARGS__); \  </span>
+  <span class="br0">&#125;</span> <span class="kw1">while</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span>  
+  <span class="co2">#else  </span>
+  <span class="co2">#define db_error(...)  </span>
+  <span class="co2">#endif</span></pre>
+
+</div>
+<!-- EDIT7 SECTION "彩色打印error" [632-] -->

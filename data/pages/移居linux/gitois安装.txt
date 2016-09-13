@@ -1,0 +1,88 @@
+===== gitois安装 =====
+
+----
+====下载安装gitosis ====
+<code bash>
+	git clone git://github.com/ossxp-com/gitosis.git
+	cd gitosis/
+	sudo python setup.py install
+
+	sudo apt-get install git-core openssh-server openssh-client
+	sudo apt-get install git-daemon-run
+	
+	#添加python 环境
+	sudo apt-get install python-setuptools
+</code>
+
+==== 创建git用户 gitServer ====
+<code bash>
+	sudo adduser --system --shell /bin/bash --disabled-password --group gitServer
+	sudo adduser gitServer ssh
+</code>
+设置gitServer 密码
+<code bash>
+	sudo passwd gitServer
+</code>
+添加用户组到sudoers \\
+编辑/etc/sudoers文件，找到这一 行："root ALL=(ALL) ALL"在起下面添加"zhc ALL=(ALL) ALL"(这里的zhc是你的用户名)，然后保存。
+
+==== 添加管理员密钥 ====
+<code bash>
+	ssh-keygen
+	scp /home/gavin/.ssh/id_rsa.pub 192.168.3.99:/tmp
+</code>
+
+==== 创建gitosis工程 ====
+切换到gitServer
+<code bash>
+	sudo su - gitServer
+	gitosis-init < /tmp/id_rsa.pub
+	sudo chmod a+x ~gitServer/repositories/gitosis-admin.git/hooks/post-update
+</code>
+eixt 退出 gitServer用户
+
+
+==== gitosis 配置====
+<code bash>
+  git clone gitServer@192.168.3.99:gitosis-admin.git
+</code>
+
+=== 添加用户管理 ===
+修改gitosis-admin/gitosis.conf
+<code bash>
+  [group testing-devloper]
+  members = gavin
+  writable = testing/testing
+
+  [group testing-reader]
+  members = @all
+  writable = testing/testing
+
+  [group testing-reader]
+  members = @all
+  writable = testing/**
+</code>
+
+<code bash>
+  git add gitosis.conf
+  git commit -m "auto for repo testing"
+  git push origin master  
+</code>
+
+=== 创建版本库 ===
+<code bash>
+  sudo su - gitServer 
+  mkdir testing
+  cd testing/
+  git init --bare testing.git
+</code>
+
+<code bash>
+  git commit --allow-emptt
+  git remote add origin gitServer@192.168.3.99:testing/testing.git
+  git clone  gitServer@192.168.3.99:testing/testing.git
+</code>
+
+
+
+

@@ -9,12 +9,12 @@ svn co svn://192.168.1.252/a83t/stm8s_ass
 === 编译 ===
 二、编译
   * lichee
-  <code shell>
+<code shell>
   cd lichee
   ./build.sh config                               //进入硬件平台配置
   sun8iw6p1 -> android -> linux-3.4 -> xuanzhi    //选好配置后
   ./build.sh                                      //编译内核
-  </code>
+ </code>
 
   * android
 <code shell>

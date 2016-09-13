@@ -1,0 +1,31 @@
+===== mm 添加参数 =====
+<code bash>
+ifdef ES83_ONE_MIC
+LOCAL_CFLAGS += -DSURPORT_ONE_MIC
+endif
+
+mm -B -j12 DEX_FLAG:=true
+</code>
+
+===== Android.mk传宏进c++文件 =====
+在Boardconfig.mk中添加一个
+
+<code>
+	IS_FLAG := true
+</code>
+
+由于Boardconfig.mk和各目录的Android.mk是相互关联的,所以我们可以在Android.mk 中添加一个
+
+<code>
+	ifdef IS_FLAG
+		LOCAL_CFLAGS += -DHHHH
+	endif
+</code>
+
+在Android.mk中添加的这行相当于在 该目录下的文件中定义了一个宏
+
+<code>
+	#define HHHH
+</code>
+
+也可以通过 mm  IS_FLAG := true -B 添加对应的宏定义

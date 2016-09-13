@@ -1,0 +1,11 @@
+===== linux命令技巧 =====
+
+----
+==== 搜索命令 ====
+<code bash>
+  logcat | grep fallocate 
+  grep -Inrs " incomplete xfer" * 
+  find pathname -options 
+  find . -name 
+  find -name '.git*' |xargs rm -rf
+</code>

@@ -1,0 +1,5 @@
+ifdef ES83_ONE_MIC
+LOCAL_CFLAGS += -DSURPORT_ONE_MIC
+endif
+&nbsp;
+mm <span class="re5">-B</span> <span class="re5">-j12</span> DEX_FLAG:=<span class="kw2">true</span>

@@ -1,0 +1,9 @@
+	<span class="kw2">git clone</span> git:<span class="sy0">//</span>github.com<span class="sy0">/</span>ossxp-com<span class="sy0">/</span>gitosis.git
+	<span class="kw3">cd</span> gitosis<span class="sy0">/</span>
+	<span class="kw2">sudo</span> python setup.py <span class="kw2">install</span>
+&nbsp;
+	<span class="kw2">sudo</span> <span class="kw2">apt-get install</span> git-core openssh-server openssh-client
+	<span class="kw2">sudo</span> <span class="kw2">apt-get install</span> git-daemon-run
+&nbsp;
+	<span class="co0">#添加python 环境</span>
+	<span class="kw2">sudo</span> <span class="kw2">apt-get install</span> python-setuptools

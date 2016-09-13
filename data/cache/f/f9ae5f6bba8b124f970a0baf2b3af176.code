@@ -1,0 +1,1 @@
+	<span class="kw2">git config</span> <span class="re5">--add</span> core.filemode <span class="kw2">false</span>

@@ -1,0 +1,5 @@
+<span class="co0">#service for ethernet_det hacking</span>
+service ethernet_det <span class="sy0">/</span>system<span class="sy0">/</span>bin<span class="sy0">/</span>ethernet_det
+	class core
+	disabled
+	oneshot

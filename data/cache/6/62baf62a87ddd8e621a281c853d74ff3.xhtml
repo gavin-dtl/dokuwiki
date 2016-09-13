@@ -1,0 +1,36 @@
+
+<h2 class="sectionedit1" id="禁止屏幕旋转">禁止屏幕旋转</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> base/services/core/java/com/android/server/wm/WindowManagerService.java</div>
+</li>
+</ul>
+<pre class="code cpp">boolean updateOrientationFromAppTokensLocked<span class="br0">&#40;</span>boolean inTransaction<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw4">long</span> ident <span class="sy1">=</span> Binder.<span class="me1">clearCallingIdentity</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+        <span class="kw2">try</span> <span class="br0">&#123;</span>
+            <span class="kw4">int</span> req <span class="sy1">=</span> getOrientationFromWindowsLocked<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+            <span class="kw1">if</span> <span class="br0">&#40;</span>req <span class="sy1">==</span> ActivityInfo.<span class="me1">SCREEN_ORIENTATION_UNSPECIFIED</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                req <span class="sy1">=</span> getOrientationFromAppTokensLocked<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+            <span class="br0">&#125;</span>
+<span class="sy2">+</span>           <span class="co1">// 锁定横屏</span>
+<span class="sy2">+</span>           <span class="coMULTI">/* req = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE; */</span>
+<span class="sy2">+</span>           <span class="co1">// 锁定竖屏</span>
+<span class="sy2">+</span>           <span class="coMULTI">/* req = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT; */</span>
+            req <span class="sy1">=</span> ActivityInfo.<span class="me1">SCREEN_ORIENTATION_USER</span><span class="sy4">;</span>
+&nbsp;
+            <span class="kw1">if</span> <span class="br0">&#40;</span>req <span class="sy3">!</span><span class="sy1">=</span> mForcedAppOrientation<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                mForcedAppOrientation <span class="sy1">=</span> req<span class="sy4">;</span></pre>
+
+<p>
+—-
+</p>
+<ul>
+<li class="level1"><div class="li">android\frameworks\base\core\java\android\content\pm\PackageParser.java</div>
+</li>
+</ul>
+<pre class="code java"><span class="sy0">-</span>	a.<span class="me1">info</span>.<span class="me1">screenOrientation</span> <span class="sy0">=</span> sa.<span class="me1">getInt</span><span class="br0">&#40;</span>
+<span class="sy0">-</span>	com.<span class="me1">android</span>.<span class="me1">internal</span>.<span class="me1">R</span>.<span class="me1">styleable</span>.<span class="me1">AndroidManifestActivity_screenOrientation</span>,
+<span class="sy0">-</span>  	ActivityInfo.<span class="me1">SCREEN_ORIENTATION_UNSPECIFIED</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="sy0">+</span>	a.<span class="me1">info</span>.<span class="me1">screenOrientation</span> <span class="sy0">=</span> ActivityInfo.<span class="me1">SCREEN_ORIENTATION_PORTRAIT</span></pre>
+
+</div>

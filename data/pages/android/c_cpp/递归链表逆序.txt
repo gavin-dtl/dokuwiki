@@ -1,0 +1,16 @@
+===== 递归链表逆序 =====
+<code c>
+ListNode* reverse_list( ListNode* head) //逆序  
+{  
+    ListNode* new_head=head;  
+    
+    if(head==NULL || head->next==NULL)  
+        return head;  
+    
+    new_head = reverse_list(head->next);  
+    head->next->next=head;  
+    head->next=NULL;//防止链表成为一个环，这是最关键的。
+    
+    return new_head;  
+}
+</code>

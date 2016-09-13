@@ -1,0 +1,8 @@
+<span class="co0"># 查看渲染</span>
+dumpsys SurfaceFlinger
+&nbsp;
+<span class="co0"># 查看应用内存使用情况</span>
+procrank
+&nbsp;
+<span class="co0"># 查看磁盘读写情况</span>
+busybox  iostat   

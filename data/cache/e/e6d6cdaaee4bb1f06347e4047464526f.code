@@ -1,0 +1,1 @@
+	<span class="kw2">kill</span> <span class="sy0">`</span>busybox pgrep ethernet_det<span class="sy0">`</span> 

@@ -1,0 +1,5 @@
+  <span class="sc3"><span class="re1">&lt;Directory</span> /home/disk/www<span class="re2">&gt;</span></span>
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require all granted
+  <span class="sc3"><span class="re1">&lt;/Directory<span class="re2">&gt;</span></span></span>

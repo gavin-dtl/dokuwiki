@@ -1,0 +1,22 @@
+==== MstarTv文件备注 ====
+
+----
+==== supernova/projects/msrv/common/src/ ====
+  * 该目录下存放各输入源对应的接口，对上层操作或获取信号源相关功能进行实现，如MSrv_PC_Player.cpp, 为实现VGA的功能
+
+----
+==== supernova/MStarSDK/src/signalprocess/ ====
+  * 该目录对输入源信号处理 
+
+----
+==== mboot/sboot/inc/muji/board/BD_MST072B_20AEV_MUJI.h ====
+  * mboot Gpio 口定义
+
+----
+==== supernova/projects/board/ChipInfo/MSD95E1D.h  ====
+=== supernova/projects/board/muji/MST072B_10AEV_14395_TVOS_DTMB/SN_Board_Muji_MST072B_10AEV_14395.h ===
+  * gpio 口声明定义
+
+----
+==== mboot\sboot\inc\muji\board\BD_MST072B_20AEV_MUJI.h ====
+  * 修改屏幕pwn输出

@@ -1,0 +1,103 @@
+
+<h2 class="sectionedit1" id="gitois安装">gitois安装</h2>
+<div class="level2">
+<hr />
+
+</div>
+<!-- EDIT1 SECTION "gitois安装" [1-31] -->
+<h3 class="sectionedit2" id="下载安装gitosis">下载安装gitosis</h3>
+<div class="level3">
+<pre class="code bash">	<span class="kw2">git clone</span> git:<span class="sy0">//</span>github.com<span class="sy0">/</span>ossxp-com<span class="sy0">/</span>gitosis.git
+	<span class="kw3">cd</span> gitosis<span class="sy0">/</span>
+	<span class="kw2">sudo</span> python setup.py <span class="kw2">install</span>
+&nbsp;
+	<span class="kw2">sudo</span> <span class="kw2">apt-get install</span> git-core openssh-server openssh-client
+	<span class="kw2">sudo</span> <span class="kw2">apt-get install</span> git-daemon-run
+&nbsp;
+	<span class="co0">#添加python 环境</span>
+	<span class="kw2">sudo</span> <span class="kw2">apt-get install</span> python-setuptools</pre>
+
+</div>
+<!-- EDIT2 SECTION "下载安装gitosis" [32-337] -->
+<h3 class="sectionedit3" id="创建git用户_gitserver">创建git用户 gitServer</h3>
+<div class="level3">
+<pre class="code bash">	<span class="kw2">sudo</span> adduser <span class="re5">--system</span> <span class="re5">--shell</span> <span class="sy0">/</span>bin<span class="sy0">/</span><span class="kw2">bash</span> <span class="re5">--disabled-password</span> <span class="re5">--group</span> gitServer
+	<span class="kw2">sudo</span> adduser gitServer <span class="kw2">ssh</span></pre>
+
+<p>
+设置gitServer 密码
+</p>
+<pre class="code bash">	<span class="kw2">sudo</span> <span class="kw2">passwd</span> gitServer</pre>
+
+<p>
+添加用户组到sudoers <br/>
+
+编辑/etc/sudoers文件，找到这一 行：“root ALL=(ALL) ALL”在起下面添加“zhc ALL=(ALL) ALL”(这里的zhc是你的用户名)，然后保存。
+</p>
+
+</div>
+<!-- EDIT3 SECTION "创建git用户 gitServer" [338-750] -->
+<h3 class="sectionedit4" id="添加管理员密钥">添加管理员密钥</h3>
+<div class="level3">
+<pre class="code bash">	<span class="kw2">ssh-keygen</span>
+	<span class="kw2">scp</span> <span class="sy0">/</span>home<span class="sy0">/</span>gavin<span class="sy0">/</span>.ssh<span class="sy0">/</span>id_rsa.pub 192.168.3.99:<span class="sy0">/</span>tmp</pre>
+
+</div>
+<!-- EDIT4 SECTION "添加管理员密钥" [751-866] -->
+<h3 class="sectionedit5" id="创建gitosis工程">创建gitosis工程</h3>
+<div class="level3">
+
+<p>
+切换到gitServer
+</p>
+<pre class="code bash">	<span class="kw2">sudo</span> <span class="kw2">su</span> - gitServer
+	gitosis-init <span class="sy0">&lt;</span> <span class="sy0">/</span>tmp<span class="sy0">/</span>id_rsa.pub
+	<span class="kw2">sudo</span> <span class="kw2">chmod</span> a+x ~gitServer<span class="sy0">/</span>repositories<span class="sy0">/</span>gitosis-admin.git<span class="sy0">/</span>hooks<span class="sy0">/</span>post-update</pre>
+
+<p>
+eixt 退出 gitServer用户
+</p>
+
+</div>
+<!-- EDIT5 SECTION "创建gitosis工程" [867-1094] -->
+<h3 class="sectionedit6" id="gitosis_配置">gitosis 配置</h3>
+<div class="level3">
+<pre class="code bash">  <span class="kw2">git clone</span> gitServer<span class="sy0">@</span>192.168.3.99:gitosis-admin.git</pre>
+
+</div>
+
+<h4 id="添加用户管理">添加用户管理</h4>
+<div class="level4">
+
+<p>
+修改gitosis-admin/gitosis.conf
+</p>
+<pre class="code bash">  <span class="br0">&#91;</span>group testing-devloper<span class="br0">&#93;</span>
+  members = gavin
+  writable = testing<span class="sy0">/</span>testing
+&nbsp;
+  <span class="br0">&#91;</span>group testing-reader<span class="br0">&#93;</span>
+  members = <span class="sy0">@</span>all
+  writable = testing<span class="sy0">/</span>testing
+&nbsp;
+  <span class="br0">&#91;</span>group testing-reader<span class="br0">&#93;</span>
+  members = <span class="sy0">@</span>all
+  writable = testing<span class="sy0">/**</span></pre>
+<pre class="code bash">  <span class="kw2">git add</span> gitosis.conf
+  <span class="kw2">git commit</span> <span class="re5">-m</span> <span class="st0">&quot;auto for repo testing&quot;</span>
+  <span class="kw2">git push</span> origin master  </pre>
+
+</div>
+
+<h4 id="创建版本库">创建版本库</h4>
+<div class="level4">
+<pre class="code bash">  <span class="kw2">sudo</span> <span class="kw2">su</span> - gitServer 
+  <span class="kw2">mkdir</span> testing
+  <span class="kw3">cd</span> testing<span class="sy0">/</span>
+  <span class="kw2">git init</span> <span class="re5">--bare</span> testing.git</pre>
+<pre class="code bash">  <span class="kw2">git commit</span> <span class="re5">--allow-emptt</span>
+  <span class="kw2">git remote</span> add origin gitServer<span class="sy0">@</span>192.168.3.99:testing<span class="sy0">/</span>testing.git
+  <span class="kw2">git clone</span>  gitServer<span class="sy0">@</span>192.168.3.99:testing<span class="sy0">/</span>testing.git</pre>
+
+</div>
+<!-- EDIT6 SECTION "gitosis 配置" [1095-] -->

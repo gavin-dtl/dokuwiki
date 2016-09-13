@@ -1,0 +1,121 @@
+===== 共享链表 =====
+
+<code c>
+
+#define offsetof(S_TYPE) ((int)&((S_TYPE *)0)->list)
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "share_link.h"
+
+     typedef struct list_head
+     {
+          //struct list_head *prior;
+          struct list_head *next;
+     }NODE;
+
+     typedef struct node
+     {
+          NODE list;
+          int num;
+          int age;
+     }TYPE;
+
+//=============================================================
+// 语法格式：     creat(int n)
+// 实现功能：     创建一个具有n个节点的链表，并对其值进行初始化
+// 参数：          n: 链表的长度，即节点的个数
+// 返回值：          所创建链表的首地址
+//=============================================================
+NODE * creat(int n)
+{
+     NODE *head = NULL;
+     TYPE *ins = NULL;
+     int i;
+
+     for(i=0;i<n;i++)
+     {
+          ins = (TYPE *)malloc(sizeof(TYPE));
+          printf("insert Number and Age:\n");
+          scanf("%d %d",&ins->num,&ins->age);
+          head = insert(head,&ins->list);
+     }
+
+     return(head);
+}
+
+//=============================================================
+// 语法格式：     insert(NODE * head,NODE * pi)
+// 实现功能：     将新申请的节点加入到链表中
+// 参数：          *head:待插入链表
+//                    * pi：带插入节点
+// 返回值：          插入指定节点后的新链表首址
+//=============================================================
+NODE * insert(NODE * head,NODE * pi)
+{
+     NODE *pb=head;
+    
+     if(head==NULL)//如果为空就建立，空间在传入前申请好
+     {
+          head=pi;
+          pi->next=NULL;
+     }
+     else
+     {
+          while(pb->next!=NULL)
+          {
+               pb=pb->next; //节点后移
+          }
+          pb->next = pi;//在表末插入
+          pi->next = NULL;
+     }
+     return head;
+}
+
+//=============================================================
+// 语法格式：     print(NODE * head)
+// 实现功能：     打印指定链表中的全部节点数据，由于循环双向表没有头节点，每个节点性质完全一样，只要给出任意节点就可以遍历
+// 参数：          *head：待打印的链表首址
+// 返回值：          无
+//=============================================================
+void print(NODE * Lnode)
+{
+     NODE * pb = Lnode;
+     TYPE *view;
+
+     printf("\n链表所有信息如下：\n");
+     printf("address\t\tNumber\t\tAge\n");
+     if (pb == NULL)
+     {
+          printf("\n");
+          return;
+     }
+     while(pb->next != NULL)
+     {
+          view = container_of(pb);
+          printf("%x\t\t%d\t\t%d\n",view,view->num,view->age);
+          pb=pb->next;
+     }
+     view = container_of(pb);
+     printf("%x\t\t%d\t\t%d\n",view,view->num,view->age);
+
+}
+//=============================================================
+// 语法格式：     container_of(NODE *pb)
+// 实现功能：     通过结构体中某个成员的地址，求出该成员所在结构体的首地址
+// 参数：          结构体成员地址
+// 返回值：          返回结构体首地址
+//=============================================================
+TYPE * container_of(NODE *pb)
+{
+     TYPE * ret;
+     NODE * mptr = pb;
+      //#define offsetof(S_TYPE) ((int)&((S_TYPE *)0)->list)
+     ret = (TYPE *)( (char *)mptr - offsetof(TYPE) );
+              
+//     ret = (TYPE *)( (char *)mptr - ( (int) &((TYPE *)0)->list ) );
+//      ret =  结构体成员list的地址  - list这个成员在结构体中的偏移
+     return ret;
+}
+
+</code>

@@ -1,0 +1,28 @@
+===== 3G 模块M509调试 =====
+
+==== 调试一般步骤 ====
+  - 在内核中添加3G模块的ID
+  - USB Serial等功能(生成ttyUSB0，ttyUSB1，ttyUSB2)
+  - 移植RIL
+
+==== 相关 ====
+  * ttyUSB0 拨号上网
+  * ttyUSB1 调试
+  * ttyUSB2 打电话
+
+==== 常见错误 ====
+  - 不能生成/dev/ttyUSBx节点
+    * 启用USB Serial功能
+    * <code>
+    Device Drivers  ---> 
+        [*] USB support  ---> 
+        USB Serial Converter support  --->  
+        USB Serial Converter support
+        [*]USB driver for GSM and CDMA modems 
+    </code>
+    *要注意的是，编译方式一定要选为模块化编译。选定这两项后，执行make modules命令，会编译源码中/driver/usb/serial/目录下的usb-serial.c和option.c两个文件及其它一些相关文件。在option.c中，可以看到已经定义了很多设备的描述符，但没有定义的描述符。我们自已定义一下即可。方法是，在源码中，添加
+    * <code cpp>
+    #define    ZTE_VENDOR_ID        0x19d2
+    #define    ZTE_PRODUCT_AC2746    0xfff1
+     </code>
+    * 在option_ids[]的数组中添加{ USB_DEVICE(ZTE_VENDOR_ID,ZTE_PRODUCT_AC2746)},完成后，重新编译即可。可通过lsusb 命令查看设备描述符。

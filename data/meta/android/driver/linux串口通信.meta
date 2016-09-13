@@ -1,0 +1,26 @@
+a:2:{s:7:"current";a:9:{s:4:"date";a:2:{s:7:"created";i:1473757163;s:8:"modified";i:1473757215;}s:7:"creator";s:9:"邓庭亮";s:4:"user";s:5:"gavin";s:11:"last_change";a:8:{s:4:"date";i:1473757215;s:2:"ip";s:12:"192.168.3.42";s:4:"type";s:1:"E";s:2:"id";s:32:"android:driver:linux串口通信";s:4:"user";s:5:"gavin";s:3:"sum";s:0:"";s:5:"extra";s:0:"";s:10:"sizechange";i:36;}s:11:"contributor";a:1:{s:5:"gavin";s:9:"邓庭亮";}s:5:"title";s:17:"linux串口通信";s:11:"description";a:2:{s:15:"tableofcontents";a:1:{i:0;a:4:{s:3:"hid";s:17:"linux串口通信";s:5:"title";s:17:"linux串口通信";s:4:"type";s:2:"ul";s:5:"level";i:2;}}s:8:"abstract";s:511:"linux串口通信
+
+----------
+
+
+#include <stdio.h>  
+#include <string.h>  
+#include <sys/types.h>  
+#include <errno.h>  
+#include <sys/stat.h>  
+#include <fcntl.h>  
+#include <unistd.h>  
+#include <termios.h>  
+#include <stdlib.h>  
+#include <pthread.h>  
+
+int sum;  
+char func_buff[8];  
+
+char rec_buff[10];  
+int fd,i_fd;  
+int flag_close;  
+////////////////////////////////////////////////////////////  
+//set_opt  
+////////////////////////////////////////////////////////////  
+int set_opt(int fd,int nSp…";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}s:8:"relation";a:1:{s:10:"firstimage";s:0:"";}}s:10:"persistent";a:5:{s:4:"date";a:2:{s:7:"created";i:1473757163;s:8:"modified";i:1473757215;}s:7:"creator";s:9:"邓庭亮";s:4:"user";s:5:"gavin";s:11:"last_change";a:8:{s:4:"date";i:1473757215;s:2:"ip";s:12:"192.168.3.42";s:4:"type";s:1:"E";s:2:"id";s:32:"android:driver:linux串口通信";s:4:"user";s:5:"gavin";s:3:"sum";s:0:"";s:5:"extra";s:0:"";s:10:"sizechange";i:36;}s:11:"contributor";a:1:{s:5:"gavin";s:9:"邓庭亮";}}}

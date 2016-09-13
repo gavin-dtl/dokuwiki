@@ -1,0 +1,25 @@
+     <span class="nu0">9</span> <span class="sy2">---</span> a<span class="sy2">/</span>frameworks<span class="sy2">/</span>base<span class="sy2">/</span>media<span class="sy2">/</span>java<span class="sy2">/</span>android<span class="sy2">/</span>media<span class="sy2">/</span>AudioService.<span class="me1">java</span>
+     <span class="nu0">10</span> <span class="sy2">+++</span> b<span class="sy2">/</span>frameworks<span class="sy2">/</span>base<span class="sy2">/</span>media<span class="sy2">/</span>java<span class="sy2">/</span>android<span class="sy2">/</span>media<span class="sy2">/</span>AudioService.<span class="me1">java</span>
+     <span class="nu0">11</span> @@ <span class="sy2">-</span><span class="nu0">3282</span>,<span class="nu0">15</span> <span class="sy2">+</span><span class="nu0">3282</span>,<span class="nu0">16</span> @@ <span class="kw2">public</span> <span class="kw2">class</span> AudioService extends IAudioService.<span class="me1">Stub</span> <span class="br0">&#123;</span>
+     <span class="nu0">12</span>                      <span class="kw1">return</span> AudioSystem.<span class="me1">STREAM_VOICE_CALL</span><span class="sy4">;</span>
+     <span class="nu0">13</span>                  <span class="br0">&#125;</span>
+     <span class="nu0">14</span>              <span class="br0">&#125;</span> <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>suggestedStreamType <span class="sy1">==</span> AudioManager.<span class="me1">USE_DEFAULT_STREAM_TYPE</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+     <span class="nu0">15</span> <span class="sy2">-</span>                <span class="kw1">if</span> <span class="br0">&#40;</span>isAfMusicActiveRecently<span class="br0">&#40;</span>StreamOverride.<span class="me1">sDelayMs</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+     <span class="nu0">16</span> <span class="sy2">+</span>                <span class="kw1">return</span> AudioSystem.<span class="me1">STREAM_MUSIC</span><span class="sy4">;</span>
+     <span class="nu0">17</span> <span class="sy2">+</span>                <span class="coMULTI">/* if (isAfMusicActiveRecently(StreamOverride.sDelayMs)) {
+     18                      if (DEBUG_VOL)
+     19                          Log.v(TAG, &quot;getActiveStreamType: Forcing STREAM_MUSIC stream active&quot;);
+     20                      return AudioSystem.STREAM_MUSIC;
+     21 -                    } else {
+     22 -                        if (DEBUG_VOL)
+     23 -                            Log.v(TAG, &quot;getActiveStreamType: Forcing STREAM_RING b/c default&quot;);
+     24 -                        return AudioSystem.STREAM_RING;
+     25 -                }
+     26 +                } else {
+     27 +                    if (DEBUG_VOL)
+     28 +                        Log.v(TAG, &quot;getActiveStreamType: Forcing STREAM_RING b/c default&quot;);
+     29 +                    return AudioSystem.STREAM_RING;
+     30 +                } */</span>
+     <span class="nu0">31</span>              <span class="br0">&#125;</span> <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>isAfMusicActiveRecently<span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+     <span class="nu0">32</span>                  <span class="kw1">if</span> <span class="br0">&#40;</span>DEBUG_VOL<span class="br0">&#41;</span>
+     <span class="nu0">33</span>                      Log.<span class="me1">v</span><span class="br0">&#40;</span>TAG, <span class="st0">&quot;getActiveStreamType: Forcing STREAM_MUSIC stream active&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>

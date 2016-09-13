@@ -1,0 +1,2 @@
+	<span class="kw3">echo</span> <span class="nu0">15</span> <span class="sy0">&gt;</span> <span class="sy0">/</span>sys<span class="sy0">/</span>module<span class="sy0">/</span>sw_keyboard<span class="sy0">/</span>parameters<span class="sy0">/</span>debug_mask 
+	<span class="kw3">echo</span> <span class="nu0">8</span> <span class="sy0">&gt;</span> <span class="sy0">/</span>proc<span class="sy0">/</span>sys<span class="sy0">/</span>kernel<span class="sy0">/</span>printk

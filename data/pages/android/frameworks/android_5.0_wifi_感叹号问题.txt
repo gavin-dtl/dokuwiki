@@ -1,0 +1,37 @@
+===== android_5.0 wifi 感叹号问题 =====
+
+安卓5.0引入了一种新的网络评估机制来评估网络状况，当你有网络请求时会自动选择网络连接条件最好的一个网络进行连接。如果谷歌（谷歌服务）发现WiFi网络无法上网（更确切地说可能是无法连接Google服务器），而且设备有移动网络可用，就会自动切换到2G/3G/LTE，放弃使用WiFi网络，让你保持联网。并且让WiFi网络的标志上面显示感叹号标志。
+
+==== 处理方法 ====
+  - 络检查功能，最简单快速，但是就没有办法提示wifi登陆：
+    *<code>adb shell su -c "settings put global captive_portal_detection_enabled 0"</code>
+  - 用国内的服务器替换掉google的服务器：
+    *<code>adb shell su -c "settings put global captive_portal_server xn--yet824cpd.xn--fiqs8s"</code>
+  - 修改默认值
+    *<code cpp>
+     10 --- a/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
+     11 +++ b/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
+     12 @@ -223,5 +223,6 @@
+     13         <integer name="def_hdmi_persent">25700</integer>
+     14         
+     15         <integer name="def_mouse_advance">30</integer>
+     16 +       <integer name="def_captive_portal_detection_enabled">0</integer>
+     17  
+     18  </resources>
+     19 diff --git a/frameworks/base/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java b/framewor     19 ks/base/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java
+     20 index 4e9164f..e07c57a 100755
+     21 --- a/frameworks/base/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java
+     22 +++ b/frameworks/base/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java
+     23 @@ -2693,6 +2693,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
+     24                      R.bool.def_guest_user_enabled);
+     25              loadSetting(stmt, Settings.Global.ENHANCED_4G_MODE_ENABLED, ImsConfig.FeatureValueConstants.ON);
+     26              // --- New global settings start here
+     27 +            
+     28 +            loadIntegerSetting(stmt, Settings.Global.CAPTIVE_PORTAL_DETECTION_ENABLED, 
+     29 +                    R.integer.def_captive_portal_detection_enabled);
+     30 +
+     31          } finally {
+     32              if (stmt != null) stmt.close();
+     33          }
+
+  </code>

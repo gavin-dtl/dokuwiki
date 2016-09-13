@@ -1,0 +1,26 @@
+
+<h2 class="sectionedit1" id="延时开启initrc系统服务">延时开启init.rc系统服务</h2>
+<div class="level2">
+
+</div>
+<!-- EDIT1 SECTION "延时开启init.rc系统服务" [1-46] -->
+<h2 class="sectionedit2" id="设置系统服务并默认不开启">设置系统服务并默认不开启</h2>
+<div class="level2">
+<pre class="code bash"><span class="co0">#service for ethernet_det hacking</span>
+service ethernet_det <span class="sy0">/</span>system<span class="sy0">/</span>bin<span class="sy0">/</span>ethernet_det
+	class core
+	disabled
+	oneshot</pre>
+
+</div>
+<!-- EDIT2 SECTION "设置系统服务并默认不开启" [47-229] -->
+<h3 class="sectionedit3" id="启动服务服务">启动服务服务</h3>
+<div class="level3">
+<pre class="code java"><span class="kw1">import</span> <span class="co2">android.os.SystemProperties</span><span class="sy0">;</span>
+@Override
+    <span class="kw1">public</span> <span class="kw4">void</span> startServer<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        SystemProperties.<span class="me1">set</span><span class="br0">&#40;</span><span class="st0">&quot;ctl.start&quot;</span>, <span class="st0">&quot;ethernet_det&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span></pre>
+
+</div>
+<!-- EDIT3 SECTION "启动服务服务" [230-] -->

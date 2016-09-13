@@ -1,0 +1,6 @@
+synthesizebuttonkey
+onshowvolumechanged
+getdevicesforstream
+suggestedstreamtype
+getactivestreamtype
+bconfigurationvalue

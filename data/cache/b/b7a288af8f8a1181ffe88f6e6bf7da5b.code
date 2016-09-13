@@ -1,0 +1,2 @@
+	<span class="kw2">ssh-keygen</span>
+	<span class="kw2">scp</span> <span class="sy0">/</span>home<span class="sy0">/</span>gavin<span class="sy0">/</span>.ssh<span class="sy0">/</span>id_rsa.pub 192.168.3.99:<span class="sy0">/</span>tmp

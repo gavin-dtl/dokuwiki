@@ -1,0 +1,23 @@
+a:2:{s:7:"current";a:7:{s:4:"date";a:2:{s:7:"created";i:1473767591;s:8:"modified";i:1473767591;}s:4:"user";s:0:"";s:7:"creator";s:0:"";s:5:"title";s:12:"链表逆序";s:11:"description";a:2:{s:15:"tableofcontents";a:1:{i:0;a:4:{s:3:"hid";s:12:"链表逆序";s:5:"title";s:12:"链表逆序";s:4:"type";s:2:"ul";s:5:"level";i:2;}}s:8:"abstract";s:615:"链表逆序
+
+
+//=============================================================
+// 语法格式：     LNODE *link_reverse(LNODE *head)
+// 实现功能：     将链表逆序
+// 参数：          *head：链表首址
+// 返回值：          新的链表头
+//=============================================================
+LNODE *link_reverse(LNODE *head)
+{
+     LNODE *pb, *pt;
+
+     if(head == NULL)//如果链表不存在，则返回
+          return head;
+         
+     pb = head->next;
+     head->next = NULL;
+    
+     while(pb != NULL)
+     {
+          pt = pb->next;//记录pb下一个节点地址
+      …";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}s:8:"relation";a:1:{s:10:"firstimage";s:0:"";}}s:10:"persistent";a:3:{s:4:"date";a:1:{s:7:"created";i:1473767591;}s:4:"user";s:0:"";s:7:"creator";s:0:"";}}

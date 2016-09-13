@@ -1,0 +1,53 @@
+===== 命令技巧 =====
+----
+
+==== 常用命令 ====
+<code bash>
+# 查看渲染
+dumpsys SurfaceFlinger
+
+# 查看应用内存使用情况
+procrank
+
+# 查看磁盘读写情况
+busybox  iostat   
+</code>
+
+
+==== kill 指定名称线程 ====
+<code bash>
+	kill `busybox pgrep ethernet_det` 
+
+</code>
+
+==== 挂载 ====
+<code bash>
+	mount -t vfat -o fmask=0000,dmask=0000,allow_utime=0022 /dev/block/mmcblk0p1 /mnt/extsd/
+</code>
+
+==== 内核打印信息 ====
+<code bash>
+	echo 15 > /sys/module/sw_keyboard/parameters/debug_mask 
+	echo 8 > /proc/sys/kernel/printk
+</code>
+
+==== 常用出错 ====
+<code bash>
+	Fatal signal
+	died
+</code>
+
+
+==== 彩色打印error ====
+<code cpp>
+  #ifdef DB_ERROR  
+  #define db_error(...) \  
+  do { \  
+  sprintf(db_buf, "\033[40;31;1m %s line[%04d] %s() \033[0m", 
+  LOG_TAG, __LINE__, __FUNCTION__); \  
+  ALOG(LOG_ERROR, db_buf, ##__VA_ARGS__); \  
+  } while(0)  
+  #else  
+  #define db_error(...)  
+  #endif
+</code>

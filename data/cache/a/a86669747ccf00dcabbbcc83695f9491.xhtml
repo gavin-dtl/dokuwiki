@@ -1,0 +1,49 @@
+
+<h2 class="sectionedit1" id="希尔排序">希尔排序</h2>
+<div class="level2">
+<pre class="code c"><span class="kw4">void</span> shellsort<span class="br0">&#40;</span><span class="kw4">int</span> k<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="sy0">,</span><span class="kw4">int</span> n<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+     <span class="kw4">int</span> i<span class="sy0">,</span> j<span class="sy0">,</span> flag <span class="sy0">,</span>gap <span class="sy0">=</span> n<span class="sy0">;</span>
+&nbsp;
+     <span class="kw1">while</span><span class="br0">&#40;</span>gap <span class="sy0">&gt;</span> <span class="nu0">1</span><span class="br0">&#41;</span>
+     <span class="br0">&#123;</span>
+          gap <span class="sy0">=</span> gap<span class="sy0">/</span><span class="nu0">2</span><span class="sy0">;</span>                <span class="coMULTI">/*增量缩小，每次减半*/</span>
+          <span class="kw1">do</span>
+          <span class="br0">&#123;</span>                        <span class="coMULTI">/*子序列应用冒泡排序*/</span>
+               flag <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+               <span class="kw1">for</span><span class="br0">&#40;</span>i<span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span>i<span class="sy0">&lt;</span>n<span class="sy0">-</span>gap<span class="sy0">;</span>i<span class="sy0">++</span><span class="br0">&#41;</span> <span class="co1">//n-gap 是控制上限不让越界</span>
+               <span class="br0">&#123;</span>
+                    j <span class="sy0">=</span> i <span class="sy0">+</span> gap<span class="sy0">;</span>     <span class="co1">//相邻间隔的前后值进行比较</span>
+                    <span class="kw1">if</span><span class="br0">&#40;</span>k<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy0">&gt;</span>k<span class="br0">&#91;</span>j<span class="br0">&#93;</span><span class="br0">&#41;</span>
+                    <span class="br0">&#123;</span>
+                         swap<span class="br0">&#40;</span><span class="sy0">&amp;</span>k<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy0">,&amp;</span>k<span class="br0">&#91;</span>j<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                         flag <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">;</span>
+                    <span class="br0">&#125;</span>
+               <span class="br0">&#125;</span>
+               <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;gap = %d:<span class="es1">\n</span>&quot;</span><span class="sy0">,</span>gap<span class="br0">&#41;</span><span class="sy0">;</span>
+               display<span class="br0">&#40;</span>k<span class="sy0">,</span><span class="nu0">10</span><span class="br0">&#41;</span><span class="sy0">;</span>
+          <span class="br0">&#125;</span><span class="kw1">while</span><span class="br0">&#40;</span>flag <span class="sy0">!=</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy0">;</span>
+     <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">void</span> shellsort_1<span class="br0">&#40;</span><span class="kw4">int</span> k<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="sy0">,</span><span class="kw4">int</span> n<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+     <span class="kw4">int</span> i<span class="sy0">,</span>flag<span class="sy0">;</span>
+&nbsp;
+     <span class="kw1">do</span>
+     <span class="br0">&#123;</span>                        <span class="coMULTI">/*子序列应用冒泡排序*/</span>
+          flag <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+          <span class="kw1">for</span><span class="br0">&#40;</span>i<span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span>i<span class="sy0">&lt;</span>n<span class="sy0">-</span><span class="nu0">1</span><span class="sy0">;</span>i<span class="sy0">++</span><span class="br0">&#41;</span>
+          <span class="br0">&#123;</span>
+               <span class="kw1">if</span><span class="br0">&#40;</span>k<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy0">&gt;</span>k<span class="br0">&#91;</span>i<span class="sy0">+</span><span class="nu0">1</span><span class="br0">&#93;</span><span class="br0">&#41;</span>     <span class="co1">//相邻的前后值进行比较</span>
+               <span class="br0">&#123;</span>
+                    swap<span class="br0">&#40;</span><span class="sy0">&amp;</span>k<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy0">,&amp;</span>k<span class="br0">&#91;</span>i<span class="sy0">+</span><span class="nu0">1</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                    flag <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">;</span>
+               <span class="br0">&#125;</span>
+          <span class="br0">&#125;</span>
+          <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;gap=1:<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+          display<span class="br0">&#40;</span>k<span class="sy0">,</span><span class="nu0">10</span><span class="br0">&#41;</span><span class="sy0">;</span>
+     <span class="br0">&#125;</span><span class="kw1">while</span><span class="br0">&#40;</span>flag <span class="sy0">!=</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+</div>

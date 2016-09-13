@@ -1,0 +1,21 @@
+=== 导航栏插件 ===
+
+[[https://www.dokuwiki.org/plugin:indexmenu|indexmenu]]
+
+=== 导出PDF ===
+[[https://www.dokuwiki.org/plugin:dw2pdf|dw2pdf]]
+
+=== MarkDown ===
+[[https://www.dokuwiki.org/plugin%3Amarkdownextra|markdown]]
+
+=== 编辑插件 ===
+  * [[https://www.dokuwiki.org/plugin%3Acodemirror|CodeMirror]]
+  * ckgedit
+
+==== 折叠插件====
+    * [[https://www.dokuwiki.org/plugin:hidden | hidden]]
+    * <hidden click here if you want to know more>Since you want to know more, here is an explanation with more details […]</hidden>
+
+==== 引用页面插件====
+    * [[https://www.dokuwiki.org/plugin:include | Include]]
+    * {{page>@MONTH@:@DAY@:birthdays}}

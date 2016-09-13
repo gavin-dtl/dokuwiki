@@ -1,0 +1,23 @@
+===== android 启动应用 =====
+
+<code java>
+	ResolveInfo res = mAllApps.get(position); //get packagename and activity 
+	String pkg = res.activityInfo.packageName ; 
+	String cls = res.activityInfo.name ; 
+	ComponentName mComponentName = new ComponentName(pkg, cls); 
+	
+	Intent intent = new Intent(); 
+	intent.addCategory(Intent.CATEGORY_LAUNCHER); 
+	intent.setComponent(mComponentName); 
+	intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP) ;
+	startActivity(intent);
+	
+	Intent intent = new Intent(); 
+	PackageManager packageManager = this.getPackageManager();
+	intent = packageManager.getLaunchIntentForPackage(packageName); 				
+	intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP) ;
+	this.startActivity(intent);
+</code>
+
+无此参数，不能启动已启动应用
+intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP) ;

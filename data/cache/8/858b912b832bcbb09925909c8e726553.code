@@ -1,0 +1,26 @@
+<span class="kw4">void</span> quicksort<span class="br0">&#40;</span><span class="kw4">int</span> k<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="sy0">,</span> <span class="kw4">int</span> start_num<span class="sy0">,</span><span class="kw4">int</span> end_num<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>                            <span class="coMULTI">/*快速排序*/</span>
+     <span class="kw4">int</span> i<span class="sy0">,</span>j<span class="sy0">;</span>
+     <span class="kw1">if</span><span class="br0">&#40;</span>start_num <span class="sy0">&lt;</span> end_num<span class="br0">&#41;</span><span class="br0">&#123;</span><span class="co1">//划分结束条件</span>
+          i <span class="sy0">=</span> start_num<span class="sy0">;</span>
+          j <span class="sy0">=</span> end_num<span class="sy0">+</span><span class="nu0">1</span><span class="sy0">;</span>
+          <span class="kw1">while</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+               <span class="kw1">do</span><span class="br0">&#123;</span>
+                    i<span class="sy0">++;</span>
+               <span class="br0">&#125;</span><span class="kw1">while</span><span class="br0">&#40;</span> <span class="sy0">!</span><span class="br0">&#40;</span>k<span class="br0">&#91;</span>start_num<span class="br0">&#93;</span><span class="sy0">&lt;=</span>k<span class="br0">&#91;</span>i<span class="br0">&#93;</span> <span class="sy0">||</span> i<span class="sy0">==</span>end_num<span class="br0">&#41;</span> <span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//从第一个开始求出第一个大于基准值的元素位置i</span>
+&nbsp;
+               <span class="kw1">do</span><span class="br0">&#123;</span>
+                    j<span class="sy0">--;</span>
+               <span class="br0">&#125;</span><span class="kw1">while</span><span class="br0">&#40;</span><span class="sy0">!</span><span class="br0">&#40;</span>k<span class="br0">&#91;</span>start_num<span class="br0">&#93;</span><span class="sy0">&gt;=</span>k<span class="br0">&#91;</span>j<span class="br0">&#93;</span> <span class="sy0">||</span> j<span class="sy0">==</span>start_num<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">//从最后开始求出第一个小于基准值的元素位置j</span>
+&nbsp;
+               <span class="kw1">if</span><span class="br0">&#40;</span>i<span class="sy0">&lt;</span>j<span class="br0">&#41;</span><span class="br0">&#123;</span>
+                    swap<span class="br0">&#40;</span><span class="sy0">&amp;</span>k<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy0">,&amp;</span>k<span class="br0">&#91;</span>j<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>  <span class="coMULTI">/*交换k[i]和k[j]的位置*/</span>
+               <span class="br0">&#125;</span>
+               <span class="kw1">else</span>
+                    <span class="kw2">break</span><span class="sy0">;</span>
+       <span class="br0">&#125;</span>
+       swap<span class="br0">&#40;</span><span class="sy0">&amp;</span>k<span class="br0">&#91;</span>start_num<span class="br0">&#93;</span><span class="sy0">,&amp;</span>k<span class="br0">&#91;</span>j<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//将基准元素与从后往前的第一个大于s的元素进行交换，即放在中间</span>
+       quicksort<span class="br0">&#40;</span>k<span class="sy0">,</span>start_num<span class="sy0">,</span>j<span class="sy0">-</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="coMULTI">/*递归排序基准元素前面的子序列*/</span>
+       quicksort<span class="br0">&#40;</span>k<span class="sy0">,</span>j<span class="sy0">+</span><span class="nu0">1</span><span class="sy0">,</span>end_num<span class="br0">&#41;</span><span class="sy0">;</span><span class="coMULTI">/*递归排序基准元素后面的子序列*/</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>

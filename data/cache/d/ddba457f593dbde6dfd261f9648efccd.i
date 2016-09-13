@@ -1,0 +1,260 @@
+a:7:{i:0;a:3:{i:0;s:14:"document_start";i:1;a:0:{}i:2;i:0;}i:1;a:3:{i:0;s:6:"header";i:1;a:3:{i:0;s:17:"linux串口通信";i:1;i:2;i:2;i:1;}i:2;i:1;}i:2;a:3:{i:0;s:12:"section_open";i:1;a:1:{i:0;i:2;}i:2;i:1;}i:3;a:3:{i:0;s:2:"hr";i:1;a:0:{}i:2;i:31;}i:4;a:3:{i:0;s:4:"code";i:1;a:3:{i:0;s:6062:"
+#include <stdio.h>  
+#include <string.h>  
+#include <sys/types.h>  
+#include <errno.h>  
+#include <sys/stat.h>  
+#include <fcntl.h>  
+#include <unistd.h>  
+#include <termios.h>  
+#include <stdlib.h>  
+#include <pthread.h>  
+
+int sum;  
+char func_buff[8];  
+
+char rec_buff[10];  
+int fd,i_fd;  
+int flag_close;  
+////////////////////////////////////////////////////////////  
+//set_opt  
+////////////////////////////////////////////////////////////  
+int set_opt(int fd,int nSpeed, int nBits, char nEvent, int nStop)   
+{  
+  struct termios newtio,oldtio;  
+  if ( tcgetattr( fd,&oldtio) != 0)  
+  {   
+    perror("SetupSerial 1");  
+    return -1;  
+  }  
+  bzero( &newtio, sizeof( newtio ) );   
+  newtio.c_cflag |= CLOCAL | CREAD;   
+  newtio.c_cflag &= ~CSIZE;   
+
+  switch( nBits )   
+  {  
+    case 7:  
+      newtio.c_cflag |= CS7;  
+      break;  
+    case 8:  
+      newtio.c_cflag |= CS8;  
+      break;  
+  }  
+
+  switch( nEvent )   
+  {  
+    case 'O':  
+      newtio.c_cflag |= PARENB;  
+      newtio.c_cflag |= PARODD;  
+      newtio.c_iflag |= (INPCK);  
+      break;  
+    case 'E':   
+      newtio.c_iflag |= (INPCK);  
+      newtio.c_cflag |= PARENB;  
+      newtio.c_cflag &= ~PARODD;  
+      break;  
+    case 'N':   
+      newtio.c_cflag &= ~PARENB;  
+      break;  
+  }  
+
+  switch( nSpeed )   
+  {  
+    case 2400:  
+      cfsetispeed(&newtio, B2400);  
+      cfsetospeed(&newtio, B2400);  
+      break;  
+    case 4800:  
+      cfsetispeed(&newtio, B4800);  
+      cfsetospeed(&newtio, B4800);  
+      break;  
+    case 9600:  
+      cfsetispeed(&newtio, B9600);  
+      cfsetospeed(&newtio, B9600);  
+      break;  
+    case 115200:  
+      cfsetispeed(&newtio, B115200);  
+      cfsetospeed(&newtio, B115200);  
+      break;  
+    default:  
+      cfsetispeed(&newtio, B9600);  
+      cfsetospeed(&newtio, B9600);  
+      break;  
+  }  
+
+  if( nStop == 1 )   
+    newtio.c_cflag &= ~CSTOPB;  
+  else if ( nStop == 2 )  
+    newtio.c_cflag |= CSTOPB;  
+
+  newtio.c_cc[VTIME] = 0;  
+  newtio.c_cc[VMIN] = 0;  
+  tcflush(fd,TCIFLUSH);  
+
+  if((tcsetattr(fd,TCSANOW,&newtio))!=0)  
+  {  
+    perror("com set error");  
+    return -1;  
+  }  
+  printf("the serial has set done.........\n");   
+  return 0;  
+}  
+
+////////////////////////////////////////////////////////////  
+//open_port  
+////////////////////////////////////////////////////////////  
+int open_port(int fd,int comport)   
+{  
+  char *dev[]={"/dev/ttyUSB0","/dev/ttyS1","/dev/ttyS2"}; //USB转串口，所以ttyUSB0  
+  long vdisable;  
+
+  if (comport==1)  
+  { 
+    fd = open( "/dev/ttyUSB0", O_RDWR|O_NOCTTY|O_NDELAY);  
+    if (-1 == fd){  
+      perror("Can't Open Serial Port");  
+      return(-1);  
+    }  
+    else   
+      printf("open the ttyUSB0 ..........\n");   
+  }  
+  else if(comport==2)  
+  { 
+    fd = open( "/dev/ttyS1", O_RDWR|O_NOCTTY|O_NDELAY);  
+    if (-1 == fd){      
+      perror("Can't Open Serial Port");  
+      return(-1);  
+    }  
+    else   
+      printf("open ttyS1 .....\n");  
+  }  
+  else if (comport==3)  
+  {  
+    fd = open( "/dev/ttyS2", O_RDWR|O_NOCTTY|O_NDELAY);  
+    if (-1 == fd){  
+      perror("Can't Open Serial Port");  
+      return(-1);  
+    }  
+    else   
+      printf("open ttyS2 .....\n");  
+  }  
+
+  if(fcntl(fd, F_SETFL, 0)<0)  
+    printf("fcntl failed!\n");  
+  //else  
+  //printf("fcntl=%d\n",fcntl(fd, F_SETFL,0));  
+  if(isatty(STDIN_FILENO)==0)  
+    printf("standard input is not a terminal device\n");  
+  //else  
+  //printf("isatty success!\n");  
+  //printf("fd-open=%d\n",fd);  
+  return fd;  
+}  
+
+////////////////////////////////////////////////////////////  
+//Send  
+////////////////////////////////////////////////////////////  
+void send(char *send_buff)  
+{  
+  int nwrite;  
+  unsigned char *src_send_buff;  
+  src_send_buff = send_buff;  
+  nwrite = write(fd,src_send_buff,8);  
+  if(nwrite < 0)  
+  {  
+    printf("send error");   
+    return;  
+  }  
+  else if(nwrite)  
+  {  
+    //printf("You have already send %s\n ",send_buff);  
+    printf("You send the number is:%d\n",nwrite);  
+  }  
+}  
+
+///////////////////////////////////////////////////////////  
+//Receive  
+///////////////////////////////////////////////////////////  
+void receive(void)  
+{  
+  int nread = 0;  
+  int count_byte = 0;  
+  unsigned char *src_rec_buff;  
+  src_rec_buff = rec_buff;  
+  printf("This is the pthread!\n");  
+  while(1)  
+  {  
+    nread = read(fd,src_rec_buff,1);  
+    if(nread == 0)  
+    {  
+      count_byte++;  
+      printf("Receive stings is=%s=\n",*src_rec_buff);  
+      printf("The count_byte = %d\n",count_byte);  
+    }  
+    else  
+    {  
+      count_byte = 0;  
+      printf("Can not read data!\n");  
+      return;  
+    }  
+    src_rec_buff++;  
+  }  
+}  
+
+///////////////////////////////////////////////////////////  
+//Reset  
+///////////////////////////////////////////////////////////  
+void function(char buff0,char buff4,char buff5,char buff6)  
+{  
+  func_buff[0] = buff0;  
+  func_buff[1] = 0xff;  
+  func_buff[2] = 0xff;  
+  func_buff[3] = 0xff;  
+  func_buff[4] = buff4;  
+  func_buff[5] = buff5;  
+  func_buff[6] = buff6;  
+  sum = buff0 + 0xffffff + buff4 + buff5 + buff6;  
+  func_buff[7] = (char)sum;  
+  send(func_buff);  
+}  
+
+///////////////////////////////////////////////////////////  
+//Main  
+///////////////////////////////////////////////////////////  
+
+int main(int argc, char *argv[])   
+{  
+  pthread_t id;  
+  int ret;  
+
+  if((fd=open_port(fd,1))<0)  
+  {   
+    perror("open_port error");  
+    return;  
+  }  
+  if((i_fd=set_opt(fd,115200,8,'N',1))<0)  
+  {   
+    perror("set_opt error");  
+    return;  
+  }  
+
+  ret = pthread_create(&id, NULL, (void*)receive, NULL);  
+  if(ret != 0)  
+  {  
+    printf("Create pthread error!\n");  
+    exit(1);  
+  }  
+  else  
+    printf("Create pthread success!\n");  
+
+  function(0x3A,0x00,0x00,0x00); // reset  
+  function(0x3a,0x01,0x02,0x01); //read_type  
+  function(0x3a,0x02,0x02,0x02); //read_date  
+
+  printf("main process is waiting!\n");  
+  pthread_join(id,NULL);   
+
+  close(fd);   
+  return;  
+}
+";i:1;s:3:"cpp";i:2;N;}i:2;i:42;}i:5;a:3:{i:0;s:13:"section_close";i:1;a:0:{}i:2;i:6116;}i:6;a:3:{i:0;s:12:"document_end";i:1;a:0:{}i:2;i:6116;}}

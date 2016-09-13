@@ -1,0 +1,31 @@
+===== 禁止屏幕旋转 =====
+
+
+  * base/services/core/java/com/android/server/wm/WindowManagerService.java
+<code cpp>
+boolean updateOrientationFromAppTokensLocked(boolean inTransaction) {
+        long ident = Binder.clearCallingIdentity();
+        try {
+            int req = getOrientationFromWindowsLocked();
+            if (req == ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) {
+                req = getOrientationFromAppTokensLocked();
+            }
++           // 锁定横屏
++           /* req = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE; */
++           // 锁定竖屏
++           /* req = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT; */
+            req = ActivityInfo.SCREEN_ORIENTATION_USER;
+
+            if (req != mForcedAppOrientation) {
+                mForcedAppOrientation = req;
+</code>
+              
+----
+
+  *android\frameworks\base\core\java\android\content\pm\PackageParser.java
+<code java>
+-	a.info.screenOrientation = sa.getInt(
+-	com.android.internal.R.styleable.AndroidManifestActivity_screenOrientation,
+-  	ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
++	a.info.screenOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+</code>

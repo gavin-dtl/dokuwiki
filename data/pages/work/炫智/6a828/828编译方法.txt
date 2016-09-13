@@ -1,0 +1,64 @@
+===== 828编译方法 =====
+
+----
+==== 下载代码 ====
+  - 在自己的家目录下建个6A828的目录，cd 到6A828目录下：
+  - 下载代码：
+      *<code>
+	svn://192.168.1.252/6A828
+       </code>
+  - 下载完代码，将代码目录权限修改为0775
+      * #chmod -R 0775 6A828
+
+
+==== MBoot编绎 ====
+  - 进入6A828/6A828/vendor/mstar/mboot/sboot目录下
+    * #cd 6A828/6A828/vendor/mstar/mboot/sboot
+  - 使用指定配置文件
+    * 第2步不需要执行，.config文件已经修改同步好了
+    *<code>
+      For CMI KS1 panel
+      #cp configs/muji/.config.muji.android.079b.rom_emmc.64bit.kernel.security.tee.ursa6 .config
+      For 4K2K@60Hz without FRC panel
+      #cp configs/muji/.config.muji.android.079b.rom_emmc.64bit.kernel.security.tee .config
+
+      For Muji+U11
+      #cp configs/muji/.config.muji.android.079b.rom_emmc.64bit.kernel.security.tee.ursa11 .config
+    </code>
+  - 进入配置界面
+    *#make menuconfig
+  - 打开介面后,直接退出保存
+  - make clean;make
+  - 拷贝out/mboot.bin和out/rom_emmc_boot.bin这两个文件到6A828/images/lollipop/pitaya目录下
+    *PS：如果修改后的Mboot程序确定可用，对比、上传之前，记得将out/mboot.bin和out/rom_emmc_boot.bin这两个文件复制到/6A828/6A828/device/mstar/pitaya/images/prebuilts目录下再对比、上传。
+    
+    
+==== Supernova编绎 ====
+  - 进入6A828/6A828/vendor/mstar/supernova/projects目录下
+    * <code bash>
+    cd 6A828/6A828/vendor/mstar/supernova/projects
+      ./make_muji_release.sh
+    </code>
+  - PS:编译成功后会提示以下三行：
+    *<code>
+      copy image to images/lollipop/pitaya
+      copy image to android
+      success make muji pitaya and release images to images and android!
+    </code>
+
+==== Android源码编绎 ==== 
+  - 进入6A828/6A828目录
+    * cd 6A828/6A828
+  - 执行同步环境配置脚本
+    * source ./build/envsetup.sh
+  - 查看所有项目
+    *lunch
+  - 选择项目
+    *12. aosp_pitaya-userdebug
+  - 编译源码
+    *make -j12
+  - release镜像文件
+    *./development/scripts/releaseimage.sh
+  - 打包升级
+    *./development/scripts/make_usb_upgrade.sh
+

@@ -1,0 +1,116 @@
+
+<h1 class="sectionedit1" id="rtl8723bu_wifi_bt_模块移植">rtl8723bu wifi+bt 模块移植</h1>
+<div class="level1">
+<hr />
+
+</div>
+<!-- EDIT1 SECTION "rtl8723bu wifi+bt 模块移植" [1-51] -->
+<h3 class="sectionedit2" id="wifi">Wifi</h3>
+<div class="level3">
+<ol>
+<li class="level1 node"><div class="li"> 配置linux内核</div>
+<ul>
+<li class="level2"><div class="li"> 配置Device Drivers  —&gt;USB support  —&gt;&lt;*&gt;   USB Wireless Device Management support 支持WIFI</div>
+</li>
+<li class="level2"><div class="li"> Networking support —&gt;Wireless下增加802.11 协议栈的支持</div>
+</li>
+<li class="level2"><div class="li"> <pre class="code">      --- Wireless                         
+      &lt;M&gt;   cfg80211 - wireless configuration API
+      [*]     nl80211 testmode command   
+      [*]     enable developer warnings                                                                                                     
+      [*]     cfg80211 regulatory debugging 
+      [*]     enable powersave by default
+      [ ]     cfg80211 DebugFS entries
+      [ ]     use statically compiled regulatory rules database  
+      [*]     cfg80211 wireless extensions compatibility
+        [*]   Wireless extensions sysfs files 
+      -*-   Common routines for IEEE802.11 drivers
+      [ ]   lib80211 debugging messages  
+      [*]   Allow reconnect while already connected 
+      &lt;M&gt;   Generic IEEE 802.11 Networking Stack (mac80211)  
+      [ ]   PID controller based rate control algorithm  
+      [*]   Minstrel
+      [*]     Minstrel 802.11n support  
+           Default rate control algorithm (Minstrel)  ---&gt;  
+      [*]   Enable mac80211 mesh networking (pre-802.11s) support 
+        [*]   Enable LED triggers  
+      [ ]   Export mac80211 internals in DebugFS
+      [ ]   Select mac80211 debugging features  ---&gt; 
+    </pre>
+</div>
+</li>
+<li class="level2"><div class="li"> 如果未配置好上述则在加载驱动时出现如下错误,原因就是：编译WiFi模块时会去KSRC所指的路径下找相应的库，若果相关的编译选项没有选上会导       致某些库缺失，从而导致编出来的WiFi模块不完整。上述是由于编译内核时内有勾选80211协议栈导致。</div>
+</li>
+<li class="level2"><div class="li"> <pre class="code">      shell@arbutus:/ # insmod system/lib/modules/8723bu.ko                          
+      [ 1862.817051] 8723bu: Unknown symbol __ieee80211_get_channel (err 0)
+      [ 1862.823636] 8723bu: Unknown symbol wiphy_register (err 0)
+      [ 1862.829281] 8723bu: Unknown symbol wiphy_new (err 0)
+      [ 1862.834454] 8723bu: Unknown symbol cfg80211_scan_done (err 0)
+      [ 1862.841568] 8723bu: Unknown symbol cfg80211_rx_mgmt (err 0)
+      [ 1862.847403] 8723bu: Unknown symbol cfg80211_inform_bss_frame (err 0)
+      [ 1862.854124] 8723bu: Unknown symbol cfg80211_ibss_joined (err 0)
+      [ 1862.860367] 8723bu: Unknown symbol wiphy_apply_custom_regulatory (err 0)
+      [ 1862.867290] 8723bu: Unknown symbol cfg80211_new_sta (err 0)
+      [ 1862.873435] 8723bu: Unknown symbol cfg80211_disconnected (err 0)
+      [ 1862.879603] 8723bu: Unknown symbol cfg80211_connect_result (err 0)
+      [ 1862.886143] 8723bu: Unknown symbol wiphy_unregister (err 0)
+      [ 1862.892129] 8723bu: Unknown symbol ieee80211_frequency_to_channel (err 0)
+      [ 1862.899059] 8723bu: Unknown symbol cfg80211_get_bss (err 0)
+      [ 1862.904915] 8723bu: Unknown symbol cfg80211_ready_on_channel (err 0)
+      [ 1862.911540] 8723bu: Unknown symbol cfg80211_unlink_bss (err 0)
+      [ 1862.917513] 8723bu: Unknown symbol cfg80211_roamed (err 0)
+      [ 1862.923190] 8723bu: Unknown symbol wiphy_free (err 0)
+      [ 1862.928409] 8723bu: Unknown symbol cfg80211_mgmt_tx_status (err 0)
+      [ 1862.934723] 8723bu: Unknown symbol cfg80211_remain_on_channel_expired (err 0)
+      [ 1862.942053] 8723bu: Unknown symbol cfg80211_michael_mic_failure (err 0)
+      [ 1862.948779] 8723bu: Unknown symbol cfg80211_del_sta (err 0)
+      [ 1862.954630] 8723bu: Unknown symbol cfg80211_put_bss (err 0)
+      insmod: init_module &#039;system/lib/modules/8723bu.ko&#039; failed (No such file or directory)
+     </pre>
+</div>
+</li>
+</ul>
+</li>
+<li class="level1 node"><div class="li"> 测试</div>
+<ul>
+<li class="level2"><div class="li"> 安装cfg80211.ko，8723bu.ko依赖此模块，否则依然会报上述缺80211的错误</div>
+</li>
+<li class="level2"><div class="li"> 安装8723bu.ko模块，两个模块都安装好之后，执行netcfg，会看到多出wlan0和wlan1设备节点，他们是8723bu驱动创建出来的，放到   		sys/class/net/下。</div>
+</li>
+</ul>
+</li>
+<li class="level1 node"><div class="li"> wifi android 适配</div>
+<ul>
+<li class="level2"><div class="li"> device\mstar\pitaya\preinstall\wifi wifi.cfg 添加对于的wifi usb设备的pid，uid</div>
+</li>
+<li class="level2"><div class="li"> device\mstar\common\preinstall\wifi 添加wifi适配对应文件有</div>
+</li>
+<li class="level2"><div class="li"> <pre class="code">      startSupplicant.sh
+      wifi_load_apdriver.sh
+      wifi_load_driver.sh
+      wifi_unload_apdriver.sh
+      wifi_unload_driver.sh
+    </pre>
+</div>
+</li>
+</ul>
+</li>
+</ol>
+<hr />
+
+</div>
+<!-- EDIT2 SECTION "Wifi" [52-4335] -->
+<h3 class="sectionedit3" id="bt">Bt</h3>
+<div class="level3">
+
+</div>
+<!-- EDIT3 SECTION "Bt" [4336-4350] -->
+<h3 class="sectionedit4" id="参考链接">参考链接</h3>
+<div class="level3">
+
+<p>
+<a href="http://blog.csdn.net/bhj1119/article/details/51858635" class="urlextern" title="http://blog.csdn.net/bhj1119/article/details/51858635" rel="nofollow">http://blog.csdn.net/bhj1119/article/details/51858635</a>
+</p>
+
+</div>
+<!-- EDIT4 SECTION "参考链接" [4351-] -->

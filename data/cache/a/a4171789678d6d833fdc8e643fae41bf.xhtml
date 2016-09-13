@@ -1,0 +1,23 @@
+
+<h2 class="sectionedit1" id="插入排序">插入排序</h2>
+<div class="level2">
+<pre class="code c"><span class="co1">//从小到大进行排序</span>
+insertsort<span class="br0">&#40;</span><span class="kw4">int</span> k<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="sy0">,</span><span class="kw4">int</span> n<span class="br0">&#41;</span>              <span class="coMULTI">/*直接插入排序*/</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> i<span class="sy0">,</span>j<span class="sy0">;</span>
+    <span class="kw4">int</span> temp<span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">for</span><span class="br0">&#40;</span>i<span class="sy0">=</span><span class="nu0">1</span><span class="sy0">;</span>i<span class="sy0">&lt;</span>n<span class="sy0">;</span>i<span class="sy0">++</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        temp <span class="sy0">=</span> k<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy0">;</span>                    <span class="co1">//将要比较的值先绶存起来留出一个空位，方便移动</span>
+        j <span class="sy0">=</span> i <span class="sy0">-</span> <span class="nu0">1</span><span class="sy0">;</span>
+        <span class="kw1">while</span><span class="br0">&#40;</span>j<span class="sy0">&gt;=</span><span class="nu0">0</span> <span class="sy0">&amp;&amp;</span> k<span class="br0">&#91;</span>j<span class="br0">&#93;</span><span class="sy0">&gt;</span>temp<span class="br0">&#41;</span>    <span class="co1">//比较直到出现比temp大的值，或向前找到头</span>
+        <span class="br0">&#123;</span>
+               k<span class="br0">&#91;</span>j<span class="sy0">+</span><span class="nu0">1</span><span class="br0">&#93;</span> <span class="sy0">=</span> k<span class="br0">&#91;</span>j<span class="br0">&#93;</span><span class="sy0">;</span>               <span class="co1">//将前面的值往后移</span>
+               j<span class="sy0">--;</span>
+          <span class="br0">&#125;</span>
+        k<span class="br0">&#91;</span>j<span class="sy0">+</span><span class="nu0">1</span><span class="br0">&#93;</span> <span class="sy0">=</span> temp<span class="sy0">;</span>                  <span class="co1">//插在a[j]的后面</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+</div>

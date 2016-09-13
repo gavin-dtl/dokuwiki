@@ -1,0 +1,6 @@
+===== 防止手机旋转_系统语言切换导致activity重启 =====
+
+<code java>
+android:configChanges="orientation|screenSize|keyboardHidden|locale|layoutDirection"
+//防止手机滑盖、旋转、系统语言切换导致activity重启
+</code>

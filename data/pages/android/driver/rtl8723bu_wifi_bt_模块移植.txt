@@ -1,0 +1,82 @@
+====== rtl8723bu wifi+bt 模块移植 ======
+
+----
+==== Wifi ====
+  - 配置linux内核
+    * 配置Device Drivers  --->USB support  ---><*>   USB Wireless Device Management support 支持WIFI
+    * Networking support --->Wireless下增加802.11 协议栈的支持
+    * <code>
+      --- Wireless                         
+      <M>   cfg80211 - wireless configuration API
+      [*]     nl80211 testmode command   
+      [*]     enable developer warnings                                                                                                     
+      [*]     cfg80211 regulatory debugging 
+      [*]     enable powersave by default
+      [ ]     cfg80211 DebugFS entries
+      [ ]     use statically compiled regulatory rules database  
+      [*]     cfg80211 wireless extensions compatibility
+        [*]   Wireless extensions sysfs files 
+      -*-   Common routines for IEEE802.11 drivers
+      [ ]   lib80211 debugging messages  
+      [*]   Allow reconnect while already connected 
+      <M>   Generic IEEE 802.11 Networking Stack (mac80211)  
+      [ ]   PID controller based rate control algorithm  
+      [*]   Minstrel
+      [*]     Minstrel 802.11n support  
+           Default rate control algorithm (Minstrel)  --->  
+      [*]   Enable mac80211 mesh networking (pre-802.11s) support 
+        [*]   Enable LED triggers  
+      [ ]   Export mac80211 internals in DebugFS
+      [ ]   Select mac80211 debugging features  ---> 
+    </code>
+    * 如果未配置好上述则在加载驱动时出现如下错误,原因就是：编译WiFi模块时会去KSRC所指的路径下找相应的库，若果相关的编译选项没有选上会导       致某些库缺失，从而导致编出来的WiFi模块不完整。上述是由于编译内核时内有勾选80211协议栈导致。
+    * <code>
+      shell@arbutus:/ # insmod system/lib/modules/8723bu.ko                          
+      [ 1862.817051] 8723bu: Unknown symbol __ieee80211_get_channel (err 0)
+      [ 1862.823636] 8723bu: Unknown symbol wiphy_register (err 0)
+      [ 1862.829281] 8723bu: Unknown symbol wiphy_new (err 0)
+      [ 1862.834454] 8723bu: Unknown symbol cfg80211_scan_done (err 0)
+      [ 1862.841568] 8723bu: Unknown symbol cfg80211_rx_mgmt (err 0)
+      [ 1862.847403] 8723bu: Unknown symbol cfg80211_inform_bss_frame (err 0)
+      [ 1862.854124] 8723bu: Unknown symbol cfg80211_ibss_joined (err 0)
+      [ 1862.860367] 8723bu: Unknown symbol wiphy_apply_custom_regulatory (err 0)
+      [ 1862.867290] 8723bu: Unknown symbol cfg80211_new_sta (err 0)
+      [ 1862.873435] 8723bu: Unknown symbol cfg80211_disconnected (err 0)
+      [ 1862.879603] 8723bu: Unknown symbol cfg80211_connect_result (err 0)
+      [ 1862.886143] 8723bu: Unknown symbol wiphy_unregister (err 0)
+      [ 1862.892129] 8723bu: Unknown symbol ieee80211_frequency_to_channel (err 0)
+      [ 1862.899059] 8723bu: Unknown symbol cfg80211_get_bss (err 0)
+      [ 1862.904915] 8723bu: Unknown symbol cfg80211_ready_on_channel (err 0)
+      [ 1862.911540] 8723bu: Unknown symbol cfg80211_unlink_bss (err 0)
+      [ 1862.917513] 8723bu: Unknown symbol cfg80211_roamed (err 0)
+      [ 1862.923190] 8723bu: Unknown symbol wiphy_free (err 0)
+      [ 1862.928409] 8723bu: Unknown symbol cfg80211_mgmt_tx_status (err 0)
+      [ 1862.934723] 8723bu: Unknown symbol cfg80211_remain_on_channel_expired (err 0)
+      [ 1862.942053] 8723bu: Unknown symbol cfg80211_michael_mic_failure (err 0)
+      [ 1862.948779] 8723bu: Unknown symbol cfg80211_del_sta (err 0)
+      [ 1862.954630] 8723bu: Unknown symbol cfg80211_put_bss (err 0)
+      insmod: init_module 'system/lib/modules/8723bu.ko' failed (No such file or directory)
+     </code>
+  - 测试
+    * 安装cfg80211.ko，8723bu.ko依赖此模块，否则依然会报上述缺80211的错误
+    * 安装8723bu.ko模块，两个模块都安装好之后，执行netcfg，会看到多出wlan0和wlan1设备节点，他们是8723bu驱动创建出来的，放到   		sys/class/net/下。
+  - wifi android 适配
+    * device\mstar\pitaya\preinstall\wifi wifi.cfg 添加对于的wifi usb设备的pid，uid
+    * device\mstar\common\preinstall\wifi 添加wifi适配对应文件有
+    * <code>
+      startSupplicant.sh
+      wifi_load_apdriver.sh
+      wifi_load_driver.sh
+      wifi_unload_apdriver.sh
+      wifi_unload_driver.sh
+    </code>
+
+----
+==== Bt ====
+
+
+==== 参考链接 ====
+[[http://blog.csdn.net/bhj1119/article/details/51858635]]
+
+
+

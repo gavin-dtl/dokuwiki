@@ -1,0 +1,227 @@
+
+<h2 class="sectionedit1" id="wifi模块调试">wifi模块调试</h2>
+<div class="level2">
+
+</div>
+<!-- EDIT1 SECTION "wifi模块调试" [1-30] -->
+<h3 class="sectionedit2" id="调试一般步骤">调试一般步骤</h3>
+<div class="level3">
+<ol>
+<li class="level1"><div class="li"> 编译对应wifi模块</div>
+</li>
+<li class="level1"><div class="li"> WPA_SUPPLICANT + WPA_CLI User Guide (可ifconfig wlan0 up 查看supplicant logcat信息)</div>
+</li>
+<li class="level1"><div class="li"> android 上层</div>
+</li>
+</ol>
+
+</div>
+<!-- EDIT2 SECTION "调试一般步骤" [31-199] -->
+<h3 class="sectionedit3" id="相关">相关</h3>
+<div class="level3">
+<pre class="code bash">  Realtek
+  This document had described the way to inform the wpa_supplicant to <span class="kw1">do</span> the
+  WiFi connection by using the wpa_cli. The wpa_supplicant had supported all
+  kinds of security connections and WPS defined <span class="kw1">in</span> the <span class="nu0">802.11</span> specification. So,
+  we suggest use the wpa_supplicant to <span class="kw1">do</span> the WiFi connection rather than the
+  iwconfig wireless tool.
+  <span class="br0">&#40;</span>A<span class="br0">&#41;</span> WPA_SUPPLICANT + WPA_CLI User Guide
+  <span class="nu0">1</span>.start wpa_supplicant <span class="kw1">in</span> the background
+  wpa_supplicant –Dnl80211 <span class="re5">-iwlan0</span> <span class="re5">-c</span> <span class="sy0">/</span>tmp<span class="sy0">/</span>net<span class="sy0">/</span>wpa.conf –B
+  or
+  wpa_supplicant <span class="re5">-Dwext</span> <span class="re5">-iwlan0</span> <span class="re5">-c</span> <span class="sy0">/</span>tmp<span class="sy0">/</span>net<span class="sy0">/</span>wpa.conf <span class="re5">-B</span>
+  <span class="nu0">2</span>.Scaning AP and See Results
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant scan
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant scan_results
+  <span class="nu0">3</span>.Connect to AP
+  a.OPEN
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant remove_network <span class="nu0">0</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant ap_scan <span class="nu0">1</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant add_network
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> ssid <span class="st_h">'&quot;dlink&quot;'</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> key_mgmt NONE
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant select_network <span class="nu0">0</span>
+  b.WEP40 with open system
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant remove_network <span class="nu0">0</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant ap_scan <span class="nu0">1</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant add_network
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> ssid <span class="st_h">'&quot;dlink&quot;'</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> key_mgmt NONE
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> wep_key0 <span class="nu0">1234567890</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> wep_tx_keyidx <span class="nu0">0</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant select_network <span class="nu0">0</span>
+  c.WEP40 with shared key mode
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant remove_network <span class="nu0">0</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant ap_scan <span class="nu0">1</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant add_network
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> ssid <span class="st_h">'&quot;dlink&quot;'</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> key_mgmt NONE
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> wep_key0 <span class="nu0">1234567890</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> wep_tx_keyidx <span class="nu0">0</span>
+  Realtek
+  wpa_cli –p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> auth_alg SHARED
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant select_network <span class="nu0">0</span>
+  d.WEP104 with open system
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant remove_network <span class="nu0">0</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant ap_scan <span class="nu0">1</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant add_network
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> ssid <span class="st_h">'&quot;dlink&quot;'</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> key_mgmt NONE
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> wep_key0
+  <span class="nu0">12345678901234567890123456</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> wep_tx_keyidx <span class="nu0">0</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant select_network <span class="nu0">0</span>
+  e.WEP104 with shared key mode
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant remove_network <span class="nu0">0</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant ap_scan <span class="nu0">1</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant add_network
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> ssid <span class="st_h">'&quot;dlink&quot;'</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> key_mgmt NONE
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> wep_key0
+  <span class="nu0">12345678901234567890123456</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> wep_tx_keyidx <span class="nu0">0</span>
+  wpa_cli –p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> auth_alg SHARED
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant select_network <span class="nu0">0</span>
+  <span class="co0">#If wep key is ASCII type,use the following cmd:</span>
+  <span class="co0">#WEP40: wpa_cli -p/var/run/wpa_supplicant set_network 0 wep_key0 '&quot;12345&quot;'</span>
+  <span class="co0">#WEP104: wpa_cli -p/var/run/wpa_supplicant set_network 0 wep_key0</span>
+  <span class="st_h">'&quot;1234567890123&quot;'</span>
+  <span class="co0">#WEP key index is X from 0 to 3, change X for other key index and select it.</span>
+  <span class="co0">#wpa_cli -p/var/run/wpa_supplicant set_network 0 wep_keyX</span>
+  <span class="nu0">12345678901234567890123456</span>
+  <span class="co0">#wpa_cli -p/var/run/wpa_supplicant set_network 0 wep_tx_keyidx X</span>
+  f.TKIP and AES
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant remove_network <span class="nu0">0</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant ap_scan <span class="nu0">1</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant add_network
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> ssid <span class="st_h">'&quot;dlink&quot;'</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> key_mgmt WPA-PSK
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> psk <span class="st_h">'&quot;12345678&quot;'</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant select_network <span class="nu0">0</span>
+  Realtek
+  <span class="nu0">4</span>.Ad-hoc mode
+  a.OPEN
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant scan
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant scan_results
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant remove_network <span class="nu0">0</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant ap_scan <span class="nu0">2</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant add_network
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> ssid <span class="st_h">'&quot;Adhoc_test&quot;'</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> mode <span class="nu0">1</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> key_mgmt NONE
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> frequency <span class="nu0">2412</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant select_network <span class="nu0">0</span>
+  <span class="co0">#frequency is to set the channel frequency for Ad-hoc master.</span>
+  b.WEP40
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant scan
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant scan_results
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant remove_network <span class="nu0">0</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant ap_scan <span class="nu0">2</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant add_network
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> ssid <span class="st_h">'&quot;Adhoc_test&quot;'</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> mode <span class="nu0">1</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> key_mgmt NONE
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> wep_key0 <span class="nu0">1234567890</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> wep_tx_keyidx <span class="nu0">0</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> frequency <span class="nu0">2412</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant select_network <span class="nu0">0</span>
+  c.WEP104
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant scan
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant scan_results
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant remove_network <span class="nu0">0</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant ap_scan <span class="nu0">2</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant add_network
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> ssid <span class="st_h">'&quot;Adhoc_test&quot;'</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> mode <span class="nu0">1</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> key_mgmt NONE
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> wep_key0
+  <span class="nu0">12345678901234567890123456</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> wep_tx_keyidx <span class="nu0">0</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant set_network <span class="nu0">0</span> frequency <span class="nu0">2412</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant select_network <span class="nu0">0</span>
+  <span class="nu0">5</span>.Save the Current Connection AP configuration <span class="kw2">file</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant save_config
+  Realtek
+  <span class="nu0">6</span>.WPS Connection
+  Push Button:
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant remove_network <span class="nu0">0</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant wps_pbc any
+  Pin Code:
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant remove_network <span class="nu0">0</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant wps_pin any <span class="nu0">12345670</span>
+  or
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant remove_network <span class="nu0">0</span>
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant wps_pin any
+  <span class="nu0">7</span>.Get Current Status of wpa_supplicant
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant status
+  <span class="nu0">8</span>.Disable current network connection
+  wpa_cli -p<span class="sy0">/</span>var<span class="sy0">/</span>run<span class="sy0">/</span>wpa_supplicant disable_network <span class="nu0">0</span>
+  <span class="br0">&#40;</span>B<span class="br0">&#41;</span> WPA_SUPPLICANT + WPA_CLI - Control interface commands
+  Following commands can be used with wpa_cli
+  PING
+  This <span class="kw3">command</span> can be used to <span class="kw3">test</span> whether wpa_supplicant is replying to the control interface commands.
+  The expected reply is PONG <span class="kw1">if</span> the connection is open and wpa_supplicant is processing commands.
+  STATUS
+  Request current status information. The output is a text block with each line <span class="kw1">in</span>
+  <span class="re2">variable</span>=value format. For example:
+  <span class="re2">bssid</span>=02:00:01:02:03:04
+  <span class="re2">ssid</span>=<span class="kw3">test</span> network
+  <span class="re2">pairwise_cipher</span>=CCMP
+  <span class="re2">group_cipher</span>=CCMP
+  <span class="re2">key_mgmt</span>=WPA-PSK
+  <span class="re2">wpa_state</span>=COMPLETED
+  LIST_NETWORKS
+  List configured networks.
+  network <span class="kw2">id</span> <span class="sy0">/</span> ssid <span class="sy0">/</span> bssid <span class="sy0">/</span> flags
+  <span class="nu0">0</span> example network any <span class="br0">&#91;</span>CURRENT<span class="br0">&#93;</span>
+  <span class="br0">&#40;</span>note: fields are separated with tabs<span class="br0">&#41;</span>
+  SCAN
+  Request a new BSS scan.
+  Realtek
+  SCAN_RESULTS
+  Get the latest scan results.
+  bssid <span class="sy0">/</span> frequency <span class="sy0">/</span> signal level <span class="sy0">/</span> flags <span class="sy0">/</span> ssid
+  00:09:5b:<span class="nu0">95</span>:e0:4e <span class="nu0">2412</span> <span class="nu0">208</span> <span class="br0">&#91;</span>WPA-PSK-CCMP<span class="br0">&#93;</span> jkm private
+  02:<span class="nu0">55</span>:<span class="nu0">24</span>:<span class="nu0">33</span>:<span class="nu0">77</span>:a3 <span class="nu0">2462</span> <span class="nu0">187</span> <span class="br0">&#91;</span>WPA-PSK-TKIP<span class="br0">&#93;</span> testing
+  00:09:5b:<span class="nu0">95</span>:e0:4f <span class="nu0">2412</span> <span class="nu0">209</span> jkm guest
+  <span class="br0">&#40;</span>note: fields are separated with tabs<span class="br0">&#41;</span>
+  ADD_NETWORK
+  Add a new network. This <span class="kw3">command</span> creates a new network with empty configuration. The new network is
+  disabled and once it has been configured it can be enabled with ENABLE_NETWORK command. ADD_-
+  NETWORK returns the network <span class="kw2">id</span> of the new network or FAIL on failure
+  SELECT_NETWORK <span class="sy0">&lt;</span>network <span class="kw2">id</span><span class="sy0">&gt;</span>
+  Select a network <span class="br0">&#40;</span>disable others<span class="br0">&#41;</span>. Network <span class="kw2">id</span> can be received from the LIST_NETWORKS <span class="kw3">command</span>
+  output.
+  ENABLE_NETWORK <span class="sy0">&lt;</span>network <span class="kw2">id</span><span class="sy0">&gt;</span>
+  Enable a network. Network <span class="kw2">id</span> can be received from the LIST_NETWORKS <span class="kw3">command</span> output.
+  DISABLE_NETWORK <span class="sy0">&lt;</span>network <span class="kw2">id</span><span class="sy0">&gt;</span>
+  Disable a network. Network <span class="kw2">id</span> can be received from the LIST_NETWORKS <span class="kw3">command</span> output. Special
+  network <span class="kw2">id</span> all can be used to disable all network.
+  .
+  REMOVE_NETWORK <span class="sy0">&lt;</span>network <span class="kw2">id</span><span class="sy0">&gt;</span>
+  Remove a network. Network <span class="kw2">id</span> can be received from the LIST_NETWORKS <span class="kw3">command</span> output. Special
+  network <span class="kw2">id</span> all can be used to remove all network.
+  SET_NETWORK <span class="sy0">&lt;</span>network <span class="kw2">id</span><span class="sy0">&gt;</span> <span class="sy0">&lt;</span>variable<span class="sy0">&gt;</span> <span class="sy0">&lt;</span>value<span class="sy0">&gt;</span>
+  Set network variables. Network <span class="kw2">id</span> can be received from the LIST_NETWORKS <span class="kw3">command</span> output.
+  This <span class="kw3">command</span> uses the same variables and data formats <span class="kw2">as</span> the configuration file.
+  • ssid <span class="br0">&#40;</span>network name, SSID<span class="br0">&#41;</span>
+  • psk <span class="br0">&#40;</span>WPA passphrase or pre-shared key<span class="br0">&#41;</span>
+  • key_mgmt <span class="br0">&#40;</span>key management protocol, NONE, WPA-PSK, WPA-EAP<span class="br0">&#41;</span>
+  • proto <span class="br0">&#40;</span> WPA WPA2<span class="br0">&#41;</span>
+  • pairwise <span class="br0">&#40;</span> CCMP TKIP<span class="br0">&#41;</span>
+  • group <span class="br0">&#40;</span> CCMP TKIP WEP40 WEP104<span class="br0">&#41;</span>
+  • wep_key0 <span class="br0">&#40;</span> <span class="kw1">set</span> wep key <span class="kw1">for</span> key index <span class="nu0">0</span><span class="br0">&#41;</span>
+  • wep_tx_keyidx <span class="br0">&#40;</span> <span class="kw1">select</span> wep key index<span class="br0">&#41;</span>
+  • frequency <span class="br0">&#40;</span> Channel frequency <span class="kw1">in</span> megahertz <span class="br0">&#40;</span>MHz<span class="br0">&#41;</span> <span class="kw1">for</span> IBSS <span class="br0">&#41;</span>
+  GET_NETWORK <span class="sy0">&lt;</span>network <span class="kw2">id</span><span class="sy0">&gt;</span> <span class="sy0">&lt;</span>variable<span class="sy0">&gt;</span>
+  Get network variables. Network <span class="kw2">id</span> can be received from the LIST_NETWORKS <span class="kw3">command</span> output.
+  SAVE_CONFIG
+  Save the current configuration.
+  Realtek
+  AP_SCAN <span class="sy0">&lt;</span>ap_scan value<span class="sy0">&gt;</span>
+  Change ap_scan value: <span class="nu0">0</span> = no scanning, <span class="nu0">1</span> = wpa_supplicant requests scans and uses scan results to <span class="kw1">select</span>
+  the AP, <span class="nu0">2</span> = wpa_supplicant does not use scanning and just requests driver to associate and take care of AP
+  selection</pre>
+
+</div>
+<!-- EDIT3 SECTION "相关" [200-] -->

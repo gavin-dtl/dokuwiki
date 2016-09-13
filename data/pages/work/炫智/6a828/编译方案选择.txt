@@ -1,5 +1,5 @@
 ====编译方案选择====
-<code c++>
+<code cpp>
 6A828\vendor\mstar\supernova\projects\config\chips\muji\MST072B_10AEV_14395_TVOS_DTMB\pcb_config.mk
 #Product customer type
 ENABLE_PRODUCT_PUBLIC_LVDS = 0

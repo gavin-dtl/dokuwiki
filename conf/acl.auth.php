@@ -10,3 +10,4 @@
 *	@ALL	0
 *	water	1
 start	@ALL	1
+work:炫智:*	@ALL	1

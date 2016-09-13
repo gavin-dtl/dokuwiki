@@ -1,0 +1,30 @@
+===== 链表逆序 =====
+
+<code c>
+//=============================================================
+// 语法格式：     LNODE *link_reverse(LNODE *head)
+// 实现功能：     将链表逆序
+// 参数：          *head：链表首址
+// 返回值：          新的链表头
+//=============================================================
+LNODE *link_reverse(LNODE *head)
+{
+     LNODE *pb, *pt;
+
+     if(head == NULL)//如果链表不存在，则返回
+          return head;
+         
+     pb = head->next;
+     head->next = NULL;
+    
+     while(pb != NULL)
+     {
+          pt = pb->next;//记录pb下一个节点地址
+          pb->next = head;//这时才让pb->next指向他的上一个节点
+          head = pb;
+          pb = pt;
+     }
+    
+     return head;
+}
+</code>

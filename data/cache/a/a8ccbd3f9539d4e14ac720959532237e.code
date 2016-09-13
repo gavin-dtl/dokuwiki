@@ -1,0 +1,115 @@
+<span class="co2">#define offsetof(S_TYPE) ((int)&amp;((S_TYPE *)0)-&gt;list)</span>
+&nbsp;
+<span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+<span class="co2">#include &quot;share_link.h&quot;</span>
+&nbsp;
+     <span class="kw4">typedef</span> <span class="kw4">struct</span> list_head
+     <span class="br0">&#123;</span>
+          <span class="co1">//struct list_head *prior;</span>
+          <span class="kw4">struct</span> list_head <span class="sy0">*</span>next<span class="sy0">;</span>
+     <span class="br0">&#125;</span>NODE<span class="sy0">;</span>
+&nbsp;
+     <span class="kw4">typedef</span> <span class="kw4">struct</span> node
+     <span class="br0">&#123;</span>
+          NODE list<span class="sy0">;</span>
+          <span class="kw4">int</span> num<span class="sy0">;</span>
+          <span class="kw4">int</span> age<span class="sy0">;</span>
+     <span class="br0">&#125;</span>TYPE<span class="sy0">;</span>
+&nbsp;
+<span class="co1">//=============================================================</span>
+<span class="co1">// 语法格式：     creat(int n)</span>
+<span class="co1">// 实现功能：     创建一个具有n个节点的链表，并对其值进行初始化</span>
+<span class="co1">// 参数：          n: 链表的长度，即节点的个数</span>
+<span class="co1">// 返回值：          所创建链表的首地址</span>
+<span class="co1">//=============================================================</span>
+NODE <span class="sy0">*</span> creat<span class="br0">&#40;</span><span class="kw4">int</span> n<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+     NODE <span class="sy0">*</span>head <span class="sy0">=</span> NULL<span class="sy0">;</span>
+     TYPE <span class="sy0">*</span>ins <span class="sy0">=</span> NULL<span class="sy0">;</span>
+     <span class="kw4">int</span> i<span class="sy0">;</span>
+&nbsp;
+     <span class="kw1">for</span><span class="br0">&#40;</span>i<span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span>i<span class="sy0">&lt;</span>n<span class="sy0">;</span>i<span class="sy0">++</span><span class="br0">&#41;</span>
+     <span class="br0">&#123;</span>
+          ins <span class="sy0">=</span> <span class="br0">&#40;</span>TYPE <span class="sy0">*</span><span class="br0">&#41;</span><a href="http://www.opengroup.org/onlinepubs/009695399/functions/malloc.html"><span class="kw3">malloc</span></a><span class="br0">&#40;</span><span class="kw4">sizeof</span><span class="br0">&#40;</span>TYPE<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+          <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;insert Number and Age:<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+          <a href="http://www.opengroup.org/onlinepubs/009695399/functions/scanf.html"><span class="kw3">scanf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d %d&quot;</span><span class="sy0">,&amp;</span>ins<span class="sy0">-&gt;</span>num<span class="sy0">,&amp;</span>ins<span class="sy0">-&gt;</span>age<span class="br0">&#41;</span><span class="sy0">;</span>
+          head <span class="sy0">=</span> insert<span class="br0">&#40;</span>head<span class="sy0">,&amp;</span>ins<span class="sy0">-&gt;</span>list<span class="br0">&#41;</span><span class="sy0">;</span>
+     <span class="br0">&#125;</span>
+&nbsp;
+     <span class="kw1">return</span><span class="br0">&#40;</span>head<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co1">//=============================================================</span>
+<span class="co1">// 语法格式：     insert(NODE * head,NODE * pi)</span>
+<span class="co1">// 实现功能：     将新申请的节点加入到链表中</span>
+<span class="co1">// 参数：          *head:待插入链表</span>
+<span class="co1">//                    * pi：带插入节点</span>
+<span class="co1">// 返回值：          插入指定节点后的新链表首址</span>
+<span class="co1">//=============================================================</span>
+NODE <span class="sy0">*</span> insert<span class="br0">&#40;</span>NODE <span class="sy0">*</span> head<span class="sy0">,</span>NODE <span class="sy0">*</span> pi<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+     NODE <span class="sy0">*</span>pb<span class="sy0">=</span>head<span class="sy0">;</span>
+&nbsp;
+     <span class="kw1">if</span><span class="br0">&#40;</span>head<span class="sy0">==</span>NULL<span class="br0">&#41;</span><span class="co1">//如果为空就建立，空间在传入前申请好</span>
+     <span class="br0">&#123;</span>
+          head<span class="sy0">=</span>pi<span class="sy0">;</span>
+          pi<span class="sy0">-&gt;</span>next<span class="sy0">=</span>NULL<span class="sy0">;</span>
+     <span class="br0">&#125;</span>
+     <span class="kw1">else</span>
+     <span class="br0">&#123;</span>
+          <span class="kw1">while</span><span class="br0">&#40;</span>pb<span class="sy0">-&gt;</span>next<span class="sy0">!=</span>NULL<span class="br0">&#41;</span>
+          <span class="br0">&#123;</span>
+               pb<span class="sy0">=</span>pb<span class="sy0">-&gt;</span>next<span class="sy0">;</span> <span class="co1">//节点后移</span>
+          <span class="br0">&#125;</span>
+          pb<span class="sy0">-&gt;</span>next <span class="sy0">=</span> pi<span class="sy0">;</span><span class="co1">//在表末插入</span>
+          pi<span class="sy0">-&gt;</span>next <span class="sy0">=</span> NULL<span class="sy0">;</span>
+     <span class="br0">&#125;</span>
+     <span class="kw1">return</span> head<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co1">//=============================================================</span>
+<span class="co1">// 语法格式：     print(NODE * head)</span>
+<span class="co1">// 实现功能：     打印指定链表中的全部节点数据，由于循环双向表没有头节点，每个节点性质完全一样，只要给出任意节点就可以遍历</span>
+<span class="co1">// 参数：          *head：待打印的链表首址</span>
+<span class="co1">// 返回值：          无</span>
+<span class="co1">//=============================================================</span>
+<span class="kw4">void</span> print<span class="br0">&#40;</span>NODE <span class="sy0">*</span> Lnode<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+     NODE <span class="sy0">*</span> pb <span class="sy0">=</span> Lnode<span class="sy0">;</span>
+     TYPE <span class="sy0">*</span>view<span class="sy0">;</span>
+&nbsp;
+     <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;<span class="es1">\n</span>链表所有信息如下：<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+     <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;address<span class="es1">\t</span><span class="es1">\t</span>Number<span class="es1">\t</span><span class="es1">\t</span>Age<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+     <span class="kw1">if</span> <span class="br0">&#40;</span>pb <span class="sy0">==</span> NULL<span class="br0">&#41;</span>
+     <span class="br0">&#123;</span>
+          <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+          <span class="kw1">return</span><span class="sy0">;</span>
+     <span class="br0">&#125;</span>
+     <span class="kw1">while</span><span class="br0">&#40;</span>pb<span class="sy0">-&gt;</span>next <span class="sy0">!=</span> NULL<span class="br0">&#41;</span>
+     <span class="br0">&#123;</span>
+          view <span class="sy0">=</span> container_of<span class="br0">&#40;</span>pb<span class="br0">&#41;</span><span class="sy0">;</span>
+          <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%x<span class="es1">\t</span><span class="es1">\t</span>%d<span class="es1">\t</span><span class="es1">\t</span>%d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span>view<span class="sy0">,</span>view<span class="sy0">-&gt;</span>num<span class="sy0">,</span>view<span class="sy0">-&gt;</span>age<span class="br0">&#41;</span><span class="sy0">;</span>
+          pb<span class="sy0">=</span>pb<span class="sy0">-&gt;</span>next<span class="sy0">;</span>
+     <span class="br0">&#125;</span>
+     view <span class="sy0">=</span> container_of<span class="br0">&#40;</span>pb<span class="br0">&#41;</span><span class="sy0">;</span>
+     <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%x<span class="es1">\t</span><span class="es1">\t</span>%d<span class="es1">\t</span><span class="es1">\t</span>%d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span>view<span class="sy0">,</span>view<span class="sy0">-&gt;</span>num<span class="sy0">,</span>view<span class="sy0">-&gt;</span>age<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="br0">&#125;</span>
+<span class="co1">//=============================================================</span>
+<span class="co1">// 语法格式：     container_of(NODE *pb)</span>
+<span class="co1">// 实现功能：     通过结构体中某个成员的地址，求出该成员所在结构体的首地址</span>
+<span class="co1">// 参数：          结构体成员地址</span>
+<span class="co1">// 返回值：          返回结构体首地址</span>
+<span class="co1">//=============================================================</span>
+TYPE <span class="sy0">*</span> container_of<span class="br0">&#40;</span>NODE <span class="sy0">*</span>pb<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+     TYPE <span class="sy0">*</span> ret<span class="sy0">;</span>
+     NODE <span class="sy0">*</span> mptr <span class="sy0">=</span> pb<span class="sy0">;</span>
+      <span class="co1">//#define offsetof(S_TYPE) ((int)&amp;((S_TYPE *)0)-&gt;list)</span>
+     ret <span class="sy0">=</span> <span class="br0">&#40;</span>TYPE <span class="sy0">*</span><span class="br0">&#41;</span><span class="br0">&#40;</span> <span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy0">*</span><span class="br0">&#41;</span>mptr <span class="sy0">-</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/offsetof.html"><span class="kw3">offsetof</span></a><span class="br0">&#40;</span>TYPE<span class="br0">&#41;</span> <span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="co1">//     ret = (TYPE *)( (char *)mptr - ( (int) &amp;((TYPE *)0)-&gt;list ) );</span>
+<span class="co1">//      ret =  结构体成员list的地址  - list这个成员在结构体中的偏移</span>
+     <span class="kw1">return</span> ret<span class="sy0">;</span>
+<span class="br0">&#125;</span>

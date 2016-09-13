@@ -1,0 +1,59 @@
+
+<h1 class="sectionedit1" id="录像存在竖条纹">录像存在竖条纹</h1>
+<div class="level1">
+
+</div>
+<!-- EDIT1 SECTION "录像存在竖条纹" [1-38] -->
+<h2 class="sectionedit2" id="现象">现象：</h2>
+<div class="level2">
+<ol>
+<li class="level1"><div class="li"> 全志平台采用YUYV格式USB摄像头 </div>
+</li>
+<li class="level1"><div class="li"> 预览拍照均正常</div>
+</li>
+<li class="level1"><div class="li"> 录像画面静止时正常，运动时存在竖条纹，且运动越快，竖条纹越多</div>
+</li>
+</ol>
+
+</div>
+<!-- EDIT2 SECTION "现象：" [39-229] -->
+<h2 class="sectionedit3" id="原因分析">原因分析：</h2>
+<div class="level2">
+<ol>
+<li class="level1"><div class="li"> 摄像头原始格式为YUYV，需转换为NV21格式才能进行正常编码预览，转换时，操作ION内存，但是未对内存进行刷新，导致内存数据未得到及时更新，所用导致传输给编码的数据出错，生成竖条纹。</div>
+</li>
+</ol>
+
+</div>
+<!-- EDIT3 SECTION "原因分析：" [230-519] -->
+<h2 class="sectionedit4" id="解决方案">解决方案：</h2>
+<div class="level2">
+<ol>
+<li class="level1 node"><div class="li"> 调用ion_flush_cache刷新ION内存，更新内存，具体如下</div>
+<ul>
+<li class="level2"><div class="li"><pre class="code cpp">	<span class="kw1">if</span> <span class="br0">&#40;</span>mVideoFormat <span class="sy3">!</span><span class="sy1">=</span> V4L2_PIX_FMT_YUYV
+		<span class="sy3">&amp;&amp;</span> mCaptureFormat <span class="sy1">==</span> V4L2_PIX_FMT_YUYV<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+<span class="co2">#ifdef USE_MP_CONVERT</span>
+            YUYVToYUV420C<span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">void</span><span class="sy2">*</span><span class="br0">&#41;</span>buf.<span class="me1">m</span>.<span class="me1">offset</span>, 
+                      <span class="br0">&#40;</span><span class="kw4">void</span><span class="sy2">*</span><span class="br0">&#41;</span><span class="br0">&#40;</span>mVideoBuffer.<span class="me1">buf_phy_addr</span><span class="br0">&#91;</span>buf.<span class="me1">index</span><span class="br0">&#93;</span> <span class="sy3">|</span> <span class="nu12">0x40000000</span><span class="br0">&#41;</span>,
+                      mFrameWidth, 
+                      mFrameHeight<span class="br0">&#41;</span><span class="sy4">;</span>
+            ion_flush_cache<span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">void</span><span class="sy2">*</span><span class="br0">&#41;</span>mVideoBuffer.<span class="me1">buf_vir_addr</span><span class="br0">&#91;</span>buf.<span class="me1">index</span><span class="br0">&#93;</span>, mFrameWidth <span class="sy2">*</span> mFrameHeight <span class="sy2">*</span> <span class="nu0">2</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="co2">#else</span>
+            YUYVToNV21<span class="br0">&#40;</span>mMapMem.<span class="me1">mem</span><span class="br0">&#91;</span>buf.<span class="me1">index</span><span class="br0">&#93;</span>, 
+                       <span class="br0">&#40;</span><span class="kw4">void</span><span class="sy2">*</span><span class="br0">&#41;</span>mVideoBuffer.<span class="me1">buf_vir_addr</span><span class="br0">&#91;</span>buf.<span class="me1">index</span><span class="br0">&#93;</span>, 
+                       mFrameWidth, 
+                       mFrameHeight<span class="br0">&#41;</span><span class="sy4">;</span>
+            ion_flush_cache<span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">void</span><span class="sy2">*</span><span class="br0">&#41;</span>mVideoBuffer.<span class="me1">buf_vir_addr</span><span class="br0">&#91;</span>buf.<span class="me1">index</span><span class="br0">&#93;</span>, mFrameWidth <span class="sy2">*</span> mFrameHeight <span class="sy2">*</span> <span class="nu0">2</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="co2">#endif</span>
+	<span class="br0">&#125;</span>
+&nbsp;</pre>
+</div>
+</li>
+</ul>
+</li>
+</ol>
+
+</div>
+<!-- EDIT4 SECTION "解决方案：" [520-] -->

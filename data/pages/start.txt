@@ -1,2 +1,13 @@
-====== 丽萍，我想你 ！！！ ======
+===== Welcome!!! =====
+  * [[移居linux:start | 移居linux]]
+  * [[work:炫智:start | 炫智]]
+  * [[android:start | Android]]
 
+----
+
+===== 外部链接 =====
+  * [[http://www.iconfont.cn/ | iconfont]]
+  * [[https://bugly.qq.com/whitebook | bugly]]
+  * [[http://wiki.t-firefly.com/index.php/FirePrime | RK论坛]]
+  * [[http://www.armboard.org/wiki/index.php?title=%E9%A6%96%E9%A1%B5 | 全志视美泰论坛]]
+  * [[http://edu.csdn.net/course/detail/395# | 零基础学Java系列从入门到精通 - CSDN学院 - CSDN.NET]]

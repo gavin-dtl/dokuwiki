@@ -1,0 +1,26 @@
+===== 延时开启init.rc系统服务 =====
+
+
+===== 设置系统服务并默认不开启 ====
+
+<code bash>
+
+#service for ethernet_det hacking
+service ethernet_det /system/bin/ethernet_det
+	class core
+	disabled
+	oneshot
+</code>
+
+
+==== 启动服务服务 ====
+
+<code java>
+
+import android.os.SystemProperties;
+@Override
+    public void startServer() {
+        SystemProperties.set("ctl.start", "ethernet_det");
+    }
+
+</code>

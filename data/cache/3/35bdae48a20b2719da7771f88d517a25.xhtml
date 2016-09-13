@@ -1,0 +1,24 @@
+
+<h2 class="sectionedit1" id="修改android文件默认权限">修改android文件默认权限</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> system/core/include/private/android_filesystem_config.h</div>
+</li>
+</ul>
+<pre class="code cpp"><span class="kw4">static</span> <span class="kw4">const</span> <span class="kw4">struct</span> fs_path_config android_files<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span>
+    <span class="br0">&#123;</span> <span class="nu8">00440</span>, AID_ROOT,      AID_SHELL,     <span class="nu0">0</span>, <span class="st0">&quot;system/etc/init.goldfish.rc&quot;</span> <span class="br0">&#125;</span>,
+    <span class="br0">&#123;</span> <span class="nu8">00550</span>, AID_ROOT,      AID_SHELL,     <span class="nu0">0</span>, <span class="st0">&quot;system/etc/init.goldfish.sh&quot;</span> <span class="br0">&#125;</span>,
+    <span class="br0">&#123;</span> <span class="nu8">00440</span>, AID_ROOT,      AID_SHELL,     <span class="nu0">0</span>, <span class="st0">&quot;system/etc/init.trout.rc&quot;</span> <span class="br0">&#125;</span>,
+    <span class="br0">&#123;</span> <span class="nu8">00550</span>, AID_ROOT,      AID_SHELL,     <span class="nu0">0</span>, <span class="st0">&quot;system/etc/init.ril&quot;</span> <span class="br0">&#125;</span>,
+    <span class="br0">&#123;</span> <span class="nu8">00550</span>, AID_ROOT,      AID_SHELL,     <span class="nu0">0</span>, <span class="st0">&quot;system/etc/init.testmenu&quot;</span> <span class="br0">&#125;</span>,
+    <span class="br0">&#123;</span> <span class="nu8">00550</span>, AID_DHCP,      AID_SHELL,     <span class="nu0">0</span>, <span class="st0">&quot;system/etc/dhcpcd/dhcpcd-run-hooks&quot;</span> <span class="br0">&#125;</span>,
+    <span class="br0">&#123;</span> <span class="nu8">00444</span>, AID_RADIO,     AID_AUDIO,     <span class="nu0">0</span>, <span class="st0">&quot;system/etc/AudioPara4.csv&quot;</span> <span class="br0">&#125;</span>,
+    <span class="br0">&#123;</span> <span class="nu8">00555</span>, AID_ROOT,      AID_ROOT,      <span class="nu0">0</span>, <span class="st0">&quot;system/etc/ppp/*&quot;</span> <span class="br0">&#125;</span>,
+    <span class="br0">&#123;</span> <span class="nu8">00555</span>, AID_ROOT,      AID_ROOT,      <span class="nu0">0</span>, <span class="st0">&quot;system/etc/rc.*&quot;</span> <span class="br0">&#125;</span>,
+    <span class="br0">&#123;</span> <span class="nu8">00644</span>, AID_SYSTEM,    AID_SYSTEM,    <span class="nu0">0</span>, <span class="st0">&quot;data/app/*&quot;</span> <span class="br0">&#125;</span>,
+    <span class="br0">&#123;</span> <span class="nu8">00644</span>, AID_MEDIA_RW,  AID_MEDIA_RW,  <span class="nu0">0</span>, <span class="st0">&quot;data/media/*&quot;</span> <span class="br0">&#125;</span>,
+    <span class="br0">&#123;</span> <span class="nu8">00644</span>, AID_SYSTEM,    AID_SYSTEM,    <span class="nu0">0</span>, <span class="st0">&quot;data/app-private/*&quot;</span> <span class="br0">&#125;</span>,
+    <span class="br0">&#123;</span> <span class="nu8">00644</span>, AID_APP,       AID_APP,       <span class="nu0">0</span>, <span class="st0">&quot;data/data/*&quot;</span> <span class="br0">&#125;</span>,
+    <span class="br0">&#123;</span> <span class="nu8">00755</span>, AID_ROOT,      AID_ROOT,      <span class="nu0">0</span>, <span class="st0">&quot;system/bin/ping&quot;</span> <span class="br0">&#125;</span>,</pre>
+
+</div>
