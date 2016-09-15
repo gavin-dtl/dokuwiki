@@ -1,0 +1,54 @@
+===== 编译ngrok =====
+
+编译ngrok需要go>1.4版本支持
+<code bash>
+wget http://golangtc.com/static/go/1.4.2/go1.4.2.src.tar.gz
+wget http://golangtc.com/static/go/1.5/go1.5.src.tar.gz
+</code>
+
+==== 配置环境变量 ====
+<code bash>
+export GOROOT=$HOME/go 
+export GOBIN=$GOROOT/bin
+export GOARCH=arm
+export GOOS=linux
+export PATH=$GOROOT/bin:$PATH
+</code>
+
+<code bash>
+tar zxvf go1.4.2.src.tar.gz
+cd go/src
+./make.bash
+</code>
+
+<code bash>
+cd ../..
+mv go go1.4
+tar zxvf go1.5.src.tar.gz
+cd go/src
+./make.bash
+</code>
+
+<code bash>
+cd ../..
+git clone https://github.com/inconshreveable/ngrok.git
+cd ngrok
+sudo su
+export GOROOT=/home/disk/gavin/go 
+export GOBIN=$GOROOT/bin
+export GOARCH=arm
+export GOOS=linux
+export PATH=$GOROOT/bin:$PATH
+make release-all
+</code>
+
+make 失败安装sudo apt-get install mercurial
+
+文件生成在~/go/bin目录下
+
+==== 参考 ====
+[[http://xianglong.me/article/ubuntu-install-golang-env/]]
+
+[[https://github.com/inconshreveable/ngrok/blob/master/docs/DEVELOPMENT.md]]
+
+[[http://golangtc.com/downloadmd]]

@@ -1,0 +1,57 @@
+
+<h2 class="sectionedit1" id="a83t_移植">A83T 移植</h2>
+<div class="level2">
+
+</div>
+<!-- EDIT1 SECTION "A83T 移植" [1-25] -->
+<h3 class="sectionedit2" id="编译">编译</h3>
+<div class="level3">
+<ol>
+<li class="level1 node"><div class="li"> 编译选择 </div>
+<ul>
+<li class="level2"><div class="li"> sun8iw6p1</div>
+</li>
+</ul>
+</li>
+<li class="level1 node"><div class="li"> 编译uImage出错</div>
+<ul>
+<li class="level2"><div class="li"> 复制uboot下kmimage到系统bin目录下，系统确实此编译工具</div>
+</li>
+</ul>
+</li>
+</ol>
+
+</div>
+<!-- EDIT2 SECTION "编译" [26-185] -->
+<h3 class="sectionedit3" id="启动">启动</h3>
+<div class="level3">
+<ol>
+<li class="level1 node"><div class="li"> 修改默认启动选项</div>
+<ul>
+<li class="level2"><div class="li"> card0_boot0_para   0 2可用</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> 修改SDRAM参数，启动内存</div>
+</li>
+<li class="level1"><div class="li"> 修改pmu，去掉电池检测</div>
+</li>
+</ol>
+
+</div>
+<!-- EDIT3 SECTION "启动" [186-339] -->
+<h3 class="sectionedit4" id="常见错误">常见错误</h3>
+<div class="level3">
+<ul>
+<li class="level1 node"><div class="li"> pack 时</div>
+<ul>
+<li class="level2"><div class="li">Dragon execute image.cfg Failed !</div>
+</li>
+<li class="level2"><div class="li">sys_config.fex 语法出错</div>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+<!-- EDIT4 SECTION "常见错误" [340-] -->

@@ -1,4 +1,5 @@
 ==== 下载和编译 ====
+
 === 下载 ===
 <code shell>
 svn co svn://192.168.1.252/a83t/android
@@ -7,7 +8,6 @@ svn co svn://192.168.1.252/a83t/stm8s_ass
 </code>
 
 === 编译 ===
-二、编译
   * lichee
 <code shell>
   cd lichee
@@ -24,4 +24,11 @@ svn co svn://192.168.1.252/a83t/stm8s_ass
   make -j8                        //开始编译
   pack                            //打包固件
   lichee/tools/pack/sun8iw6p1_android_f1_uart0.img    //固件路径在
-   </code>
+</code>
+
+=== 烧写 ===
+  - PhoenixCard.exe, 打开固件
+  - 获取usb盘符
+  - 选择卡量产
+  - 点击烧录，有时烧录到卡里时会出现错误，这时点击恢复卡，重新烧录
+  - 插卡到板子，上电进行烧录，可从串口看是否烧录成功

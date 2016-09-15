@@ -3,13 +3,17 @@
 ----
 ==== Linux ====
   * [[移居linux:linux命令技巧 | Linux命令技巧]]
-  * [[移居linux:linux彩色字体显示 | linux彩色字体显示]]
+  * [[移居linux:VIM配置使用文档 | VIM配置使用文档]]
+  * [[移居linux:linux彩色字体显示 | linux彩色字体显示]] 
+  * [[移居linux:编译ngrok | 编译ngrok]]
 
 ----
 
 ==== Git ====
   * [[移居linux:git技巧及常见错误 | git技巧及常见错误]]
+  * [[移居linux:git工程管理 | git工程管理]]
   * [[移居linux:gitois安装 | gitois安装]]
+  * [[移居linux:git常用命令 | git常用命令]]
 
 ----
 ==== WIKI ====

@@ -1,0 +1,137 @@
+<span class="coMULTI">/*
+ * Copyright (C) 2007 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */</span>
+&nbsp;
+<span class="co2">#ifndef _LIBS_UTILS_MUTEX_H</span>
+<span class="co2">#define _LIBS_UTILS_MUTEX_H</span>
+&nbsp;
+<span class="co2">#include &lt;stdint.h&gt;</span>
+<span class="co2">#include &lt;sys/types.h&gt;</span>
+<span class="co2">#include &lt;time.h&gt;</span>
+&nbsp;
+<span class="co2">#if defined(HAVE_PTHREADS)</span>
+<span class="co2"># include &lt;pthread.h&gt;</span>
+<span class="co2">#endif</span>
+&nbsp;
+<span class="co2">#include &lt;utils/Errors.h&gt;</span>
+&nbsp;
+<span class="co1">// ---------------------------------------------------------------------------</span>
+<span class="kw2">namespace</span> android <span class="br0">&#123;</span>
+<span class="co1">// ---------------------------------------------------------------------------</span>
+&nbsp;
+<span class="kw2">class</span> Condition<span class="sy4">;</span>
+&nbsp;
+<span class="coMULTI">/*
+ * Simple mutex class.  The implementation is system-dependent.
+ *
+ * The mutex must be unlocked by the thread that locked it.  They are not
+ * recursive, i.e. the same thread can't lock it multiple times.
+ */</span>
+<span class="kw2">class</span> Mutex <span class="br0">&#123;</span>
+<span class="kw2">public</span><span class="sy4">:</span>
+    <span class="kw2">enum</span> <span class="br0">&#123;</span>
+        PRIVATE <span class="sy1">=</span> <span class="nu0">0</span>,
+        SHARED <span class="sy1">=</span> <span class="nu0">1</span>
+    <span class="br0">&#125;</span><span class="sy4">;</span>
+&nbsp;
+                Mutex<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+                Mutex<span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">char</span><span class="sy2">*</span> name<span class="br0">&#41;</span><span class="sy4">;</span>
+                Mutex<span class="br0">&#40;</span><span class="kw4">int</span> type, <span class="kw4">const</span> <span class="kw4">char</span><span class="sy2">*</span> name <span class="sy1">=</span> <span class="kw2">NULL</span><span class="br0">&#41;</span><span class="sy4">;</span>
+                ~Mutex<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="co1">// lock or unlock the mutex</span>
+    status_t    lock<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw4">void</span>        unlock<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="co1">// lock if possible; returns 0 on success, error otherwise</span>
+    status_t    tryLock<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="co1">// Manages the mutex automatically. It'll be locked when Autolock is</span>
+    <span class="co1">// constructed and released when Autolock goes out of scope.</span>
+    <span class="kw2">class</span> Autolock <span class="br0">&#123;</span>
+    <span class="kw2">public</span><span class="sy4">:</span>
+        <span class="kw2">inline</span> Autolock<span class="br0">&#40;</span>Mutex<span class="sy3">&amp;</span> mutex<span class="br0">&#41;</span> <span class="sy4">:</span> mLock<span class="br0">&#40;</span>mutex<span class="br0">&#41;</span>  <span class="br0">&#123;</span> mLock.<span class="me1">lock</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="br0">&#125;</span>
+        <span class="kw2">inline</span> Autolock<span class="br0">&#40;</span>Mutex<span class="sy2">*</span> mutex<span class="br0">&#41;</span> <span class="sy4">:</span> mLock<span class="br0">&#40;</span><span class="sy2">*</span>mutex<span class="br0">&#41;</span> <span class="br0">&#123;</span> mLock.<span class="me1">lock</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="br0">&#125;</span>
+        <span class="kw2">inline</span> ~Autolock<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> mLock.<span class="me1">unlock</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="br0">&#125;</span>
+    <span class="kw2">private</span><span class="sy4">:</span>
+        Mutex<span class="sy3">&amp;</span> mLock<span class="sy4">;</span>
+    <span class="br0">&#125;</span><span class="sy4">;</span>
+&nbsp;
+<span class="kw2">private</span><span class="sy4">:</span>
+    <span class="kw2">friend</span> <span class="kw2">class</span> Condition<span class="sy4">;</span>
+&nbsp;
+    <span class="co1">// A mutex cannot be copied</span>
+                Mutex<span class="br0">&#40;</span><span class="kw4">const</span> Mutex<span class="sy3">&amp;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    Mutex<span class="sy3">&amp;</span>      operator <span class="sy1">=</span> <span class="br0">&#40;</span><span class="kw4">const</span> Mutex<span class="sy3">&amp;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+<span class="co2">#if defined(HAVE_PTHREADS)</span>
+    pthread_mutex_t mMutex<span class="sy4">;</span>
+<span class="co2">#else</span>
+    <span class="kw4">void</span>    _init<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw4">void</span><span class="sy2">*</span>   mState<span class="sy4">;</span>
+<span class="co2">#endif</span>
+<span class="br0">&#125;</span><span class="sy4">;</span>
+&nbsp;
+<span class="co1">// ---------------------------------------------------------------------------</span>
+&nbsp;
+<span class="co2">#if defined(HAVE_PTHREADS)</span>
+&nbsp;
+<span class="kw2">inline</span> Mutex<span class="sy4">::</span><span class="me2">Mutex</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    pthread_mutex_init<span class="br0">&#40;</span><span class="sy3">&amp;</span>mMutex, <span class="kw2">NULL</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+<span class="kw2">inline</span> Mutex<span class="sy4">::</span><span class="me2">Mutex</span><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">char</span><span class="sy2">*</span> name<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    pthread_mutex_init<span class="br0">&#40;</span><span class="sy3">&amp;</span>mMutex, <span class="kw2">NULL</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+<span class="kw2">inline</span> Mutex<span class="sy4">::</span><span class="me2">Mutex</span><span class="br0">&#40;</span><span class="kw4">int</span> type, <span class="kw4">const</span> <span class="kw4">char</span><span class="sy2">*</span> name<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>type <span class="sy1">==</span> SHARED<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        pthread_mutexattr_t attr<span class="sy4">;</span>
+        pthread_mutexattr_init<span class="br0">&#40;</span><span class="sy3">&amp;</span>attr<span class="br0">&#41;</span><span class="sy4">;</span>
+        pthread_mutexattr_setpshared<span class="br0">&#40;</span><span class="sy3">&amp;</span>attr, PTHREAD_PROCESS_SHARED<span class="br0">&#41;</span><span class="sy4">;</span>
+        pthread_mutex_init<span class="br0">&#40;</span><span class="sy3">&amp;</span>mMutex, <span class="sy3">&amp;</span>attr<span class="br0">&#41;</span><span class="sy4">;</span>
+        pthread_mutexattr_destroy<span class="br0">&#40;</span><span class="sy3">&amp;</span>attr<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span> <span class="kw1">else</span> <span class="br0">&#123;</span>
+        pthread_mutex_init<span class="br0">&#40;</span><span class="sy3">&amp;</span>mMutex, <span class="kw2">NULL</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+<span class="kw2">inline</span> Mutex<span class="sy4">::</span>~Mutex<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    pthread_mutex_destroy<span class="br0">&#40;</span><span class="sy3">&amp;</span>mMutex<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+<span class="kw2">inline</span> status_t Mutex<span class="sy4">::</span><span class="me2">lock</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw1">return</span> <span class="sy2">-</span>pthread_mutex_lock<span class="br0">&#40;</span><span class="sy3">&amp;</span>mMutex<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+<span class="kw2">inline</span> <span class="kw4">void</span> Mutex<span class="sy4">::</span><span class="me2">unlock</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    pthread_mutex_unlock<span class="br0">&#40;</span><span class="sy3">&amp;</span>mMutex<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+<span class="kw2">inline</span> status_t Mutex<span class="sy4">::</span><span class="me2">tryLock</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw1">return</span> <span class="sy2">-</span>pthread_mutex_trylock<span class="br0">&#40;</span><span class="sy3">&amp;</span>mMutex<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co2">#endif // HAVE_PTHREADS</span>
+&nbsp;
+<span class="co1">// ---------------------------------------------------------------------------</span>
+&nbsp;
+<span class="coMULTI">/*
+ * Automatic mutex.  Declare one of these at the top of a function.
+ * When the function returns, it will go out of scope, and release the
+ * mutex.
+ */</span>
+&nbsp;
+<span class="kw4">typedef</span> Mutex<span class="sy4">::</span><span class="me2">Autolock</span> AutoMutex<span class="sy4">;</span>
+&nbsp;
+<span class="co1">// ---------------------------------------------------------------------------</span>
+<span class="br0">&#125;</span><span class="sy4">;</span> <span class="co1">// namespace android</span>
+<span class="co1">// ---------------------------------------------------------------------------</span>
+&nbsp;
+<span class="co2">#endif // _LIBS_UTILS_MUTEX_H</span>

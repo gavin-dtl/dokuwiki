@@ -1,0 +1,36 @@
+<div id="cowboyPhoto">
+    <?php
+
+    $header_image = tpl_getConf('headerImg');
+
+    if ($header_image == "") {
+
+        $header_image = DOKU_TPL."/images/cowboy.jpg";
+
+    }
+
+    ?>
+
+    <img src="<?php print $header_image; ?>">
+
+</div>
+
+<div id="cowboyPanel"></div>
+
+<div id="cowboyHeader">
+    <div id="cowboyHeaderCenter">
+        <span id="cowboyLogo">
+            <?php global $conf; print strip_tags($conf['title']); ?>
+        </span>
+    </div>
+</div>
+
+<div id="cowboyMenuPanel">
+    <div id="cowboyMenu">
+    <?php
+        tpl_include_page(tpl_getConf('menuID'));
+    ?>
+    </div>
+</div>
+
+<div id="cowboyMenuSeam" class="cowboySeam"></div>

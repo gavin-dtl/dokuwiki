@@ -7,6 +7,9 @@
 
 === MarkDown ===
 [[https://www.dokuwiki.org/plugin%3Amarkdownextra|markdown]]
+<markdown>
+# head
+</markdown>
 
 === 编辑插件 ===
   * [[https://www.dokuwiki.org/plugin%3Acodemirror|CodeMirror]]

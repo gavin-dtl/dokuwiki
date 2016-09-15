@@ -2,3 +2,4 @@ systemproperties
 settingsprovider
 sqliteopenhelper
 preordertraverse
+getsystemservice

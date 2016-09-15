@@ -1,0 +1,24 @@
+  <span class="co0">#安装samb服务器</span>
+  <span class="kw2">sudo</span> <span class="kw2">apt-get install</span> samba smbfs smbclient system-config-samba
+&nbsp;
+  <span class="co0">#安装右键“在终端中打开”的工具</span>
+  <span class="kw2">sudo</span> <span class="kw2">apt-get install</span> nautilus-open-terminal
+&nbsp;
+  <span class="co0">#安装gnome经典桌面</span>
+  <span class="kw2">sudo</span> <span class="kw2">apt-get install</span> gnome-shell
+&nbsp;
+  <span class="co0">#从源中安装xxx软件</span>
+  <span class="kw2">sudo</span> <span class="kw2">apt-get install</span> xxx 
+  <span class="co0">#删除包</span>
+  <span class="kw2">sudo</span> <span class="kw2">apt-get remove</span> xxx 
+  <span class="co0">#安装ssh</span>
+  <span class="kw2">sudo</span> <span class="kw2">apt-get install</span> openssh-server
+  <span class="co0">#启动ssh</span>
+  <span class="kw2">sudo</span> service <span class="kw2">ssh</span> start
+&nbsp;
+  <span class="co0">#代码整 理工具</span>
+  indent <span class="re5">-kr</span> <span class="re5">-i8</span> <span class="re5">-ts8</span> <span class="re5">-sob</span> <span class="re5">-l80</span> <span class="re5">-ss</span> <span class="re5">-bs</span> <span class="re5">-psl</span>
+&nbsp;
+  <span class="co0">#配置ip和网关</span>
+  <span class="kw2">ifconfig</span> eth0 10.221.3.1 netmask 255.255.255.0
+  route add default gw 10.221.3.100

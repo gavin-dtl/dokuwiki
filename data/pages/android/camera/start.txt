@@ -1,2 +1,3 @@
 ==== Camera ====
   * [[android:camera:录像存在竖条纹 | 录像存在竖条纹]]
+  * [[android:camera:v4l2 采集视频 | V4L2 采集视频]]

@@ -4,3 +4,7 @@ getdevicesforstream
 suggestedstreamtype
 getactivestreamtype
 bconfigurationvalue
+releasekerneltojb42
+inputmanagerservice
+systemsensormanager
+ihdmicontrolservice

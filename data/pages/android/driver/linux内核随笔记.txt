@@ -1,0 +1,25 @@
+===== Linux 内核随笔记 =====
+
+----
+==== do...while ====
+<code c>
+do{...}while
+#define spin_lock_nest_lock(lock, nest_lock)                   \
+do {                                             \
+     raw_spin_lock_nest_lock(spinlock_check(lock), nest_lock);     \
+} while (0)
+</code>
+
+宏定义不能简单的加一个括号，引用宏定义时习惯会加“；”号，会出错
+是为了实现给宏定义加上一个大括号，防止宏定义展开出错。
+
+
+==== linux内核模块 ====
+导出符号：
+
+<code c>
+	EXPORT_SYMBOL(符号名)；//符号名一般为函数名
+	EXPORT_SYMBOL_GPL(符号名)；
+</code>
+
+导出的符号可以被其他模块使用。

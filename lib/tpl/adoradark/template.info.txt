@@ -1,0 +1,7 @@
+base     adoradark
+author   Drew Prentice
+email    weirdpercent@gmail.com
+date     2014-09-29
+name     Adora Dark
+desc     Dark version of default template
+url      http://www.dokuwiki.org/template:adoradark

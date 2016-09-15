@@ -1,6 +1,7 @@
 ===== Android =====
 
 ----
+{{page>@android@:@:misc@:@start}}
 
 {{page>@android@:@:c_cpp@:@start}}
 

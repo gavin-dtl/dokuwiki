@@ -1,0 +1,4 @@
+repo: 7137ad9d30a8cb10e5b4924d6407a17362cce9f1
+node: 2be7008ac6df1ae564822bf6e7ed17701e3ec3a5
+branch: default
+tag: gtopia-v0.5

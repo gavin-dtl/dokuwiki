@@ -4,16 +4,22 @@
 <hr />
 
 </div>
-<!-- EDIT1 SECTION "git技巧及常见错误" [1-43] -->
-<h3 class="sectionedit2" id="解决_gitignore_不生效">解决 .gitignore 不生效</h3>
+<!-- EDIT1 SECTION "git技巧及常见错误" [1-44] -->
+<h3 class="sectionedit2" id="配置提交编辑器">配置提交编辑器</h3>
+<div class="level3">
+<pre class="code bash">  <span class="kw2">git config</span> <span class="re5">--global</span> core.editor <span class="kw2">vim</span> <span class="sy0">//</span>配置提交时使用<span class="kw2">vim</span>作为编辑器</pre>
+
+</div>
+<!-- EDIT2 SECTION "配置提交编辑器" [45-177] -->
+<h3 class="sectionedit3" id="解决_gitignore_不生效">解决 .gitignore 不生效</h3>
 <div class="level3">
 <pre class="code bash">  <span class="kw2">git rm</span> <span class="re5">-r</span> <span class="re5">--cached</span> .
   <span class="kw2">git add</span> .
   <span class="kw2">git commit</span> <span class="re5">-m</span> <span class="st_h">'update .gitignore'</span></pre>
 
 </div>
-<!-- EDIT2 SECTION "解决 .gitignore 不生效" [44-173] -->
-<h3 class="sectionedit3" id="忽略掉文件权限检查">忽略掉文件权限检查</h3>
+<!-- EDIT3 SECTION "解决 .gitignore 不生效" [178-307] -->
+<h3 class="sectionedit4" id="忽略掉文件权限检查">忽略掉文件权限检查</h3>
 <div class="level3">
 
 <p>
@@ -24,4 +30,4 @@ error : old mode 100755 new mode 100644 <br/>
 <pre class="code bash">	<span class="kw2">git config</span> <span class="re5">--add</span> core.filemode <span class="kw2">false</span></pre>
 
 </div>
-<!-- EDIT3 SECTION "忽略掉文件权限检查" [174-] -->
+<!-- EDIT4 SECTION "忽略掉文件权限检查" [308-] -->

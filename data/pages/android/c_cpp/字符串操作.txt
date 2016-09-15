@@ -1,0 +1,45 @@
+===== 字符串操作 =====
+<code c>
+strlen                     //长度测量
+strcpy/strncpy         //拷贝
+strcat/strncat         //连接
+strcmp/strncmp     //比较
+strchr                   //字符匹配函数
+strstr                   //字符串匹配
+memset               //空间设定函数
+atoi/atol/atof        //字符串转换功能
+strtok                  //字符串分割数
+</code>
+  
+==== strtok 字符串切割函数 ====
+char *strtok(char s[], const char *delim);
+  * 功能：strtok()用来将字符串分割成一个个片段。
+  * 参数1：s指向欲分割的字符串
+  * 参数2：delim则为分割字符串中包含的所有字符。
+  * 当strtok()在参数s的字符串中发现参数delim中包含的分割字符时,则会将该字符改为\0 字符，当连续出现多个时只替换第一个为\0。在第一次调用时：strtok()必需给予参数s字符串,往后的调用则将参数s设置成NULL，每次调用成功则返回指向被分割出片段的指针
+
+==== 格式化字符串操作函数 ====
+=== 输出到buf指定的内存区域。 ===
+<code c>int sprintf(char *buf, const char *format, …); </code>
+例：
+<code c>
+char buf[20];
+sprintf(buf,"%d:%d:%d",2013,10,1);
+</code>
+
+=== 从buf指定的内存区域中读入信息 ===
+<code c>int sscanf(const char *buf,const char *format, …);</code>
+例：int a, b, c;
+<code c>sscanf("2013:10:1", "%d:%d:%d", &a, &b, &c)</code>
+  
+=== sscanf高级用法 ===
+  * 跳过数据：%*s或%*d
+    * 例：sscanf("1234 5678", "%*d %s", buf);
+  * 读指定宽度的数据：%[width]s
+    *例：sscanf("12345678", "%4s", buf);
+  * 支持集合操作：
+    * %[a-z]       表示匹配a到z中任意字符(尽可能多的匹配)
+    * %[aBc]      匹配a、B、c中一员，贪婪性
+    * %[^a]       匹配非a的任意字符，贪婪性
+    * %*[^a] a   匹配非a的任意字符，忽略掉a字符前的，再把a忽略
+    * %[^a-z]     表示读取除a-z以外的所有字符

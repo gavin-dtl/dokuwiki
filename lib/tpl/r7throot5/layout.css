@@ -1,0 +1,555 @@
+/* ================================ GENERAL ================================= */
+html, body 
+{
+	margin: 0;
+	padding: 0;
+	min-height: 100%;
+}
+
+* 
+{
+	font-family: Trebuchet MS, Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+}
+
+body 
+{
+	background: #000 url(images/bg_main.gif) repeat top center;
+	margin: 20px 0 20px 0;
+}
+
+a { color: #3E79A0;}
+a:hover {color: #000;}
+.wikilink1 {color: #3E79A0;}
+.wikilink2 {color: #AB7F61;}
+
+a img { border: none; }
+
+ol 
+{
+	line-height: 1.5em;
+	margin: 0 0 .5em 2.0em;
+	padding: 0;
+}
+
+ul 
+{
+	aline-height: 1.5em;
+	list-style-type: square;
+	margin: 0 0 2.0em 2.0em;
+	padding: 0;
+	list-style-image: url(images/bullet.gif);
+}
+
+html> body> #dokuwiki 
+{
+	width: 750px; 
+	margin: 0px auto; 
+	background: #fff url(images/fnd_doku.jpg) repeat-y top left;
+	border: 1px solid #fff;
+}
+
+/* ================================ HEADER ================================== */
+#header
+{
+	text-align: center;
+	height: 124px;
+	width: 750px;
+	margin: 0px auto;
+	background-color: #fff;
+	background: url(images/fnd_header.png) repeat-x top center;
+}
+#header a {margin: 0px; padding: 0px; border: none}
+
+
+/* ================================= MENU =================================== */
+.menu
+{
+	text-align: center;
+	height: 35px;
+	width: 750px;
+	margin-top: 0px;
+	margin: 0px auto;
+	padding: 0 0 0 0;
+	background: #fff url(images/fnd_menu.jpg) repeat-x 1px 0px;
+	text-transform:uppercase;
+}
+.menu ul 
+{
+	margin: 0;
+	padding: 0;
+	display: inline;
+}
+.menu ul li {display: inline;}
+.menu ul li a 
+{
+	padding: 0 1em 0 1em;
+	color: #fff;
+	text-decoration: none;
+	font-size: 11px;
+}
+.menu ul li a:hover {text-decoration: underline;}
+.menu .level1, .menu .li {display: inline}
+
+
+/* ================================== SIDE ================================== */
+.sidebar
+{
+	width: 175px;
+	float: left;
+	padding: 5px;
+	margin: 0px;
+	text-align: right;
+	font-size: 10px;
+}
+
+.sidebar h1
+{
+	text-align: left;
+	font-size: 11px;
+}
+.sidebar .buscar {padding: 5px;}
+.buscar input {width: 70px}
+.sidebar ul {margin: 0px; padding: 0px; margin-bottom:10px;}
+.sidebar li {list-style:none;}
+
+.search
+{
+	width: 180px;
+}
+.search input {width: 120px;}
+.search .button {width: 50px; margin-left:4px}
+.search form
+{
+	border: none;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+.actions
+{
+	border: 1px solid #43BFE1;
+	background-color: #EBEBEB;
+	margin: 0 0 0 2px;
+	width: 165px;
+	text-align: center;
+	padding: 5px;
+	margin-bottom: 15px;
+}
+
+
+/* ================================= CONTENT ================================ */
+#Content
+{
+	margin-left: 185px;
+	padding: 15px;
+	color: #333;
+	line-height: 20px;
+}
+
+#Content .comment_wrapper {float: left; width:520px; margin-left:1px; background-color: #EEF3FF; margin-top: 30px}
+#discussion__comment_text {width: 475px}
+div.dokuwiki div.comment_wrapper {
+  background-color: #d9e8ff;
+  margin: 1em -1em;
+  padding: 0.5em 1em;
+  margin-top: 20px;
+}
+
+
+/* ================================== BODY ================================== */
+#body
+{
+	margin: 0px auto;
+	background-color: transparent;
+	color: #000;
+	width: 750px;
+	margin: 0 auto 0 auto;
+	padding: 0px;
+}
+
+#body_top, #body_bottom
+{
+	height: 0px;
+	background-color: transparent;
+	color: #000;
+}
+
+#body h1, #body h2, #body h3, #body h4, #body h5 {margin: .5em 0 0 0;}
+#body h1 a, #body h2 a, #body h3 a, #body h4 a, #body h5 a
+{
+	font-size: 1em;
+	font-family: inherit;
+	color: #4478D1;
+	background-color: inherit;
+}
+
+#body h1, #body h2, #body h3, #body h4, #body h5
+{
+	font-family: Georgia, "Times New Roman", serif;
+	font-weight: bold;
+	color: #8c2121;
+}
+#body h1 {font-size: 1.8em; border-bottom: 1px solid #dedede;}
+#body h2 {font-size: 1.6em; border-bottom: 1px dashed #dedede;}
+#body h3 {font-size: 1.3em;}
+#body h4, #body h5 {font-size: 1em;}
+#body input {border: solid 1px #8cacbb;}
+#body input:hover {border: solid 1px #000;}
+
+.code, .file 
+{
+	border: 1px dashed #999;
+	background-color: #f7f9fa;
+	padding: 5px;
+	overflow: auto;
+	color: black;
+}
+.code, .code * 
+{
+	font-size: .9em;
+	font-family: "Courier New",Courier,monospace;
+}
+
+/* ============================= DOKUWIKI LEVELS ============================ */
+#body h1 { margin-left: 0em; }
+div.level1 { margin: 1em 0 0 0; }
+#body h2 { margin-left: 1em; }
+div.level2 { margin: 1em 0 0 2em; }
+#body h3 { margin-left: 2em; }
+div.level3 { margin: 1em 0 0 3em; }
+#body h4 { margin-left: 3em; }
+div.level4 { margin: 1em 0 0 4em; }
+#body h5 { margin-left: 4em; }
+div.level5 { margin: 1em 0 0 5em; }
+
+
+/* ================================== TABLE ================================== */
+#body table
+{
+	border: solid 1px #999; 
+	margin: 5px 0 5px 0;
+	border-collapse: collapse;
+}
+#body table th
+{
+	border: solid 1px #999; background-color: #eee;
+	padding: 2px 5px 2px 5px;
+}
+
+#body table td
+{
+	border: solid 1px #ccc; background-color: #fff;
+	padding: 2px 5px 2px 5px;
+}
+
+#body table tr:hover { background-color: #ffffe5; }
+#body table td.rightalign { text-align: right; }
+#body table td.centeralign { text-align: center; }
+#body table td.leftalign { text-align: left; }
+
+.gallery, .gallery tr, .gallery td { border: 5px solid #fff }
+#body .gallery td { border: 1px solid #fff }
+
+/* ================================= FOOTER ================================= */
+#footer
+{
+	clear: both;
+	border-top: 4px solid #43BFE1;
+	text-align: center;
+	height: 45px;
+	width: 750px;
+	margin: 0px auto;
+	background: url(images/fnd_header.png) repeat-x top center;
+}
+
+#footer li { display: inline;}
+#footer ul { padding: 0;margin-top: 15px;}
+
+#footer li a
+{
+	border: solid 1px #8cacbb;
+	background-color: #efebe7;
+	color: #000;
+	text-decoration: none;
+	white-space: nowrap;
+	padding: 2px 10px 2px 10px;
+}
+#footer li a:hover
+{
+	border: solid 1px #000;
+	background-color: #efebe7;
+	color: #000;
+}
+#footer .links li a
+{
+	padding: 0px; margin: 0px;
+	background-color: transparent;
+	border: none;
+}
+#footer .links li a:hover
+{
+	background-color: transparent;
+	border: none;
+}
+
+#footer input
+{
+	border: solid 1px #8cacbb;
+	margin-left: 2px;
+}
+#footer input:hover {border: solid 1px #000;}
+#footer form {float: right;}
+#footer p {margin: 0;}
+
+/* ==================================== RSK  =================================== */
+/* ================================== BUTTONS ================================== */
+.button .no{float: right; margin-bottom:3px}
+.button
+{
+  background:  #fff url(images/buttonshadow.png) repeat-x bottom;
+  border: none;
+}
+
+/* ================================== TOC ================================== */
+/* TOC control */
+#dokuwiki div.toc {float: left;}
+#dokuwiki div.tocheader {text-align: right;}
+#dokuwiki #toc__inside {text-align: right;}
+
+#dokuwiki ul.toc
+{
+  padding: 0;
+  padding-right: 1em;
+}
+
+#dokuwiki ul.toc li
+{
+  background-position: right 0.6em;
+  padding-right:0.4em;
+  direction: rtl;
+}
+
+#dokuwiki ul.toc li.clear{padding-right:0.4em;}
+#dokuwiki pre {text-align: left;}
+
+#dokuwiki div.toc
+{
+  margin: 1.2em 0 0 2em;
+  float: right;
+  width: 200px;
+  font-size: 80%;
+  clear: both;
+}
+
+#dokuwiki div.tocheader
+{
+  border: 1px solid __border__;
+  background-color: __background_alt__;
+  text-align: left;
+  font-weight: bold;
+  padding: 3px;
+  margin-bottom: 2px;
+}
+
+#dokuwiki span.toc_open,
+#dokuwiki span.toc_close
+{
+    border: 0.4em solid __background_alt__;
+    float: right;
+    display: block;
+    margin: 0.4em 3px 0 0;
+}
+
+#dokuwiki span.toc_open span, #dokuwiki span.toc_close span{display: none;}
+
+#dokuwiki span.toc_open
+{
+    margin-top: 0.4em;
+    border-top: 0.4em solid __text__;
+}
+
+#dokuwiki span.toc_close
+{
+    margin-top: 0;
+    border-bottom: 0.4em solid __text__;
+}
+
+#dokuwiki #toc__inside
+{
+  border: 1px solid __border__;
+  background-color: __background__;
+  text-align: left;
+  padding: 0.5em 0 0.7em 0;
+}
+
+#dokuwiki ul.toc
+{
+  list-style-type: none;
+  list-style-image: none;
+  line-height: 1.2em;
+  padding-left: 1em;
+  margin: 0;
+}
+
+#dokuwiki ul.toc li
+{
+  background: transparent url(images/tocdot2.gif) 0 0.6em no-repeat;
+  padding-left: 0.4em;
+}
+
+#dokuwiki ul.toc li.clear
+{
+  background-image: none;
+  padding-left: 0.4em;
+}
+
+#dokuwiki a.toc:link, #dokuwiki a.toc:visited {color: __extern__;}
+
+#dokuwiki a.toc:hover, #dokuwiki a.toc:active {color: __text__;}
+
+
+
+/* ================================== TOOLBAR ================================== */
+button.toolbutton
+{
+  background-color: __background__;
+  padding: 0px;
+  margin: 0 1px 0 0;
+  border: 1px solid __border__;
+  cursor: pointer;
+}
+
+/* nice alphatransparency background except for IE <7 */
+html>body button.toolbutton
+{
+  background:  #fff url(images/buttonshadow.png) repeat-x bottom;
+  border: 1px solid #dedede;
+}
+
+div.picker
+{
+  width: 250px;
+  border: 1px solid __border__;
+  background-color: __background_alt__;
+}
+
+button.pickerbutton
+{
+  padding: 0px;
+  margin: 0 1px 1px 0;
+  border: 0;
+  background-color: transparent;
+  font-size: 80%;
+  cursor: pointer;
+}
+
+textarea
+{
+	border: 1px solid #dedede;
+	background-color: #fafafa;
+	width: 535px;
+	font-size: 90%;
+}
+/* =================================== BLOG ==================================== */
+#dokuwiki div.inclmeta
+{
+	background-color: #F7F7F7;
+	padding-left: 20px;
+	margin: 0px auto;
+	width: 450px;
+	border-left: 2px dotted #dedede;
+	border-right: 2px dotted #dedede;
+	margin-bottom: 40px;
+}
+#dokuwiki div.inclmeta a {font-size:10px}
+
+#dokuwiki div.inclmeta span.comment
+{
+  background: transparent url(images/ico/comment.png) 0px 1px no-repeat;
+  padding: 0px 0px 1px 20px;
+}
+#dokuwiki div.inclmeta abbr.published
+{
+  background: transparent url(images/ico/clock.png) 0px 1px no-repeat;
+  padding: 1px 0px 1px 20px;
+  border-bottom: 0;
+}
+#dokuwiki div.inclmeta span.author
+{
+  background: transparent url(images/ico/user.png) 0px 1px no-repeat;
+  padding: 1px 0px 1px 20px;
+}
+#dokuwiki div.tags span
+{
+  background: transparent url(images/ico/tag.png) 0px 1px no-repeat;
+  padding: 1px 0px 1px 20px;
+}
+#dokuwiki div.inclmeta a.permalink
+{
+  background: transparent url(images/ico/permalink.png) 0px 1px no-repeat;
+  padding: 1px 0px 1px 20px;
+}
+
+
+/* ================================== DISCUSSION ==================================== */
+#Content .comment_wrapper {float: left; width:520px; margin-left:1px; background-color: #fff; margin-top: 30px}
+#discussion__comment_text {width: 475px}
+
+#Content .comment_wrapper .comment_head
+{
+	background-color: #fff;
+	background: #fff url(images/comment-head.gif) no-repeat bottom left;
+	height: 60px;
+	margin: 0px;
+}
+#Content .comment_wrapper .entry_content {padding: 0px; margin: 0px}
+
+#Content .comment_wrapper .comment_body
+{
+	text-align: left;
+	margin: 0px; padding: 0px;
+	background-color: #fafafa;
+	border-bottom: 1px solid #d1d1d1;
+	border-left: 1px solid #d1d1d1;
+	border-right: 1px solid #d1d1d1;
+	border-top: 1px solid #fafafa;
+	
+}
+#Content .comment_wrapper .comment_body p {padding: 10px; color: #6D6D6D}
+#Content .comment_wrapper .comment_form
+{
+	margin-top: 50px;
+	text-align: right;
+}
+
+/* ================================== GALERIA ==================================== */
+.migaleria {text-align: left}
+.migaleria img
+{
+	border: 1px solid #d1d1d1;
+	margin: 6px;
+	padding: 5px;
+}
+.migaleria p {padding: 10px;}
+
+/* ================================== OTHER ==================================== */
+.medialeft
+{
+	padding: 8px;
+}
+
+.breadcrumbs
+{
+	font-family: Verdana;
+	font-size: 11px;
+	margin-bottom: 15px;
+}
+.center
+{
+	text-align: center;
+	margin: 0px auto;
+}
+.buttons ul {padding: 0px; margin: 0px; list-style: none; margin-top: 20px}
+.buttons li{display: inline; padding: 0px; margin: 0px;}
+.buttons li .li {display: inline}

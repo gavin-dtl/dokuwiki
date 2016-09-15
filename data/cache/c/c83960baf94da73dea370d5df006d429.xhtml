@@ -1,0 +1,55 @@
+
+<h2 class="sectionedit1" id="工程下载编译">628工程下载编译</h2>
+<div class="level2">
+
+<h2 class="sectionedit2" id="svn地址">SVN地址</h2>
+
+<p>svn://192.168.1.252/6A628/628_Mboot
+svn://192.168.1.252/6A628/628_Linux
+svn://192.168.1.252/6A628/628_Supernova
+svn://192.168.1.252/6A628/628_KitKat</p>
+
+<h1 class="sectionedit1" id="编译流程">编译流程</h1>
+
+<h2 class="sectionedit2" id="mboot">mboot</h2>
+
+<ol><li>进入mboot/sboot执行以下命令。
+make clean;make</li>
+</ol><h2 class="sectionedit2" id="kernel">kernel</h2>
+
+<ol><li>./genlink.sh</li>
+<li>make clean;make</li>
+</ol><h2 class="sectionedit2" id="kitcat">Kitcat</h2>
+
+<ol><li>source ./build/envsetup.sh</li>
+<li>lunch   choose  12（full_mango-userdebug)</li>
+<li>make</li>
+<li>./development/scripts/releaseimage.sh</li>
+<li>Bk与image比较把下面的文件从bk覆盖image同样的文件。
+（只要执行了./development/scripts/releaseimage.sh命令，就必须修改此config文件）</li>
+</ol><p>在打包bin之前，确保：
+（1）首先要先确认628_Mboot\sboot\out 中最新的
+mboot.bin和rom_emmc_boot.bin   copy 到 \images\kitkat\mango中。
+（2）需要确认supernova也编译过，并且images中有supernova生成的最新相关镜像。</p>
+
+<h2 class="sectionedit2" id="打包bin文件">打包bin文件：</h2>
+
+<ol><li>development/scripts 中 ./make_usb_upgrade.sh</li>
+<li>choose 2)madison Device? 1)mango 2)banana :1 DEVICE: mango</li>
+<li><strong>Enable secureboot? (y/n)n</strong></li>
+<li>Upgrade all? (y/n)y</li>
+<li><strong>Update tee? (y/n)n</strong></li>
+<li>Update tvconfig? (y/n)y     //这个是升级supernova的</li>
+<li><strong>Upgrade systembackup? (y/n)n</strong></li>
+<li>Update RTPM? (y/n)y</li>
+<li>Upgrade mboot? (y/n)y</li>
+<li>Mboot partition type 1)SPI; 2)EMMC :    2</li>
+</ol><p>Supernova
+1. source buildsettings/build_Madison_066B_TVOS_ROM_EMMC.sh
+2. ./make_kitkat_066B_release.sh</p>
+
+<h2 class="sectionedit2" id="升级">升级</h2>
+
+<p>开机按enter键，串口输入custar进行升级</p>
+
+</div>

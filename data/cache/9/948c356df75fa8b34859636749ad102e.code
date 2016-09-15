@@ -1,0 +1,13 @@
+  <span class="kw2">git config</span> <span class="re5">--global</span> user.name <span class="st0">&quot;gavin&quot;</span>
+  <span class="kw2">git config</span> <span class="re5">--global</span> user.email <span class="st0">&quot;gavin.deng@eyeseeuhd.com&quot;</span>
+  <span class="kw2">git init</span>
+  <span class="kw2">git add</span> .
+  <span class="kw2">git commit</span>
+  <span class="kw2">git diff</span>  <span class="re5">--cached</span>   <span class="co0">#查看index file和仓库之间代码的区别</span>
+  <span class="kw2">git status</span>   <span class="co0">#命令来获取整体改动的信息</span>
+  <span class="kw2">git log</span>   <span class="co0">#或 -p</span>
+  <span class="kw2">git commit</span> <span class="re5">-a</span>  <span class="co0">#但不能新增文件</span>
+&nbsp;
+&nbsp;
+  <span class="kw2">git reset</span> <span class="re5">--hard</span>
+  <span class="kw2">git show</span> master  <span class="co0">#master分支名</span>

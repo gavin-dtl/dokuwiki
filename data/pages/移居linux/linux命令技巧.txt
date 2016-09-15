@@ -1,11 +1,85 @@
 ===== linux命令技巧 =====
 
 ----
-==== 搜索命令 ====
+=== 备份文件 ===
+<code bash>
+rsync -vare ssh jono@192.168.0.2:/home/jono/importantfiles/* /home/jono/backup/
+</code>
+
+=== 搜索命令 ===
 <code bash>
   logcat | grep fallocate 
   grep -Inrs " incomplete xfer" * 
+  grep -E "http" . -R --exclude-dir={.git,res,bin}
+  #附赠一个，排除扩展名为 java 和 js 的文件
+  grep -E "http" . -R --exclude=*.{java,js}
+
   find pathname -options 
   find . -name 
   find -name '.git*' |xargs rm -rf
 </code>
+
+=== 字符串替换 ===
+<code bash>
+	sed -i "s/原字符串/新字符串/g" grep 原字符串 -rl 所在目录
+</code>
+
+=== 更改用户默认sh ===
+<code bash>
+  chsh
+</code>
+
+=== 更命令显示 ===
+<code bash>
+	PS1="$ [\e[31m]\t[\e[0m] [\e[32m]\u[\e[0m][\e[33m]@[\e[0m][\e[34m]\h[\e[0m] [[\e[36m]\w[\e[0m]] \n[\e[35m]o[\e[0m]$ "
+	PS1="[\e[35m]o $[\e[0m] \t \u@\h [\w] \n[\e[32m]o $[\e[0m] "
+	\033[47;34mWARN: $*\033[0m
+</code>
+
+<code bash>
+  #安装samb服务器
+  sudo apt-get install samba smbfs smbclient system-config-samba
+
+  #安装右键“在终端中打开”的工具
+  sudo apt-get install nautilus-open-terminal
+
+  #安装gnome经典桌面
+  sudo apt-get install gnome-shell
+
+  #从源中安装xxx软件
+  sudo apt-get install xxx 
+  #删除包
+  sudo apt-get remove xxx 
+  #安装ssh
+  sudo apt-get install openssh-server
+  #启动ssh
+  sudo service ssh start
+
+  #代码整 理工具
+  indent -kr -i8 -ts8 -sob -l80 -ss -bs -psl
+
+  #配置ip和网关
+  ifconfig eth0 10.221.3.1 netmask 255.255.255.0
+  route add default gw 10.221.3.100
+</code>
+
+=== 压缩与解压缩命令 ==
+  * tar：压缩与解压缩命令
+    * gzip格式：
+      * 压缩用法：tar zcvf 压缩包包名 文件1 文件2 ...
+      * 例子：tar zcvf bk.tar.gz *.c
+      * 解压到指定目录：-C
+      * 例子：tar zxvf bk.tar.gz -C ./test
+      * 将bk.tar.gz解压到当前目录下的test目录下
+    * bz2格式：
+      * 压缩用法： tar jcvf 压缩包包名 文件1 文件2 ...
+      * 例子：tar jcvf bk.tar.bz2 *.c
+      * 解压到指定目录：-C
+      * 例子：tar jxvf bk.tar.bz2 -C ./
+
+=== 修改权限 ===
+  * chmod 也可以用数字来表示权限如 chmod 777 file
+  * 语法为 chmod abc file
+  * 其中 a,b,c 各为一个数字,分别表示 User Group 及 Other 的权限,r=4 w=2 x=1,若要 rwx 属性则 4+2+1=7,若要 rw-属性则 4+2=6,若要 r-x 属性则 4+1=7
+
+

@@ -10,3 +10,11 @@ startsupplicant
 layoutdirection
 unconditionally
 inordertraverse
+contentprovider
+cvsexportcommit
+getsystemserver
+idisplaymanager
+localsocketimpl
+vibratorservice
+registerservice
+inconshreveable

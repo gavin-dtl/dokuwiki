@@ -1,0 +1,12 @@
+  <span class="kw2">git branch</span> experimental  <span class="co0">#新建分支</span>
+  <span class="kw2">git branch</span>          <span class="co0">#列出分支</span>
+  <span class="kw2">git checkout</span> experimental <span class="co0">#切换分支</span>
+  <span class="kw2">git commit</span> <span class="re5">-a</span>   <span class="co0">#在分支体提交工作</span>
+&nbsp;
+  <span class="kw2">git checkout</span> master   <span class="co0">#切换到主分支</span>
+&nbsp;
+  <span class="kw2">git merge</span> experimental  <span class="co0">#合并分支</span>
+&nbsp;
+  <span class="kw2">git branch</span> <span class="re5">-d</span> experimental   <span class="co0">#在分支已经合并到主干后删除分支</span>
+&nbsp;
+   <span class="co0">#注：本地切换分支，会把代码修改为对应分支的代码</span>

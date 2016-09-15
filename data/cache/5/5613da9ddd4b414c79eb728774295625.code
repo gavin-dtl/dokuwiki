@@ -1,0 +1,10 @@
+<span class="kw3">cd</span> ..<span class="sy0">/</span>..
+<span class="kw2">git clone</span> https:<span class="sy0">//</span>github.com<span class="sy0">/</span>inconshreveable<span class="sy0">/</span>ngrok.git
+<span class="kw3">cd</span> ngrok
+<span class="kw2">sudo</span> <span class="kw2">su</span>
+<span class="kw3">export</span> <span class="re2">GOROOT</span>=<span class="sy0">/</span>home<span class="sy0">/</span>disk<span class="sy0">/</span>gavin<span class="sy0">/</span>go 
+<span class="kw3">export</span> <span class="re2">GOBIN</span>=<span class="re1">$GOROOT</span><span class="sy0">/</span>bin
+<span class="kw3">export</span> <span class="re2">GOARCH</span>=arm
+<span class="kw3">export</span> <span class="re2">GOOS</span>=linux
+<span class="kw3">export</span> <span class="re2">PATH</span>=<span class="re1">$GOROOT</span><span class="sy0">/</span>bin:<span class="re1">$PATH</span>
+<span class="kw2">make</span> release-all

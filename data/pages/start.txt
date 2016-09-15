@@ -11,3 +11,5 @@
   * [[http://wiki.t-firefly.com/index.php/FirePrime | RK论坛]]
   * [[http://www.armboard.org/wiki/index.php?title=%E9%A6%96%E9%A1%B5 | 全志视美泰论坛]]
   * [[http://edu.csdn.net/course/detail/395# | 零基础学Java系列从入门到精通 - CSDN学院 - CSDN.NET]]
+  * [[https://github.com/haoel/leetcode | leetcode]]
+  * [[http://www.annhe.net/article-972.html]]

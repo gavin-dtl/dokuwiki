@@ -1,6 +1,12 @@
 ===== git技巧及常见错误 =====
 
 ----
+
+==== 配置提交编辑器 ====
+<code bash>
+  git config --global core.editor vim //配置提交时使用vim作为编辑器
+</code>
+
 ==== 解决 .gitignore 不生效 ====
 <code bash>
   git rm -r --cached .

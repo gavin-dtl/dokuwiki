@@ -1,0 +1,84 @@
+===== git工程管理 =====
+
+----
+==== git 基础 ====
+<code bash>
+  git config --global user.name "gavin"
+  git config --global user.email "gavin.deng@eyeseeuhd.com"
+  git init
+  git add .
+  git commit
+  git diff  --cached   #查看index file和仓库之间代码的区别
+  git status   #命令来获取整体改动的信息
+  git log   #或 -p
+  git commit -a  #但不能新增文件
+
+
+  git reset --hard
+  git show master  #master分支名
+</code>
+
+==== git 分支 ====
+<code bash>
+  git branch experimental  #新建分支
+  git branch          #列出分支
+  git checkout experimental #切换分支
+  git commit -a   #在分支体提交工作
+
+  git checkout master   #切换到主分支
+
+  git merge experimental  #合并分支
+
+  git branch -d experimental   #在分支已经合并到主干后删除分支
+
+   #注：本地切换分支，会把代码修改为对应分支的代码
+</code>
+
+==== git远程分支 ====
+<code bash>
+  git init --bare /home/allen/A20_sdk/lichee/linux-3.4/linux-3.4.git
+  git init --bare ./share.git
+
+  git remote 查看远程分支
+  git remote add oringe ssh:............../share.git
+  git clone /home/rocrocket/git-study/rocrocket myrepo
+
+  git clone ssh://gavin@192.168.0.99//home/gavin/share.git text
+
+  git clone ~/project/apps/base_dir.git text
+
+  git push--all origin
+</code>
+
+==== git 个性配置 ==== 
+ - 针对开发日志，要说一句：切记写开发日志的时候，第一行一定要是少于50字的开发概括信息，而且第二行务必是空行，第三行开we始才可以开始细致描述开发信息。这是因为很多版本服务系统中的email机制都会选取log中的第一行
+ - 默认编辑器改为vim。打开.git/config文件，在core中添加 editor=vim即可。
+
+
+
+==== git 工程管理 ====
+  - 运行get_git.sh，克隆远程代码
+  - 新建分支：git checkout -b newbranch_name
+  - git status      (查看修改过的文件)
+  - git add check_filename  (把修改过的文件添加到头同步的暂存库中，不能用git add .)
+  - git add -u，会将本地有改动（包括删除和修改）的已经追踪的文件标记到暂存区中。
+  - git commit -m "msg"     or  git commit
+  - git push <remote> <newbranch_name>  eg:git push origin newbranch_name #上传到指定远程库分支
+  - git pull <remote> <newbranch_name>  #下拉远程库代码，慎用,会修改本地代码
+  - git push 不成功，有冲突
+     * 修改不同文件：         
+        - git fetch
+        - git merge <remote>/<newbranch_name>  eg:git merge origin/master                       
+        - git push
+     * 修改相同文件不同区域：
+        - git fetch
+        - git merge <remote>/<newbranch_name>   eg:git merge origin/master                    
+        - git push
+     * git merge 不能解决的冲突：
+        - git mergetool 手动解决
+        - git push
+  - 确保版本库一样
+    - git fetch
+    - git reset --hard origin/master  #会修改本地代码
+  - git diff，显示工作区和暂存区的差异
+  - 将默认编辑器改为vim。打开.git/config文件，在core中添加 editor=vim即可

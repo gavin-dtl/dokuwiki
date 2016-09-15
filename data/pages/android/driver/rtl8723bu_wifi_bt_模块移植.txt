@@ -2,6 +2,11 @@
 
 ----
 ==== Wifi ====
+  - 修改驱动配置
+    * 修改drivers/net/wireless/目录下makefile 及Kconfig 添加对对应的编译信息
+    * 修改drivers/net/wireless/rtl8723BU/Makefile 所编译驱动模块
+    * 修改drivers/net/wireless/rtl8723BU/Makefile 所编译驱动平台
+    * 修改drivers/net/wireless/rtl8723BU/Makefile 
   - 配置linux内核
     * 配置Device Drivers  --->USB support  ---><*>   USB Wireless Device Management support 支持WIFI
     * Networking support --->Wireless下增加802.11 协议栈的支持
@@ -70,11 +75,100 @@
       wifi_unload_apdriver.sh
       wifi_unload_driver.sh
     </code>
+    * <code bash>
+      Index: startSupplicant.sh
+      ===================================================================
+      --- startSupplicant.sh	(revision 130)
+      +++ startSupplicant.sh	(working copy)
+      @@ -2,7 +2,7 @@
+
+       echo "startSupplicant $1"
+       case $1 in
+      -RTL8192CU|RTL8192DU|RTL8192EU|RTL8812AUS|RTL8188ETV)
+      +RTL8723BU|RTL8192CU|RTL8192DU|RTL8192EU|RTL8812AUS|RTL8188ETV)
+       wpa_supplicant -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -e/data/misc/wifi/entropy.bin -puse_p2p_group_interface=0 -N \
+           -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
+           -g/data/system/wpa_supplicant/wlan0 -G1010 -O/data/misc/wifi/sockets
+      Index: wifi_load_apdriver.sh
+      ===================================================================
+      --- wifi_load_apdriver.sh	(revision 130)
+      +++ wifi_load_apdriver.sh	(working copy)
+      @@ -19,6 +19,11 @@
+       insmod /system/lib/modules/8192cu.ko ifname=wlan0 if2name=p2p0
+       sleep 1
+       ;;
+      +RTL8723BU)
+      +insmod /system/lib/modules/cfg80211.ko
+      +insmod /system/lib/modules/8723bu.ko ifname=wlan0 if2name=p2p0
+      +sleep 1
+      +;;
+       RTL8192DU)
+       insmod /system/lib/modules/cfg80211.ko
+       insmod /system/lib/modules/8192du.ko ifname=wlan0 if2name=p2p0
+      Index: wifi_load_driver.sh
+      ===================================================================
+      --- wifi_load_driver.sh	(revision 130)
+      +++ wifi_load_driver.sh	(working copy)
+      @@ -19,6 +19,10 @@
+       insmod /system/lib/modules/8192cu.ko ifname=wlan0 if2name=p2p0
+       sleep 1
+       ;;
+      +RTL8723BU)
+      +insmod /system/lib/modules/cfg80211.ko
+      +insmod /system/lib/modules/8723bu.ko ifname=wlan0 if2name=p2p0
+      +;;
+       RTL8192DU)
+       insmod /system/lib/modules/cfg80211.ko
+       insmod /system/lib/modules/8192du.ko ifname=wlan0 if2name=p2p0
+      Index: wifi_unload_apdriver.sh
+      ===================================================================
+      --- wifi_unload_apdriver.sh	(revision 130)
+      +++ wifi_unload_apdriver.sh	(working copy)
+      @@ -22,6 +22,12 @@
+       rmmod 8192cu.ko
+       rmmod cfg80211.ko
+       ;;
+      +RTL8723BU)
+      +busybox ifconfig p2p0 down
+      +busybox ifconfig wlan0 down
+      +rmmod 8723bu.ko
+      +rmmod cfg80211.ko
+      +;;
+       RTL8192DU)
+       busybox ifconfig p2p0 down
+       busybox ifconfig wlan0 down
+      Index: wifi_unload_driver.sh
+      ===================================================================
+      --- wifi_unload_driver.sh	(revision 130)
+      +++ wifi_unload_driver.sh	(working copy)
+      @@ -15,6 +15,12 @@
+       rmmod 8192cu.ko
+       rmmod cfg80211.ko
+       ;;
+      +RTL8723BU)
+      +busybox ifconfig p2p0 down
+      +busybox ifconfig wlan0 down
+      +rmmod 8723bu.ko
+      +rmmod cfg80211.ko
+      +;;
+       RTL8192DU)
+       busybox ifconfig p2p0 down
+       busybox ifconfig wlan0 down
+   </code>
+    * <code bash>
+      +wifi_vendor_name=RTL8723BU
+      +order=8
+      +count_vid_pid=1
+      +vid_pid=0x0bda:0xb720
+      +sta=1
+      +softap=1
+      +p2p=1 
+   </code>
 
 ----
 ==== Bt ====
 
-
+----
 ==== 参考链接 ====
 [[http://blog.csdn.net/bhj1119/article/details/51858635]]
 

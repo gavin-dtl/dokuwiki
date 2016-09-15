@@ -1,0 +1,21 @@
+===== A83T 移植 ====
+
+
+==== 编译 ====
+  - 编译选择 
+    * sun8iw6p1
+  - 编译uImage出错
+    * 复制uboot下kmimage到系统bin目录下，系统确实此编译工具
+    
+
+
+==== 启动 ====
+  - 修改默认启动选项
+    * card0_boot0_para   0 2可用
+  - 修改SDRAM参数，启动内存
+  - 修改pmu，去掉电池检测
+
+==== 常见错误 ====
+  * pack 时
+    *Dragon execute image.cfg Failed !
+    *sys_config.fex 语法出错

@@ -1,0 +1,9 @@
+===== source insight 常用快捷键 =====
+
+  * shif + f3   在变量间跳转
+  * ctrl + k    复制一行
+  * ctrl + /    全局搜索
+  * ctrl + home 快速跳转到文件头
+  * alt  + ,    
+  * alt  + .  
+  * ctrl + h    替换

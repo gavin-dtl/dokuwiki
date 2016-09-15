@@ -1,0 +1,12 @@
+  <span class="kw2">git init</span> <span class="re5">--bare</span> <span class="sy0">/</span>home<span class="sy0">/</span>allen<span class="sy0">/</span>A20_sdk<span class="sy0">/</span>lichee<span class="sy0">/</span>linux-<span class="nu0">3.4</span><span class="sy0">/</span>linux-<span class="nu0">3.4</span>.git
+  <span class="kw2">git init</span> <span class="re5">--bare</span> .<span class="sy0">/</span>share.git
+&nbsp;
+  <span class="kw2">git remote</span> 查看远程分支
+  <span class="kw2">git remote</span> add oringe ssh:..............<span class="sy0">/</span>share.git
+  <span class="kw2">git clone</span> <span class="sy0">/</span>home<span class="sy0">/</span>rocrocket<span class="sy0">/</span>git-study<span class="sy0">/</span>rocrocket myrepo
+&nbsp;
+  <span class="kw2">git clone</span> ssh:<span class="sy0">//</span>gavin<span class="sy0">@</span>192.168.0.99<span class="sy0">//</span>home<span class="sy0">/</span>gavin<span class="sy0">/</span>share.git text
+&nbsp;
+  <span class="kw2">git clone</span> ~<span class="sy0">/</span>project<span class="sy0">/</span>apps<span class="sy0">/</span>base_dir.git text
+&nbsp;
+  <span class="kw2">git</span> push--all origin

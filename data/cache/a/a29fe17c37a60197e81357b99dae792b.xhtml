@@ -1,0 +1,31 @@
+
+<h2 class="sectionedit1" id="链表逆序">链表逆序</h2>
+<div class="level2">
+<pre class="code c"><span class="co1">//=============================================================</span>
+<span class="co1">// 语法格式：     LNODE *link_reverse(LNODE *head)</span>
+<span class="co1">// 实现功能：     将链表逆序</span>
+<span class="co1">// 参数：          *head：链表首址</span>
+<span class="co1">// 返回值：          新的链表头</span>
+<span class="co1">//=============================================================</span>
+LNODE <span class="sy0">*</span>link_reverse<span class="br0">&#40;</span>LNODE <span class="sy0">*</span>head<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+     LNODE <span class="sy0">*</span>pb<span class="sy0">,</span> <span class="sy0">*</span>pt<span class="sy0">;</span>
+&nbsp;
+     <span class="kw1">if</span><span class="br0">&#40;</span>head <span class="sy0">==</span> NULL<span class="br0">&#41;</span><span class="co1">//如果链表不存在，则返回</span>
+          <span class="kw1">return</span> head<span class="sy0">;</span>
+&nbsp;
+     pb <span class="sy0">=</span> head<span class="sy0">-&gt;</span>next<span class="sy0">;</span>
+     head<span class="sy0">-&gt;</span>next <span class="sy0">=</span> NULL<span class="sy0">;</span>
+&nbsp;
+     <span class="kw1">while</span><span class="br0">&#40;</span>pb <span class="sy0">!=</span> NULL<span class="br0">&#41;</span>
+     <span class="br0">&#123;</span>
+          pt <span class="sy0">=</span> pb<span class="sy0">-&gt;</span>next<span class="sy0">;</span><span class="co1">//记录pb下一个节点地址</span>
+          pb<span class="sy0">-&gt;</span>next <span class="sy0">=</span> head<span class="sy0">;</span><span class="co1">//这时才让pb-&gt;next指向他的上一个节点</span>
+          head <span class="sy0">=</span> pb<span class="sy0">;</span>
+          pb <span class="sy0">=</span> pt<span class="sy0">;</span>
+     <span class="br0">&#125;</span>
+&nbsp;
+     <span class="kw1">return</span> head<span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+</div>
