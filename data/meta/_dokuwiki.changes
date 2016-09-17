@@ -1,36 +1,3 @@
-1473296173	192.168.3.42	E	work:炫智:6a828:mstartv文件备注	gavin			184
-1473296686	192.168.3.42	E	work:炫智:6a828:mstartv文件备注	gavin			15
-1473297783	192.168.3.42	E	work:炫智:6a828:mstartv文件备注	gavin			72
-1473297997	192.168.3.42	E	work:炫智:6a828:mstartv文件备注	gavin	[sboot/inc/muji/board/BD_MST072B_10AEV_MUJI.h] 		6
-1473298117	192.168.3.42	E	work:炫智:6a828:mstartv文件备注	gavin	[mboot/sboot/inc/muji/board/BD_MST072B_20AEV_MUJI.h] 		20
-1473299670	192.168.3.42	C	android:shell:命令技巧	gavin	创建		114
-1473302215	192.168.3.42	E	start	gavin			-14
-1473302787	192.168.3.42	E	搭建web服务器:修改apache2根路径及默认网页	gavin	[一、修改根路径] 		-5
-1473302805	192.168.3.42	E	搭建web服务器:修改apache2根路径及默认网页	gavin	[二、修改默认网页] 		-5
-1473302813	192.168.3.42	E	搭建web服务器:修改apache2根路径及默认网页	gavin	[三、重启apache服务器] 		-1
-1473302826	127.0.0.1	E	移居linux:修改apache2根路径及默认网页		外部编辑		922
-1473302826	192.168.3.42	E	搭建web服务器:修改apache2根路径及默认网页	gavin	[二、修改默认网页] 		-1
-1473317949	192.168.3.42	C	android:frameworks:延时开启init.rc系统服务	gavin	创建		436
-1473318212	192.168.3.42	E	android:frameworks:延时开启init.rc系统服务	gavin			-12
-1473318299	192.168.3.42	E	android:frameworks:延时开启init.rc系统服务	gavin	[设置系统服务并默认不开启] 		-1
-1473321070	192.168.3.42	C	android:frameworks:禁止屏幕旋转	gavin	创建		802
-1473321223	192.168.3.42	E	work:炫智:6a828:mstartv文件备注	gavin	[supernova/projects/board/ChipInfo/MSD95E1D.h] 		88
-1473321235	192.168.3.42	E	work:炫智:6a828:mstartv文件备注	gavin	[mboot\sboot\inc\muji\board\BD_MST072B_20AEV_MUJI.h] 		5
-1473321874	192.168.3.42	C	android:frameworks:修改android文件默认权限	gavin	创建		1184
-1473321911	192.168.3.42	C	android:frameworks:start	gavin	创建		4
-1473322075	192.168.3.42	D	android:frameworks:start	gavin	移除		-4
-1473322120	192.168.3.42	C	android:start	gavin	创建		72
-1473322248	192.168.3.42	E	android:start	gavin			-9
-1473322369	192.168.3.42	E	android:start	gavin			106
-1473322414	192.168.3.42	E	android:start	gavin	[frameworks] 		69
-1473322446	192.168.3.42	E	android:start	gavin	[frameworks] 		93
-1473322485	192.168.3.42	E	android:start	gavin	[frameworks] 		93
-1473323210	192.168.3.42	E	android:start	gavin	[frameworks] 		91
-1473323221	192.168.3.42	E	android:start	gavin	[Camera] 		3
-1473335772	192.168.3.42	E	android:frameworks:禁止屏幕旋转	gavin			347
-1473335975	192.168.3.42	E	android:frameworks:禁止屏幕旋转	gavin			8
-1473382060	192.168.3.42	E	android:frameworks:禁止屏幕旋转	gavin			-1
-1473382977	192.168.3.42	E	start	gavin			32
 1473648507	192.168.3.42	E	work:炫智:start	gavin	[A83t] 		81
 1473648953	192.168.3.42	C	work:炫智:a83t:单片机编译环境搭建	gavin	创建		319
 1473649217	192.168.3.42	E	work:炫智:a83t:单片机编译环境搭建	gavin	[配置编译环境] 		28
@@ -323,3 +290,11 @@
 1473860119	192.168.3.42	E	移居linux:编译ngrok	gavin			27
 1473860150	192.168.3.42	E	移居linux:编译ngrok	gavin	[参考] 		2
 1473862715	192.168.3.42	E	android:driver:start	gavin			-4
+1473908301	192.168.3.42	E	移居linux:start	gavin	[Linux] 		89
+1473908528	192.168.3.42	C	移居linux:ubuntu更新时提示_boot空间不足	gavin	创建		179
+1473909892	192.168.3.42	E	work:炫智:6a818:818工程下载编译	gavin			-1
+1473909982	192.168.3.42	E	android:frameworks:android_manager_控制_gpio	gavin			5
+1473910027	192.168.3.42	E	android:frameworks:android_去odex	gavin			5
+1473910042	192.168.3.42	E	android:misc:source_insight_常用快捷键	gavin			5
+1473910061	192.168.3.42	E	android:frameworks:mm_添加参数	gavin			6
+1473910074	192.168.3.42	E	work:炫智:a83t:下载和编译	gavin			5

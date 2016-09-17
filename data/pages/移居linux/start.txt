@@ -6,6 +6,7 @@
   * [[移居linux:VIM配置使用文档 | VIM配置使用文档]]
   * [[移居linux:linux彩色字体显示 | linux彩色字体显示]] 
   * [[移居linux:编译ngrok | 编译ngrok]]
+  *  [[Ubuntu更新时提示/boot空间不足 | Ubuntu更新时提示/boot空间不足]]
 
 ----
 

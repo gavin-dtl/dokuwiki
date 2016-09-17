@@ -93,7 +93,7 @@ cd 到images目录下
 
 <p>/**************************************************************************/
 华星4K2K屏: Supernova\projects\board\nike\MST049B_10AQV_13104_NIKEU\model\Customer_ursa8_4k2k 里面的 bPanel4K2KModeNeedCmd 设置为1</p>
-";}i:2;i:3;i:3;s:3295:"
+";}i:2;i:3;i:3;s:3294:"
 MSD6A818C编绎方法
 ## 如何下载代码：
 1.在自己的家目录下建个ma818t的目录，cd 到ma818t目录下：
@@ -165,5 +165,4 @@ cd 到images目录下
 /**************************************************************************/
 华星4K2K屏: Supernova\projects\board\nike\MST049B_10AQV_13104_NIKEU\model\Customer_ursa8_4k2k 里面的 bPanel4K2KModeNeedCmd 设置为1
 
-
-";}i:2;i:45;}i:5;a:3:{i:0;s:6:"plugin";i:1;a:4:{i:0;s:13:"markdownextra";i:1;a:2:{i:0;i:4;i:1;s:0:"";}i:2;i:4;i:3;s:11:"</markdown>";}i:2;i:3340;}i:6;a:3:{i:0;s:13:"section_close";i:1;a:0:{}i:2;i:3351;}i:7;a:3:{i:0;s:12:"document_end";i:1;a:0:{}i:2;i:3351;}}
+";}i:2;i:45;}i:5;a:3:{i:0;s:6:"plugin";i:1;a:4:{i:0;s:13:"markdownextra";i:1;a:2:{i:0;i:4;i:1;s:0:"";}i:2;i:4;i:3;s:11:"</markdown>";}i:2;i:3339;}i:6;a:3:{i:0;s:13:"section_close";i:1;a:0:{}i:2;i:3350;}i:7;a:3:{i:0;s:12:"document_end";i:1;a:0:{}i:2;i:3350;}}

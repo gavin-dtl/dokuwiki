@@ -71,5 +71,4 @@ cd 到images目录下
 /**************************************************************************/
 华星4K2K屏: Supernova\projects\board\nike\MST049B_10AQV_13104_NIKEU\model\Customer_ursa8_4k2k 里面的 bPanel4K2KModeNeedCmd 设置为1
 
-
 </markdown>

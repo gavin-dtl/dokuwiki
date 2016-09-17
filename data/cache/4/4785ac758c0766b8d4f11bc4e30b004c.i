@@ -1,4 +1,4 @@
-a:8:{i:0;a:3:{i:0;s:14:"document_start";i:1;a:0:{}i:2;i:0;}i:1;a:3:{i:0;s:6:"header";i:1;a:3:{i:0;s:27:"android manager 控制 Gpio";i:1;i:2;i:2;i:1;}i:2;i:1;}i:2;a:3:{i:0;s:12:"section_open";i:1;a:1:{i:0;i:2;}i:2;i:1;}i:3;a:3:{i:0;s:6:"plugin";i:1;a:4:{i:0;s:13:"markdownextra";i:1;a:2:{i:0;i:1;i:1;s:0:"";}i:2;i:1;i:3;s:10:"<markdown>";}i:2;i:42;}i:4;a:3:{i:0;s:6:"plugin";i:1;a:4:{i:0;s:13:"markdownextra";i:1;a:2:{i:0;i:3;i:1;s:8324:"<h2>参考文件</h2>
+a:9:{i:0;a:3:{i:0;s:14:"document_start";i:1;a:0:{}i:2;i:0;}i:1;a:3:{i:0;s:6:"header";i:1;a:3:{i:0;s:27:"android manager 控制 Gpio";i:1;i:2;i:2;i:1;}i:2;i:1;}i:2;a:3:{i:0;s:12:"section_open";i:1;a:1:{i:0;i:2;}i:2;i:1;}i:3;a:3:{i:0;s:2:"hr";i:1;a:0:{}i:2;i:41;}i:4;a:3:{i:0;s:6:"plugin";i:1;a:4:{i:0;s:13:"markdownextra";i:1;a:2:{i:0;i:1;i:1;s:0:"";}i:2;i:1;i:3;s:10:"<markdown>";}i:2;i:47;}i:5;a:3:{i:0;s:6:"plugin";i:1;a:4:{i:0;s:13:"markdownextra";i:1;a:2:{i:0;i:3;i:1;s:8324:"<h2>参考文件</h2>
 
 <ol>
 <li>mokoid.rar JNI实现 </li>
@@ -424,4 +424,4 @@ Gpio.setMulSel(2, 3, 1);
 Gpio.writeGpio(2, 3, 0);
 ```
 
-";}i:2;i:52;}i:5;a:3:{i:0;s:6:"plugin";i:1;a:4:{i:0;s:13:"markdownextra";i:1;a:2:{i:0;i:4;i:1;s:0:"";}i:2;i:4;i:3;s:11:"</markdown>";}i:2;i:7967;}i:6;a:3:{i:0;s:13:"section_close";i:1;a:0:{}i:2;i:7978;}i:7;a:3:{i:0;s:12:"document_end";i:1;a:0:{}i:2;i:7978;}}
+";}i:2;i:57;}i:6;a:3:{i:0;s:6:"plugin";i:1;a:4:{i:0;s:13:"markdownextra";i:1;a:2:{i:0;i:4;i:1;s:0:"";}i:2;i:4;i:3;s:11:"</markdown>";}i:2;i:7972;}i:7;a:3:{i:0;s:13:"section_close";i:1;a:0:{}i:2;i:7983;}i:8;a:3:{i:0;s:12:"document_end";i:1;a:0:{}i:2;i:7983;}}

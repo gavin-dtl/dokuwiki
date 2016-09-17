@@ -1,4 +1,4 @@
-a:2:{s:7:"current";a:9:{s:4:"date";a:2:{s:7:"created";i:1473760797;s:8:"modified";i:1473840619;}s:7:"creator";s:9:"邓庭亮";s:4:"user";s:5:"gavin";s:11:"last_change";a:8:{s:4:"date";i:1473840619;s:2:"ip";s:12:"192.168.3.42";s:4:"type";s:1:"E";s:2:"id";s:17:"移居linux:start";s:4:"user";s:5:"gavin";s:3:"sum";s:8:"[Linux] ";s:5:"extra";s:0:"";s:10:"sizechange";i:46;}s:11:"contributor";a:1:{s:5:"gavin";s:9:"邓庭亮";}s:5:"title";s:11:"移居Linux";s:11:"description";a:2:{s:15:"tableofcontents";a:4:{i:0;a:4:{s:3:"hid";s:11:"移居linux";s:5:"title";s:11:"移居Linux";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:1;a:4:{s:3:"hid";s:5:"linux";s:5:"title";s:5:"Linux";s:4:"type";s:2:"ul";s:5:"level";i:3;}i:2;a:4:{s:3:"hid";s:3:"git";s:5:"title";s:3:"Git";s:4:"type";s:2:"ul";s:5:"level";i:3;}i:3;a:4:{s:3:"hid";s:4:"wiki";s:5:"title";s:4:"WIKI";s:4:"type";s:2:"ul";s:5:"level";i:3;}}s:8:"abstract";s:376:"移居Linux
+a:2:{s:7:"current";a:9:{s:4:"date";a:2:{s:7:"created";i:1473760797;s:8:"modified";i:1473908301;}s:7:"creator";s:9:"邓庭亮";s:4:"user";s:5:"gavin";s:11:"last_change";a:8:{s:4:"date";i:1473908301;s:2:"ip";s:12:"192.168.3.42";s:4:"type";s:1:"E";s:2:"id";s:17:"移居linux:start";s:4:"user";s:5:"gavin";s:3:"sum";s:8:"[Linux] ";s:5:"extra";s:0:"";s:10:"sizechange";i:89;}s:11:"contributor";a:1:{s:5:"gavin";s:9:"邓庭亮";}s:5:"title";s:11:"移居Linux";s:11:"description";a:2:{s:15:"tableofcontents";a:4:{i:0;a:4:{s:3:"hid";s:11:"移居linux";s:5:"title";s:11:"移居Linux";s:4:"type";s:2:"ul";s:5:"level";i:2;}i:1;a:4:{s:3:"hid";s:5:"linux";s:5:"title";s:5:"Linux";s:4:"type";s:2:"ul";s:5:"level";i:3;}i:2;a:4:{s:3:"hid";s:3:"git";s:5:"title";s:3:"Git";s:4:"type";s:2:"ul";s:5:"level";i:3;}i:3;a:4:{s:3:"hid";s:4:"wiki";s:5:"title";s:4:"WIKI";s:4:"type";s:2:"ul";s:5:"level";i:3;}}s:8:"abstract";s:421:"移居Linux
 
 ----------
 
@@ -8,6 +8,7 @@ Linux
 	*   VIM配置使用文档
 	*   linux彩色字体显示 
 	*   编译ngrok
+	*    Ubuntu更新时提示/boot空间不足
 
 ----------
 
@@ -26,4 +27,4 @@ WIKI
 	*   修改apache2根路径及默认网页
 	*   wiki语法说明
 	*   wiki插件
-	*   wiki代码高亮";}s:8:"relation";a:2:{s:10:"references";a:13:{s:29:"移居linux:linux命令技巧";b:1;s:33:"移居linux:vim配置使用文档";b:1;s:35:"移居linux:linux彩色字体显示";b:1;s:23:"移居linux:编译ngrok";b:1;s:36:"移居linux:git技巧及常见错误";b:1;s:27:"移居linux:git工程管理";b:1;s:24:"移居linux:gitois安装";b:1;s:27:"移居linux:git常用命令";b:1;s:24:"移居linux:创建页面";b:1;s:49:"移居linux:修改apache2根路径及默认网页";b:1;s:28:"移居linux:wiki语法说明";b:1;s:22:"移居linux:wiki插件";b:1;s:28:"移居linux:wiki代码高亮";b:1;}s:10:"firstimage";s:0:"";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}}s:10:"persistent";a:5:{s:4:"date";a:2:{s:7:"created";i:1473760797;s:8:"modified";i:1473840619;}s:7:"creator";s:9:"邓庭亮";s:4:"user";s:5:"gavin";s:11:"last_change";a:8:{s:4:"date";i:1473840619;s:2:"ip";s:12:"192.168.3.42";s:4:"type";s:1:"E";s:2:"id";s:17:"移居linux:start";s:4:"user";s:5:"gavin";s:3:"sum";s:8:"[Linux] ";s:5:"extra";s:0:"";s:10:"sizechange";i:46;}s:11:"contributor";a:1:{s:5:"gavin";s:9:"邓庭亮";}}}
+	*   wiki代码高亮";}s:8:"relation";a:2:{s:10:"references";a:14:{s:29:"移居linux:linux命令技巧";b:1;s:33:"移居linux:vim配置使用文档";b:1;s:35:"移居linux:linux彩色字体显示";b:1;s:23:"移居linux:编译ngrok";b:1;s:50:"移居linux:ubuntu更新时提示_boot空间不足";b:1;s:36:"移居linux:git技巧及常见错误";b:1;s:27:"移居linux:git工程管理";b:1;s:24:"移居linux:gitois安装";b:1;s:27:"移居linux:git常用命令";b:1;s:24:"移居linux:创建页面";b:1;s:49:"移居linux:修改apache2根路径及默认网页";b:1;s:28:"移居linux:wiki语法说明";b:1;s:22:"移居linux:wiki插件";b:1;s:28:"移居linux:wiki代码高亮";b:1;}s:10:"firstimage";s:0:"";}s:8:"internal";a:2:{s:5:"cache";b:1;s:3:"toc";b:1;}}s:10:"persistent";a:5:{s:4:"date";a:2:{s:7:"created";i:1473760797;s:8:"modified";i:1473908301;}s:7:"creator";s:9:"邓庭亮";s:4:"user";s:5:"gavin";s:11:"last_change";a:8:{s:4:"date";i:1473908301;s:2:"ip";s:12:"192.168.3.42";s:4:"type";s:1:"E";s:2:"id";s:17:"移居linux:start";s:4:"user";s:5:"gavin";s:3:"sum";s:8:"[Linux] ";s:5:"extra";s:0:"";s:10:"sizechange";i:89;}s:11:"contributor";a:1:{s:5:"gavin";s:9:"邓庭亮";}}}
