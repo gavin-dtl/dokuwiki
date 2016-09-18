@@ -65,6 +65,7 @@
   - 测试
     * 安装cfg80211.ko，8723bu.ko依赖此模块，否则依然会报上述缺80211的错误
     * 安装8723bu.ko模块，两个模块都安装好之后，执行netcfg，会看到多出wlan0和wlan1设备节点，他们是8723bu驱动创建出来的，放到   		sys/class/net/下。
+    * 如执行wpa_supplicant出错，有可能为linux .config 下 Networking support --->Wireless配置出错
   - wifi android 适配
     * device\mstar\pitaya\preinstall\wifi wifi.cfg 添加对于的wifi usb设备的pid，uid
     * device\mstar\common\preinstall\wifi 添加wifi适配对应文件有

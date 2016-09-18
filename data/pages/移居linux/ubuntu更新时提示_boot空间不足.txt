@@ -1,7 +1,29 @@
 ===== Ubuntu更新时提示/boot空间不足 =====
 
 ----
-/boot确实不够用了，给/boot分了128M，还剩8M可用难怪不能更新。
+Ubuntu更新时提示boot分区空间不足，主要为安装linux版本过多，解决方案就删除不必要的内核版本。 
 
-首先查看自己的内核版本：
-
+  - 首先查看自己的内核版本：
+    * <code bash>
+    ┌─[dengtingliang@xuanzhi5]─[~/workspace/638/6A638/vendor/mstar/kernel/3.10.40]
+    └──╼ uname -a
+    Linux xuanzhi5 3.11.0-15-generic #25~precise1-Ubuntu SMP Thu Jan 30 17:39:31 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux   
+    </code>
+  - 查看boot分区下有文件详细信息,看是否真的不足
+    * <code bash>
+	┌─[dengtingliang@xuanzhi5]─[~/workspace/638/6A638/vendor/mstar/kernel/3.10.40]
+	└──╼ ls -al /boot/
+    </code>
+  - 查看安装所用内核
+    * <code bash>
+      ┌─[dengtingliang@xuanzhi5]─[~/workspace/638/6A638/vendor/mstar/kernel/3.10.40]
+      └──╼ dpkg --get-selections |grep linux-image
+      linux-image-3.11.0-15-generic			install
+      linux-image-generic-lts-saucy			install
+    </code>
+  - 卸载旧的或不需要的内核
+    * <code bash>
+    ┌─[dengtingliang@xuanzhi5]─[~/workspace/638/6A638/vendor/mstar/kernel/3.10.40]
+    └──╼ sudo apt-get remove linux-image-3.2.0-23-generic
+    </code>
+ 

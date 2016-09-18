@@ -1,0 +1,236 @@
+====== a83t_encode_video ==
+
+----
+=== android 截图参考 ===
+screencap.cpp
+
+===  a83t encoder===
+<code cpp>
+static VideoEncoder * mVideoEncoder;
+
+static int 
+initEncoder(int width, int height, int bitrate, int frameRate)
+{
+int result;
+VencH264Param mVencH264Param;
+VencHeaderData mH264Headdata;
+VencBaseConfig sBaseConfig;
+
+    memset(&mVencH264Param, 0, sizeof(VencH264Param));
+    memset(&sBaseConfig, 0, sizeof(VencBaseConfig));
+    memset(&mH264Headdata, 0, sizeof(VencHeaderData));
+
+mVideoEncoder = VideoEncCreate(VENC_CODEC_H264);
+if (mVideoEncoder == NULL) {
+return -1;
+}
+printf("vicent---VideoEncCreate ok !\n");
+
+//* h264 param
+mVencH264Param.bEntropyCodingCABAC = 1;
+mVencH264Param.nBitrate = bitrate; 
+mVencH264Param.nFramerate = frameRate; 
+mVencH264Param.nCodingMode = VENC_FRAME_CODING;
+mVencH264Param.nMaxKeyInterval = 30;
+mVencH264Param.sProfileLevel.nProfile = VENC_H264ProfileMain;
+mVencH264Param.sProfileLevel.nLevel = VENC_H264Level31;
+mVencH264Param.sQPRange.nMinqp = 10;
+mVencH264Param.sQPRange.nMaxqp = 40;
+VideoEncSetParameter(mVideoEncoder, VENC_IndexParamH264Param, &mVencH264Param);
+
+    sBaseConfig.nInputWidth = width;
+    sBaseConfig.nInputHeight = height;
+    sBaseConfig.nStride = width;
+    sBaseConfig.nDstWidth = width;
+    sBaseConfig.nDstHeight = height;
+sBaseConfig.eInputFormat =  VENC_PIXEL_YVU420SP;
+result = VideoEncInit(mVideoEncoder, &sBaseConfig);
+if (result != 0) {
+VideoEncDestroy(mVideoEncoder);
+mVideoEncoder = NULL;
+printf("vicent----- VideoEncInit, failed, result: %d\n", result);
+       	return -1;
+}
+VideoEncGetParameter(mVideoEncoder, VENC_IndexParamH264SPSPPS, &mH264Headdata);
+
+printf("vicent----- VideoEncInit, exit\n");
+return 0;
+}
+
+static int 
+DestroyEncoder()
+{
+if (mVideoEncoder != NULL) {
+VideoEncUnInit(mVideoEncoder);
+VideoEncDestroy(mVideoEncoder);
+    }
+mVideoEncoder = NULL;
+printf("vicent----- DestroyEncoder\n");
+return 0;
+}
+
+initEncoder( var_info.xres, var_info.yres, 1024*3, 30);
+
+/**/
+int y_size = 960 * 540;
+
+//memset(yuvdata, 0x00, y_size);
+//memset((yuvdata + y_size), 0x80, y_size/2);
+memcpy(yuvdata, fb_addr, data_size);
+
+JpegEncInfo jpegInfo;
+EXIFInfo exifInfo;
+memset(&jpegInfo, 0, sizeof(jpegInfo));
+memset(&exifInfo, 0, sizeof(EXIFInfo));
+
+jpegInfo.pAddrVirY = (unsigned char*)yuvdata + data_size;
+jpegInfo.pAddrVirY = (unsigned char*)(yuvdata + data_size + y_size);
+jpegInfo.pAddrPhyY = (unsigned char*)MemAdapterGetPhysicAddressCpu(yuvdata);
+jpegInfo.pAddrPhyC = (unsigned char*)MemAdapterGetPhysicAddressCpu(yuvdata + y_size);
+
+jpegInfo.sBaseInfo.nInputWidth = 960;
+jpegInfo.sBaseInfo.nInputHeight = 540;
+jpegInfo.sBaseInfo.nDstWidth = 1280;
+jpegInfo.sBaseInfo.nDstHeight = 720;
+
+jpegInfo.sBaseInfo.eInputFormat = VENC_PIXEL_ARGB;
+jpegInfo.quality = 90;
+jpegInfo.bEnableCorp = 0;
+
+printf("encode V4L2_PIX_FMT_MJPEG begin\n");
+int mjpegsize = (960 * 540 + 4095)/4096 * 4096;
+printf("encode V4L2_PIX_FMT_MJPEG --------------1mjpegsize- %d\n",mjpegsize);
+void *mjpegdata = NULL;
+mjpegdata = (void *)malloc(mjpegsize);
+int encRet = AWJpecEnc(&jpegInfo, &exifInfo,mjpegdata, &mjpegsize);
+printf("encode V4L2_PIX_FMT_MJPEG --------------2mjpegsize- %d\n",mjpegsize);
+
+FILE *pFile_mjpeg = NULL;
+pFile_mjpeg = fopen("/data/test0.jpg", "wb");
+fwrite(mjpegdata, mjpegsize, 1, pFile_mjpeg);
+    fflush(pFile_mjpeg);
+    fclose(pFile_mjpeg);
+free(mjpegdata);
+
+#if 1//ion
+    	MemAdapterPfree(yuvdata);
+    MemAdapterClose();
+#endif
+
+DestroyEncoder();
+
+static VideoEncoder * mVideoEncoder;
+
+static int 
+initEncoder(int width, int height, int bitrate, int frameRate)
+{
+int result;
+VencH264Param mVencH264Param;
+VencHeaderData mH264Headdata;
+VencBaseConfig sBaseConfig;
+
+    memset(&mVencH264Param, 0, sizeof(VencH264Param));
+    memset(&sBaseConfig, 0, sizeof(VencBaseConfig));
+    memset(&mH264Headdata, 0, sizeof(VencHeaderData));
+
+mVideoEncoder = VideoEncCreate(VENC_CODEC_H264);
+if (mVideoEncoder == NULL) {
+return -1;
+}
+printf("vicent---VideoEncCreate ok !\n");
+
+//* h264 param
+mVencH264Param.bEntropyCodingCABAC = 1;
+mVencH264Param.nBitrate = bitrate; 
+mVencH264Param.nFramerate = frameRate; 
+mVencH264Param.nCodingMode = VENC_FRAME_CODING;
+mVencH264Param.nMaxKeyInterval = 30;
+mVencH264Param.sProfileLevel.nProfile = VENC_H264ProfileMain;
+mVencH264Param.sProfileLevel.nLevel = VENC_H264Level31;
+mVencH264Param.sQPRange.nMinqp = 10;
+mVencH264Param.sQPRange.nMaxqp = 40;
+VideoEncSetParameter(mVideoEncoder, VENC_IndexParamH264Param, &mVencH264Param);
+
+    sBaseConfig.nInputWidth = width;
+    sBaseConfig.nInputHeight = height;
+    sBaseConfig.nStride = width;
+    sBaseConfig.nDstWidth = width;
+    sBaseConfig.nDstHeight = height;
+sBaseConfig.eInputFormat =  VENC_PIXEL_YVU420SP;
+result = VideoEncInit(mVideoEncoder, &sBaseConfig);
+if (result != 0) {
+VideoEncDestroy(mVideoEncoder);
+mVideoEncoder = NULL;
+printf("vicent----- VideoEncInit, failed, result: %d\n", result);
+       	return -1;
+}
+VideoEncGetParameter(mVideoEncoder, VENC_IndexParamH264SPSPPS, &mH264Headdata);
+
+printf("vicent----- VideoEncInit, exit\n");
+return 0;
+}
+
+static int 
+DestroyEncoder()
+{
+if (mVideoEncoder != NULL) {
+VideoEncUnInit(mVideoEncoder);
+VideoEncDestroy(mVideoEncoder);
+    }
+mVideoEncoder = NULL;
+printf("vicent----- DestroyEncoder\n");
+return 0;
+}
+
+
+
+initEncoder( var_info.xres, var_info.yres, 1024*3, 30);
+
+/**/
+int y_size = 960 * 540;
+
+//memset(yuvdata, 0x00, y_size);
+//memset((yuvdata + y_size), 0x80, y_size/2);
+memcpy(yuvdata, fb_addr, data_size);
+
+JpegEncInfo jpegInfo;
+EXIFInfo exifInfo;
+memset(&jpegInfo, 0, sizeof(jpegInfo));
+memset(&exifInfo, 0, sizeof(EXIFInfo));
+
+jpegInfo.pAddrVirY = (unsigned char*)yuvdata + data_size;
+jpegInfo.pAddrVirY = (unsigned char*)(yuvdata + data_size + y_size);
+jpegInfo.pAddrPhyY = (unsigned char*)MemAdapterGetPhysicAddressCpu(yuvdata);
+jpegInfo.pAddrPhyC = (unsigned char*)MemAdapterGetPhysicAddressCpu(yuvdata + y_size);
+
+jpegInfo.sBaseInfo.nInputWidth = 960;
+jpegInfo.sBaseInfo.nInputHeight = 540;
+jpegInfo.sBaseInfo.nDstWidth = 1280;
+jpegInfo.sBaseInfo.nDstHeight = 720;
+
+jpegInfo.sBaseInfo.eInputFormat = VENC_PIXEL_ARGB;
+jpegInfo.quality = 90;
+jpegInfo.bEnableCorp = 0;
+
+printf("encode V4L2_PIX_FMT_MJPEG begin\n");
+int mjpegsize = (960 * 540 + 4095)/4096 * 4096;
+printf("encode V4L2_PIX_FMT_MJPEG --------------1mjpegsize- %d\n",mjpegsize);
+void *mjpegdata = NULL;
+mjpegdata = (void *)malloc(mjpegsize);
+int encRet = AWJpecEnc(&jpegInfo, &exifInfo,mjpegdata, &mjpegsize);
+printf("encode V4L2_PIX_FMT_MJPEG --------------2mjpegsize- %d\n",mjpegsize);
+
+FILE *pFile_mjpeg = NULL;
+pFile_mjpeg = fopen("/data/test0.jpg", "wb");
+fwrite(mjpegdata, mjpegsize, 1, pFile_mjpeg);
+    fflush(pFile_mjpeg);
+    fclose(pFile_mjpeg);
+free(mjpegdata);
+
+#if 1//ion
+    	MemAdapterPfree(yuvdata);
+    MemAdapterClose();
+#endif
+
+DestroyEncoder();
+</code>

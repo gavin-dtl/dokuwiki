@@ -27,14 +27,14 @@ busybox  iostat
 
 ==== 内核打印信息 ====
 <code bash>
-	echo 15 > /sys/module/sw_keyboard/parameters/debug_mask 
-	echo 8 > /proc/sys/kernel/printk
+echo 15 > /sys/module/sw_keyboard/parameters/debug_mask 
+echo 8 > /proc/sys/kernel/printk
 </code>
 
 ==== 常用出错 ====
 <code bash>
-	Fatal signal
-	died
+Fatal signal
+died
 </code>
 
 

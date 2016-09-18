@@ -1,0 +1,93 @@
+====公版和客户版本之间的制定方案====  
+
+  - 新增客户差异化定制，0为LVDS公版，1为VB1公版
+    * <code cpp> 
+    6A828\vendor\mstar\supernova\projects\config\chips\muji\MST072B_10AEV_14395_TVOS_DTMB\pcb_config.mk
+    + 53 ~ 57
+    #Product customer type
+    ENABLE_PRODUCT_PUBLIC_LVDS = 0
+    ENABLE_PRODUCT_PUBLIC_VBYONE = 0
+    ENABLE_PRODUCT_CUSTORMIZED_HAORUN = 1
+	</code>
+  - 添加编译选项，告诉编译器我们现在使用的是哪一个客户的方案
+    * <code cpp>
+    6A828\vendor\mstar\supernova\projects\config\default_config.mk
+    + 2248 ~ 2278
+    # public: lvds
+    ifndef ENABLE_PRODUCT_PUBLIC_LVDS
+    ENABLE_PRODUCT_PUBLIC_LVDS = 0
+    endif
+    ifeq ($(ENABLE_PRODUCT_PUBLIC_LVDS), 1)
+        CC_OPTS += -DENABLE_PRODUCT_PUBLIC_LVDS=1
+    else
+        CC_OPTS += -DENABLE_PRODUCT_PUBLIC_LVDS=0
+    endif
+
+    # public: vbyone
+    ifndef ENABLE_PRODUCT_PUBLIC_VBYONE
+    ENABLE_PRODUCT_PUBLIC_VBYONE = 0
+    endif
+    ifeq ($(ENABLE_PRODUCT_PUBLIC_VBYONE), 1)
+        CC_OPTS += -DENABLE_PRODUCT_PUBLIC_VBYONE=1
+    else
+        CC_OPTS += -DENABLE_PRODUCT_PUBLIC_VBYONE=0
+    endif
+
+    # customer: HaoRun
+    ifndef ENABLE_PRODUCT_CUSTORMIZED_HAORUN
+    ENABLE_PRODUCT_CUSTORMIZED_HAORUN = 0
+    endif
+    ifeq ($(ENABLE_PRODUCT_CUSTORMIZED_HAORUN), 1)
+        CC_OPTS += -DENABLE_PRODUCT_CUSTORMIZED_HAORUN=1
+    else
+        CC_OPTS += -DENABLE_PRODUCT_CUSTORMIZED_HAORUN=0
+    endif
+    </code>
+  - 添加枚举成员，不同客户对应唯一的ID
+    * <code cpp>
+    X:\6A828\6A828\vendor\mstar\supernova\MStarSDK\src\utility\mapi_types.h
+    + 2374 ~ 2385
+    /// The customer type
+    typedef enum
+    {
+        PRODUCT_PUBLIC_LVDS,			///<public-lvds			0
+        PRODUCT_PUBLIC_VBYONE,			///<public-vbyone		1
+
+            PRODUCT_CUSTORMIZED_HAORUN,		///<HaoRun				2
+        PRODUCT_NUM,					///<number of the product	3
+        PRODUCT_NONE = PRODUCT_NUM,		///<NULL customer
+    } PRODUCT_CUSTOMER_TYPE;
+    </code>
+  - 根据对应的宏，修改数据库中的数据，添加新客户时务必要添加对应的代码
+    * <code cpp>
+      H:\work\6A828\vendor\mstar\supernova\projects\msrv\control\src\MSrv_Control_common.cpp
+      void MSrv_Control_common::SetCustomerType()
+      {
+              PRODUCT_CUSTOMER_TYPE customerType = PRODUCT_NONE;
+      #if (ENABLE_PRODUCT_PUBLIC_LVDS == 1)
+              customerType = PRODUCT_PUBLIC_LVDS;
+      #elif (ENABLE_PRODUCT_PUBLIC_VBYONE == 1)
+              customerType = PRODUCT_PUBLIC_VBYONE;
+      #elif (ENABLE_PRODUCT_CUSTORMIZED_HAORUN == 1)
+              customerType = PRODUCT_CUSTORMIZED_HAORUN;
+      #endif
+              GetMSrvSystemDatabase()->SetProductCustomerType(&customerType);
+      }
+	</code>
+  - Android上层应用有客制化差异时，先判断当前的客户类型，再作差异化处理
+    * 初始化变量
+	* <code java>private static int currentCustomerType = -1;</code>
+    * 获取当前客户类型
+	* <code java>currentCustomerType = mTvCommonManager.getCustomerType();</code>
+    * 根据不同客户类型进行差异化处理
+	* <code java>
+     if (currentCustomerType == 2) {// HaoRun
+        // TODO
+      } else {
+        // TODO
+      }
+	</code>
+
+==== PS ====
+  - 详细请查看SVN-125版本，例子可参考SVN-132版本。
+  - 编译前，请认真检查pcb_config.mk文件中当前客制化宏定义是否置为1，其他为0！！！
