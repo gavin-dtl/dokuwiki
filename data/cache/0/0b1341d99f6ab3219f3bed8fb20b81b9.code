@@ -1,1 +1,0 @@
-rsync <span class="re5">-vare</span> <span class="kw2">ssh</span> jono<span class="sy0">@</span>192.168.0.2:<span class="sy0">/</span>home<span class="sy0">/</span>jono<span class="sy0">/</span>importantfiles<span class="sy0">/*</span> <span class="sy0">/</span>home<span class="sy0">/</span>jono<span class="sy0">/</span>backup<span class="sy0">/</span>

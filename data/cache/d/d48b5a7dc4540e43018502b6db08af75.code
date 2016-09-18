@@ -1,9 +1,0 @@
-  logcat <span class="sy0">|</span> <span class="kw2">grep</span> fallocate 
-  <span class="kw2">grep</span> <span class="re5">-Inrs</span> <span class="st0">&quot; incomplete xfer&quot;</span> <span class="sy0">*</span> 
-  <span class="kw2">grep</span> <span class="re5">-E</span> <span class="st0">&quot;http&quot;</span> . <span class="re5">-R</span> <span class="re5">--exclude-dir</span>=<span class="br0">&#123;</span>.git,res,bin<span class="br0">&#125;</span>
-  <span class="co0">#附赠一个，排除扩展名为 java 和 js 的文件</span>
-  <span class="kw2">grep</span> <span class="re5">-E</span> <span class="st0">&quot;http&quot;</span> . <span class="re5">-R</span> <span class="re5">--exclude</span>=<span class="sy0">*</span>.<span class="br0">&#123;</span><span class="kw2">java</span>,js<span class="br0">&#125;</span>
-&nbsp;
-  <span class="kw2">find</span> pathname <span class="re5">-options</span> 
-  <span class="kw2">find</span> . <span class="re5">-name</span> 
-  <span class="kw2">find</span> <span class="re5">-name</span> <span class="st_h">'.git*'</span> <span class="sy0">|</span><span class="kw2">xargs</span> <span class="kw2">rm</span> <span class="re5">-rf</span>

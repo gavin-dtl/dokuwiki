@@ -1,3 +1,0 @@
-  <span class="kw2">git rm</span> <span class="re5">-r</span> <span class="re5">--cached</span> .
-  <span class="kw2">git add</span> .
-  <span class="kw2">git commit</span> <span class="re5">-m</span> <span class="st_h">'update .gitignore'</span>

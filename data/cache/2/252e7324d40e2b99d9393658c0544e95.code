@@ -1,3 +1,0 @@
-<span class="sy0">//</span><span class="kw2">git commit</span> <span class="re5">--allow-emptt</span>
-<span class="sy0">//</span><span class="kw2">git remote</span> add origin gitServer<span class="sy0">@</span>192.168.3.99:testing<span class="sy0">/</span>testing.git
-<span class="sy0">//</span><span class="kw2">git clone</span>  gitServer<span class="sy0">@</span>192.168.3.99:testing<span class="sy0">/</span>testing.git

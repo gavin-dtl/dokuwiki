@@ -1,9 +1,0 @@
-<span class="kw4">struct</span> v4l2_requestbuffers reqbufs<span class="sy0">;</span><span class="co1">//向驱动申请帧缓冲的请求，里面包含申请的个数</span>
-<span class="kw4">struct</span> v4l2_capability cap<span class="sy0">;</span><span class="co1">//这个设备的功能，比如是否是视频输入设备</span>
-<span class="kw4">struct</span> v4l2_input input<span class="sy0">;</span> <span class="co1">//视频输入</span>
-<span class="kw4">struct</span> v4l2_standard std<span class="sy0">;</span><span class="co1">//视频的制式，比如PAL，NTSC</span>
-<span class="kw4">struct</span> v4l2_format fmt<span class="sy0">;</span><span class="co1">//帧的格式，比如宽度，高度等</span>
-<span class="kw4">struct</span> v4l2_buffer buf<span class="sy0">;</span><span class="co1">//代表驱动中的一帧</span>
-v4l2_std_id stdid<span class="sy0">;</span><span class="co1">//视频制式，例如：V4L2_STD_PAL_B</span>
-<span class="kw4">struct</span> v4l2_queryctrl query<span class="sy0">;</span><span class="co1">//查询的控制</span>
-<span class="kw4">struct</span> v4l2_control control<span class="sy0">;</span><span class="co1">//具体控制的值</span>

@@ -1,5 +1,0 @@
-service for ethernet_det hacking
-service ethernet_det /system/bin/ethernet_det
-	class core
-	disabled
-	oneshot

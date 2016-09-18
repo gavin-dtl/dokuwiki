@@ -1,4 +1,0 @@
-<span class="sy0">-</span>	a.<span class="me1">info</span>.<span class="me1">screenOrientation</span> <span class="sy0">=</span> sa.<span class="me1">getInt</span><span class="br0">&#40;</span>
-<span class="sy0">-</span>	com.<span class="me1">android</span>.<span class="me1">internal</span>.<span class="me1">R</span>.<span class="me1">styleable</span>.<span class="me1">AndroidManifestActivity_screenOrientation</span>,
-<span class="sy0">-</span>  	ActivityInfo.<span class="me1">SCREEN_ORIENTATION_UNSPECIFIED</span><span class="br0">&#41;</span><span class="sy0">;</span>
-<span class="sy0">+</span>	a.<span class="me1">info</span>.<span class="me1">screenOrientation</span> <span class="sy0">=</span> ActivityInfo.<span class="me1">SCREEN_ORIENTATION_PORTRAIT</span>

@@ -1,3 +1,0 @@
-  <span class="kw2">git add</span> gitosis.conf
-  <span class="kw2">git commit</span> <span class="re5">-m</span> <span class="st0">&quot;auto for repo testing&quot;</span>
-  <span class="kw2">git push</span> origin master  

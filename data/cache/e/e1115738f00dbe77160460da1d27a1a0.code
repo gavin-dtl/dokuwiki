@@ -1,5 +1,0 @@
-<span class="kw3">export</span> <span class="re2">GOROOT</span>=<span class="re1">$HOME</span><span class="sy0">/</span>go 
-<span class="kw3">export</span> <span class="re2">GOBIN</span>=<span class="re1">$GOROOT</span><span class="sy0">/</span>bin
-<span class="kw3">export</span> <span class="re2">GOARCH</span>=arm
-<span class="kw3">export</span> <span class="re2">GOOS</span>=linux
-<span class="kw3">export</span> <span class="re2">PATH</span>=<span class="re1">$GOROOT</span><span class="sy0">/</span>bin:<span class="re1">$PATH</span>

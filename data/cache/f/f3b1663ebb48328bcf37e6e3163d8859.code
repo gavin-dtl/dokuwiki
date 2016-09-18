@@ -1,8 +1,0 @@
-Full Upgrade? (Y/n)y
-UpgradeImage Generating.....
-script file crc 0xF6EBBA06
-u32ImageSize = 0x1FF6100C
-CRC32 = 0xB0C2DCD1
-1+0 records in
-1+0 records out
-16 bytes (16 B) copied, 2.0196e-05 s, 792 kB/s

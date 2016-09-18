@@ -1,2 +1,0 @@
-	EXPORT_SYMBOL<span class="br0">&#40;</span>符号名<span class="br0">&#41;</span>；<span class="co1">//符号名一般为函数名</span>
-	EXPORT_SYMBOL_GPL<span class="br0">&#40;</span>符号名<span class="br0">&#41;</span>；

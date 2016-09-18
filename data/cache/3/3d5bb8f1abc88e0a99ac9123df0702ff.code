@@ -1,1 +1,0 @@
-	<span class="kw2">sed</span> <span class="re5">-i</span> <span class="st0">&quot;s/原字符串/新字符串/g&quot;</span> <span class="kw2">grep</span> 原字符串 <span class="re5">-rl</span> 所在目录

@@ -1,3 +1,0 @@
-  <span class="sc3"><span class="re1">&lt;IfModule</span> mod_dir.c<span class="re2">&gt;</span></span>
-    DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm /wordpress
-  <span class="sc3"><span class="re1">&lt;/IfModule<span class="re2">&gt;</span></span></span>

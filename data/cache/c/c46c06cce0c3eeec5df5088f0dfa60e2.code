@@ -1,5 +1,0 @@
-  logcat <span class="sy0">|</span> <span class="kw2">grep</span> fallocate 
-  <span class="kw2">grep</span> <span class="re5">-Inrs</span> <span class="st0">&quot; incomplete xfer&quot;</span> <span class="sy0">*</span> 
-  <span class="kw2">find</span> pathname <span class="re5">-options</span> 
-  <span class="kw2">find</span> . <span class="re5">-name</span> 
-  <span class="kw2">find</span> <span class="re5">-name</span> <span class="st_h">'.git*'</span> <span class="sy0">|</span><span class="kw2">xargs</span> <span class="kw2">rm</span> <span class="re5">-rf</span>

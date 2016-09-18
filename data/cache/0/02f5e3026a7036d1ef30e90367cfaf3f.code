@@ -1,3 +1,0 @@
-	<span class="re2">PS1</span>=<span class="st0">&quot;$ [\e[31m]<span class="es1">\t</span>[\e[0m] [\e[32m]\u[\e[0m][\e[33m]@[\e[0m][\e[34m]\h[\e[0m] [[\e[36m]\w[\e[0m]] <span class="es1">\n</span>[\e[35m]o[\e[0m]$ &quot;</span>
-	<span class="re2">PS1</span>=<span class="st0">&quot;[\e[35m]o $[\e[0m] <span class="es1">\t</span> \u@\h [\w] <span class="es1">\n</span>[\e[32m]o $[\e[0m] &quot;</span>
-	\033<span class="br0">&#91;</span><span class="nu0">47</span>;34mWARN: <span class="re4">$*</span>\033<span class="br0">&#91;</span>0m

@@ -1,1 +1,0 @@
-  <span class="kw2">git config</span> <span class="re5">--global</span> core.editor <span class="kw2">vim</span> <span class="sy0">//</span>配置提交时使用<span class="kw2">vim</span>作为编辑器
