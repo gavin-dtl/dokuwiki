@@ -32,3 +32,7 @@
   sudo apache2ctl -k restart
 </code>
 
+==== 四、修改默认上传文件大小 ====
+修改/etc/php5/apache2/php.ini文件中upload_max_filesize字段，设置为你需要的文件大小限制，然后重启下apache服务。
+
+

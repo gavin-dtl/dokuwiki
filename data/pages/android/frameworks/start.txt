@@ -10,3 +10,4 @@
   * [[android:frameworks:android 去ODEX |android 去ODEX]]
   * [[android:frameworks:hwc显示合成 | hwc显示合成]]
   * [[android:frameworks:android manager 控制 gpio | android manager 控制 gpio]]
+  * [[android:frameworks:遥控器模拟鼠标功能 | 遥控器模拟鼠标功能]]

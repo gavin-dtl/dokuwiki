@@ -1,0 +1,38 @@
+===== 遥控器模拟鼠标功能 ==
+
+----
+如下为主要修改的文件，详细信息见补丁。
+
+<code bash>
+modified: base/api/current.txt
+modified: base/api/system-current.txt
+modified: base/core/java/android/provider/Settings.java
+modified: base/core/java/android/view/IWindowManager.aidl
+modified: base/core/java/android/view/KeyEvent.java
+new file: base/core/res/res/drawable/key_mouse.png
+modified: base/core/res/res/values-zh-rCN/custom.xml
+modified: base/core/res/res/values/attrs.xml
+modified: base/core/res/res/values/custom.xml
+modified: base/core/res/res/values/public.xml
+modified: base/packages/SettingsProvider/res/values/defaults.xml
+modified: base/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java
+modified: base/policy/src/com/android/internal/policy/impl/PhoneWindowManager.java
+modified: base/services/core/java/com/android/server/input/InputManagerService.java
+modified: base/services/core/java/com/android/server/wm/WindowManagerService.java
+modified: base/services/core/jni/com_android_server_input_InputManagerService.cpp
+modified: base/tools/layoutlib/bridge/src/android/view/IWindowManagerImpl.java
+modified: base/tools/layoutlib/bridge/src/com/android/layoutlib/bridge/android/view/WindowManagerImpl.java
+modified: native/include/android/keycodes.h
+modified: native/include/input/InputEventLabels.h
+modified: native/services/inputflinger/InputReader.cpp
+modified: native/services/inputflinger/InputReader.h
+</code>
+
+
+<code bash>
+modified: softwinner/octopus-xz/configs/sunxi-ir.kl
+modified: softwinner/octopus-xz/octopus_xz.mk
+</code>
+
+==== 附件 ====
+{{ :android:frameworks:add_ctrl_mouse.zip |}}
