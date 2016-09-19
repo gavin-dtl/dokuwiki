@@ -1,6 +1,8 @@
 ====== rtl8723bu wifi+bt 模块移植 ======
 
+{{tag>wifi bt}}
 ----
+rtl8723bu 为usb接口的wifi+bt模块，android下移植需移植驱动及android适配，mstar下移植移植如下：
 ==== Wifi ====
   - 修改驱动配置
     * 修改drivers/net/wireless/目录下makefile 及Kconfig 添加对对应的编译信息
@@ -171,9 +173,13 @@
 
 ----
 ==== 附件 ====
+
+<WRAP left round download>
 {{android:driver:rtl8723bu.zip}}
 
 {{android:driver:20160603_tv_android_5.x_v1.1.3.0_for_mstar.rar}}
+</WRAP>
+
 
 ==== 参考链接 ====
 [[http://blog.csdn.net/bhj1119/article/details/51858635]]

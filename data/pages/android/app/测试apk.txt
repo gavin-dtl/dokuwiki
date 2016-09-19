@@ -1,0 +1,15 @@
+===== 测试apk ==
+
+----
+测试用例apk
+
+==== ====
+
+{{android:app:serialport.zip}} : 串口测试
+
+{{android:app:wifi信号分析仪.zip}} ： wifi信号分析
+
+{{android:app:screencomment_9.zip}} ： 屏幕批注
+
+{{android:app:whitepanel_new.zip}} ： 电子白板
+

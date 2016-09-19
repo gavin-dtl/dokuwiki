@@ -1,24 +1,41 @@
-=== 导航栏插件 ===
+[[https://www.dokuwiki.org/plugin:indexmenu|indexmenu]] : 导航栏插件
 
-[[https://www.dokuwiki.org/plugin:indexmenu|indexmenu]]
+[[https://www.dokuwiki.org/plugin:dw2pdf|dw2pdf]] : 导出PDF 
 
-=== 导出PDF ===
-[[https://www.dokuwiki.org/plugin:dw2pdf|dw2pdf]]
+[[https://www.dokuwiki.org/plugin%3Acodemirror|CodeMirror]] : 编辑语法高亮插件
 
-=== MarkDown ===
-[[https://www.dokuwiki.org/plugin%3Amarkdownextra|markdown]]
-<markdown>
-# head
-</markdown>
+[[https://www.dokuwiki.org/plugin:wrap | WRAP]] : 排版增强
 
-=== 编辑插件 ===
-  * [[https://www.dokuwiki.org/plugin%3Acodemirror|CodeMirror]]
-  * ckgedit
+[[https://www.dokuwiki.org/plugin:captcha | captcha]]： 验证码插件
 
-==== 折叠插件====
-    * [[https://www.dokuwiki.org/plugin:hidden | hidden]]
-    * <hidden click here if you want to know more>Since you want to know more, here is an explanation with more details […]</hidden>
+[[https://www.dokuwiki.org/plugin:pagelist | pagelist]] :pagelist
 
-==== 引用页面插件====
-    * [[https://www.dokuwiki.org/plugin:include | Include]]
-    * {{page>@MONTH@:@DAY@:birthdays}}
+[[https://www.dokuwiki.org/plugin:tag | Tag]] :标签插件,需pagelist插件支持
+
+[[https://www.dokuwiki.org/plugin:cloud| Cloud Plugin ]] : 标签云插件，需pagelist插件支持
+
+[[https://www.dokuwiki.org/plugin%3Aimgpaste | ImgPaste Plugin]] : 在编辑器直接粘贴就可以插入剪贴板中的图片，可以用来快速上传截图。
+
+[[https://www.dokuwiki.org/plugin:include | Include]] ：引用页面插件
+  * {{page>@MONTH@:@DAY@:birthdays}}
+
+[[https://www.dokuwiki.org/plugin%3Amarkdownextra|markdown]] : MarkDown插件
+  * <markdown> # head </markdown>
+
+[[https://www.dokuwiki.org/plugin:hidden | hidden]] ： 折叠插件
+  * <hidden click here if you want to know more>Since you want to know more, here is an explanation with more details […]</hidden>
+
+
+tabinclude plugin:tabinclude 在页面内用tab页签引用多个页面
+
+todo plugin:todo 待办列表，并且可以打勾等操作
+
+Tag plugin:tag 标签
+
+tagentry plugin:tagentry 在编辑框下列出所有tag
+
+imgpaste plugin:imgpaste 在编辑器直接粘贴就可以插入剪贴板中的图片，可以用来快速上传截图。
+
+Blog plugin:blog 列出类似博客的文章列表
+
+[[http://www.baiguo.net/wiki/doku.php?id=wiki:plugins]]

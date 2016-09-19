@@ -1,6 +1,11 @@
 ===== 修改cpu频率 =====
 
+{{tag>638}}
+
+----
 device/mstar/arbutus/preinstall/cpu_dvfs_scaling.sh
+
+==== ==
 
 <code bash>
 

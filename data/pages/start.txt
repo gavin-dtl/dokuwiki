@@ -1,11 +1,29 @@
-===== Welcome!!! =====
+<WRAP column 30%>
+{{透明.png}}
+</WRAP>
+
+<WRAP column 30%>
+===== Welcome ===== 
+</WRAP>
+
+----
+<WRAP column box 60% round>
   * [[移居linux:start | 移居linux]]
   * [[work:炫智:start | 炫智]]
   * [[android:start | Android]]
+</WRAP>
+
+<WRAP box 35% round>
+=== 标签 ===
+~~TAGCLOUD:number~~
+</WRAP>
 
 ----
+{{blog>*?5&excluded_pages=!(^|:)index$!&firstseconly&readmore}}
 
-===== 外部链接 =====
+
+----
+==== 外部链接 ====
   * [[http://www.iconfont.cn/ | iconfont]]
   * [[https://bugly.qq.com/whitebook | bugly]]
   * [[http://wiki.t-firefly.com/index.php/FirePrime | RK论坛]]
@@ -13,3 +31,11 @@
   * [[http://edu.csdn.net/course/detail/395# | 零基础学Java系列从入门到精通 - CSDN学院 - CSDN.NET]]
   * [[https://github.com/haoel/leetcode | leetcode]]
   * [[http://blog.csdn.net/lb5761311/article/details/47723455 | repo]]
+  * [[http://www.lintcode.com/ | lintcode]]
+  * [[http://edu.csdn.net/course/detail/907 | android移植视频]]
+  * [[http://edu.csdn.net/course/detail/2954 | android软件框架搭建]]
+
+
+
+
+

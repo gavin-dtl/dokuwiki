@@ -2,25 +2,25 @@
 
 ----
 ==== Linux ====
-  * [[移居linux:linux命令技巧 | Linux命令技巧]]
-  * [[移居linux:VIM配置使用文档 | VIM配置使用文档]]
-  * [[移居linux:linux彩色字体显示 | linux彩色字体显示]] 
-  * [[移居linux:编译ngrok | 编译ngrok]]
-  *  [[Ubuntu更新时提示/boot空间不足 | Ubuntu更新时提示/boot空间不足]]
+  * [[移居linux:linux命令技巧]]
+  * [[移居linux:VIM配置使用文档]]
+  * [[移居linux:linux彩色字体显示]] 
+  * [[移居linux:编译ngrok]]
+  *  [[Ubuntu更新时提示/boot空间不足]]
 
 ----
 
 ==== Git ====
-  * [[移居linux:git技巧及常见错误 | git技巧及常见错误]]
-  * [[移居linux:git工程管理 | git工程管理]]
-  * [[移居linux:gitois安装 | gitois安装]]
-  * [[移居linux:git常用命令 | git常用命令]]
+  * [[移居linux:git技巧及常见错误]]
+  * [[移居linux:git工程管理]]
+  * [[移居linux:gitois安装]]
+  * [[移居linux:git常用命令]]
 
 ----
 ==== WIKI ====
-  * [[移居linux:创建页面 | 创建页面]]
-  * [[移居linux:修改apache2根路径及默认网页 | 修改apache2根路径及默认网页]]
-  * [[移居linux:wiki语法说明 | wiki语法说明]]
-  * [[移居linux:wiki插件 | wiki插件]]
-  * [[移居linux:wiki代码高亮 | wiki代码高亮]]
+  * [[移居linux:创建页面]]
+  * [[移居linux:修改apache2根路径及默认网页]]
+  * [[移居linux:wiki语法说明 ]]
+  * [[移居linux:wiki插件]]
+  * [[移居linux:wiki代码高亮]]
 

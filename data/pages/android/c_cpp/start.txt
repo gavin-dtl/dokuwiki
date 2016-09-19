@@ -1,8 +1,8 @@
 ==== C & C++ ====
-  * [[android:c_cpp:Mutex_AutoLock介绍  | Mutex_AutoLock介绍  ]]
-  * [[android:c_cpp:doxgen规范 | doxgen规范]]
-  * [[android:c_cpp:以指定的字符串分割字符串 | 以指定的字符串分割字符串]]
-  * [[android:c_cpp:字符串操作 | 字符串操作]]
+  * [[android:c_cpp:Mutex_AutoLock介绍]]
+  * [[android:c_cpp:doxgen规范]]
+  * [[android:c_cpp:以指定的字符串分割字符串]]
+  * [[android:c_cpp:字符串操作]]
 
 ----
 {{page>@android@:@:c_cpp@:@数据结构@:@start}}

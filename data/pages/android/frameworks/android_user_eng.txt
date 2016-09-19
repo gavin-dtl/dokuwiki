@@ -1,0 +1,31 @@
+===== android user & eng ==
+{{tag>root}}
+
+----
+==== 区别 ====
+
+android 编译时有eng，user版本的选择，eng 为debug调试版本，user 为release用户版本，userDebug为部分debug版本。
+==== 查看版本 ====
+<code bash>
+shell@android:/ $ cat default.prop
+cat default.prop
+#
+# ADDITIONAL_DEFAULT_PROPERTIES
+#
+ro.secure=1
+ro.allow.mock.location=0
+ro.debuggable=0
+persist.sys.usb.config=mass_storage
+</code>
+  * User模式 : ro.secure=1 && ro.debuggable=0
+  * Eng模式  : ro.secure=0 && ro.debuggable=1
+
+==== 编译选项 ====
+在android.mk里，存在 **LOCAL_MODULE_TAGS** 这一变量，该变量对应不同的编译结果：
+  - user：只有在user版本时该模块才被编译进去；
+  - eng：只有在eng版本时该模块才被编译进去；
+  - test：只有在tests版本时该模块才被编译进去；
+  - optional：在所有版本中都编译该模块进去。
+
+
+

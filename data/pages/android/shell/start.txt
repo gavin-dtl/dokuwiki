@@ -1,2 +1,2 @@
 ===== Shell =====
-  * [[android:shell:命令技巧|命令技巧]]
+  * [[android:shell:命令技巧]]

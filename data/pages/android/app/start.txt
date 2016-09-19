@@ -1,4 +1,5 @@
 ==== App ====
-  * [[ android:app:android启动应用 | android启动应用 ]]
-  * [[ android:app:androd系统拖拽移动图标 | android启动应用 ]]
-  * [[ android:app:防止手机旋转/系统语言切换导致activity重启| 防止手机旋转/系统语言切换导致activity重启 ]]
+  * [[ android:app:测试apk]]
+  * [[ android:app:android启动应用]]
+  * [[ android:app:androd系统拖拽移动图标]]
+  * [[ android:app:防止手机旋转/系统语言切换导致activity重启]]

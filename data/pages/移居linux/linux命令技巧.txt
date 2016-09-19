@@ -1,7 +1,7 @@
 ===== linux命令技巧 =====
 
 ----
-=== 备份文件 ===
+==== 备份文件 ====
 <code bash>
 rsync -vare ssh jono@192.168.0.2:/home/jono/importantfiles/* /home/jono/backup/
 </code>
