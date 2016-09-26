@@ -1,0 +1,42 @@
+===== android删减系统应用 ==
+
+android 可以删除系统自带应用或厂商应用。
+
+----
+== ==
+
+==== 删除android自带应程序 ==
+<code> build/target/product/generic.mk </code>
+源码如下：
+<code bash>
+$(call inherit-product, $(SRC_TARGET_DIR)/product/generic_no_telephony.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/telephony.mk)
+
+# Overrides
+PRODUCT_BRAND := generic
+PRODUCT_DEVICE := generic
+PRODUCT_NAME := generic
+</code>
+
+包含build/target/product/generic_no_telephony.mk 该文件
+<code> build/target/product/generic_no_telephony.mk </code>
+<code bash>
+PRODUCT_PACKAGES := \
+    Bluetooth \
+    Camera2 \
+    Gallery2 \
+    Music \
+    MusicFX \
+    OneTimeInitializer \
+    Provision \
+    SystemUI \
+    WallpaperCropper
+</code>
+只需在 PRODUCT_PACKAGES 删除对应模块名称即可删除系统自带应用。
+
+同时product/core.mk也有一些模块信息，可通过grep在build/target搜索对应的模块信息，进行参数对应模块/应用。
+
+==== 删除厂商自带应程序 ==
+需修改如下文件PRODUCT_PACKAGES
+<code> device/softwinner/octopus-xz/octopus_xz.mk </code>
+

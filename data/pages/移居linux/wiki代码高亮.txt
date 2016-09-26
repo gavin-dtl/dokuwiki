@@ -1,6 +1,13 @@
-==== 代码高亮 ====
-  * 代码块, 你想高亮语法吗, 你想直接把代码复制拷贝到文件中吗, 使用代码块<nowiki> <code java> javaCodes </code> </nowiki>即可显示高亮
-  * 使用<file java mytest.java> javaCodes </java>还可以直接下载mytest.java文件
+===== 代码高亮 ===
+
+{{tag>wiki}}
+
+代码块, 你想高亮语法吗, 你想直接把代码复制拷贝到文件中吗, 使用代码块<nowiki> <code java> javaCodes </code> </nowiki>即可显示高亮
+
+----
+==== ==
+
+* 使用<file java mytest.java> javaCodes </java>还可以直接下载mytest.java文件
   * 如果不想code被解析,可以使用<nowiki><nowiki> code </nowiki></nowiki>
   * <code java>
     /** 

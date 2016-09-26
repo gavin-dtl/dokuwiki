@@ -1,0 +1,154 @@
+===== repo =====
+
+=== 下载无代码审核repo ===
+<code bash>
+git clone  http://github.com/ossxp-com/repo/
+cp repo/repo ~/bin/
+</code>
+
+
+=== 创建repo git ===
+  - 在github建立对应的repo.git项目
+  - 把repo 上传到 github/gitServer中
+    * <code bash>
+git remote add origin https://github.com/gavin-dtl/repo.git
+#/home/gavin/workspace/repoText/gitServer/repo.git
+git push -u origin master
+git push origin --tag
+</code>
+    * <code bash>
+fatal: branch 'master' has not been signed
+#出现该错误,为未push branch 或 tag 
+</code>
+  - 修改repo路径
+    * <code>
+REPO_URL='git://github.com/gavin-dtl/repo.git'
+REPO_REV='master'
+</code>
+  - 测试repo git是否可行
+    * <code bash>
+repo init -u git://github.com/ossxp-com/manifest.git
+repo sync
+</code>
+    
+
+==== manifest ====
+<code bash>
+mkdir manifest
+cd manifest
+</code>
+添加default.xml文件,文件信息如下:
+<code xml>
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+  <remote  name="lichee"
+           fetch="/home/gavin/workspace/repoText/gitServer/a83t/lichee"
+	   autodotgit="true" />
+  <default 
+	remote="lichee"
+	revision="master"
+ 	sync-j="4" />
+
+  <project path="buildroot" name="buildroot">
+    <copyfile src="scripts/top_build.sh" dest="build.sh" />
+    <copyfile src="README" dest="README" />
+  </project>
+  <project path="linux-3.4" name="linux-3.4" />
+  <project path="tools" name="tools" />
+  <project path="brandy" name="brandy" />
+
+</manifest>
+</code>
+
+=== project init ===
+获取所以文件夹列表:
+<code bash>
+#!/bin/sh
+#扫描当前文件夹下所以目录到文件 alldir.txt
+rm alldir.txt 
+for file in ./*
+do
+    if test -f $file
+    then
+        echo $file 是文件
+    fi
+    if test -d $file
+    then
+        echo $file 是目录
+        echo $file >> alldir.txt
+    fi
+done
+</code>
+
+git 服务其创建远程git: cat alldir.txt | service_repo_init.sh 
+<code bash>
+#/bin/bash
+set -x
+set -e
+pwd=${PWD}
+
+cd ~/workspace/repoText/gitServer/a83t/lichee
+while read line; do
+    if [ -z "$line" ]; then
+        echo $work_dir not exist !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 1>&2
+        continue
+    fi
+        git init --bare $line.git
+        echo ==== $line
+        pwd
+done
+</code>
+
+初始化代码git及push到服务器
+<code bash>
+#/bin/bash
+
+set -x
+set -e
+
+para1=
+work_dir=$1
+
+pwd=${PWD}
+
+while read line; do
+    line1=${line%%/*}
+    if [ -z "$line" ]; then
+        echo $work_dir not exist !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 1>&2
+        continue
+    fi
+    if [ $(ls -A $pwd/$line | wc -l) -eq 0 ]; then
+        echo $work_dir empty !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 1>&2
+        continue
+    fi
+    workdir=$pwd/$line
+    echo ==== $workdir
+    cd $workdir
+        rm -rf .git
+        git init .  1>&2
+        git add . -f 1>&2
+        git commit -m "Initial commit" 1>&2
+        #if [ "$line1" = "device" ]; then
+        #    git push --set-upstream git://192.168.100.182/$line.git master
+        #elif [ "$line1" = "kernel" ]; then
+        #    git push --set-upstream git://192.168.100.182/$line.git master
+        #elif [ "$line1" = "mediatek" ]; then
+        #    git push --set-upstream git://192.168.100.182/$line.git master
+        #elif [ "$line1" = "vendor" ]; then
+        #    git push --set-upstream git://192.168.100.182/$line.git master
+        #else
+            #git push --set-upstream git://192.168.100.182/platform/$line.git master
+            git push --set-upstream /home/gavin/workspace/repoText/gitServer/a83t/lichee/$line.git master
+        #fi
+    cd -
+done
+</code>
+
+从服务器下载:
+<code bash>
+ ./../../bin/repo init -u /home/gavin/workspace/repoText/gitServer/a83t/lichee/manifest.git
+</code>
+
+
+[[http://blog.csdn.net/yicao821/article/details/25293561]]

@@ -1,3 +1,10 @@
+===== wiki 插件=====
+
+{{tag>wiki}}
+
+----
+== ==
+
 [[https://www.dokuwiki.org/plugin:indexmenu|indexmenu]] : 导航栏插件
 
 [[https://www.dokuwiki.org/plugin:dw2pdf|dw2pdf]] : 导出PDF 

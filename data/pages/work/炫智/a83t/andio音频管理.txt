@@ -1,0 +1,4 @@
+===== andio音频管理 =====
+
+hardware/aw/audio/octopus/ac100_paths.xml
+----

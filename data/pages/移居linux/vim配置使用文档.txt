@@ -1,5 +1,8 @@
 ===== VIM配置使用文档 =====
 
+{{tag>vim ubuntu}}
+
+----
 ==== 配置安装 ====
   - 解压附件 vim_confi.tar.gz
   - 复制 .vimrc 和 .vim/ 替换家目录下的文件及文件夹

@@ -1,0 +1,129 @@
+===== android 5.0 root 权限 =====
+
+{{tag>root}}
+
+4.2.2上root的方法比较简单，调用su命令就可以获取到root权限并执行一些命令。但是在Android 4.3+到5.0，Google为这种root方法设置了层层障碍： 
+  - su命令源码中添加了uid检验，只允许shell/root用户进行调用　 
+  - Zygote源码中添加了添加DropCapabilitiesBoundingSet屏蔽APP了setuid的功能 
+  - adb源码中添加了添加should_drop_privileges屏蔽adb了setuid的功能(对于userdebug/eng版本该函数未被调用) 
+  - 开启了SELinux安全模块，1,2条都满足情况下也会被中断su。
+
+----
+==== 具体解决方法： ==
+针对前三项的解决方法是按照以下diff文件进行修改代码并重新编译Android系统：
+  * su命令源码中添加了uid检验，只允许shell/root用户进行调用　
+  * Zygote源码中添加了添加DropCapabilitiesBoundingSet屏蔽APP了setuid的功能
+  * adb源码中添加了添加should_drop_privileges屏蔽adb了setuid的功能(对于userdebug/eng版本该函数未被调用)
+
+1，2，3代码修改的diff文件：
+<code c>
+project frameworks/base/
+diff --git a/cmds/app_process/app_main.cpp b/cmds/app_process/app_main.cpp
+index 1bb28c3..3e69750 100644
+--- a/cmds/app_process/app_main.cpp
++++ b/cmds/app_process/app_main.cpp
+@@ -185,6 +185,7 @@ static const char ZYGOTE_NICE_NAME[] = "zygote";
+
+ int main(int argc, char* const argv[])
+ {
++/*
+     if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) < 0) {
+         // Older kernels don't understand PR_SET_NO_NEW_PRIVS and return
+         // EINVAL. Don't die on such kernels.
+@@ -193,6 +194,7 @@ int main(int argc, char* const argv[])
+             return 12;
+         }
+     }
++*/
+
+     AppRuntime runtime(argv[0], computeArgBlockSize(argc, argv));
+     // Process command line arguments
+diff --git a/core/jni/com_android_internal_os_Zygote.cpp b/core/jni/com_android_internal_os_Zygote.cpp
+index 4f5e08b..8b136bd 100644
+--- a/core/jni/com_android_internal_os_Zygote.cpp
++++ b/core/jni/com_android_internal_os_Zygote.cpp
+@@ -208,6 +208,7 @@ static void EnableKeepCapabilities(JNIEnv* env) {
+ }
+
+ static void DropCapabilitiesBoundingSet(JNIEnv* env) {
++/*
+   for (int i = 0; prctl(PR_CAPBSET_READ, i, 0, 0, 0) >= 0; i++) {
+     int rc = prctl(PR_CAPBSET_DROP, i, 0, 0, 0);
+     if (rc == -1) {
+@@ -220,6 +221,7 @@ static void DropCapabilitiesBoundingSet(JNIEnv* env) {
+       }
+     }
+   }
++*/
+ }
+
+ static void SetCapabilities(JNIEnv* env, int64_t permitted, int64_t effective) {
+
+project system/core/
+diff --git a/adb/adb.c b/adb/adb.c
+index 10a1e0d..2cd4f97 100644
+--- a/adb/adb.c
++++ b/adb/adb.c
+@@ -1261,6 +1261,7 @@ static void drop_capabilities_bounding_set_if_needed() {
+ }
+
+ static int should_drop_privileges() {
++    return 0;
+ #ifndef ALLOW_ADBD_ROOT
+     return 1;
+ #else /* ALLOW_ADBD_ROOT */
+diff --git a/include/private/android_filesystem_config.h b/include/private/android_filesystem_config.h
+index 2f528b9..1223b45 100644
+--- a/include/private/android_filesystem_config.h
++++ b/include/private/android_filesystem_config.h
+@@ -244,7 +244,7 @@ static const struct fs_path_config android_files[] = {
+
+     /* the following five files are INTENTIONALLY set-uid, but they
+      * are NOT included on user builds. */
+-    { 04750, AID_ROOT,      AID_SHELL,     0, "system/xbin/su" },
++    { 06755, AID_ROOT,      AID_SHELL,     0, "system/xbin/su" },
+     { 06755, AID_ROOT,      AID_ROOT,      0, "system/xbin/librank" },
+     { 06755, AID_ROOT,      AID_ROOT,      0, "system/xbin/procrank" },
+     { 06755, AID_ROOT,      AID_ROOT,      0, "system/xbin/procmem" },
+@@ -255,6 +255,7 @@ static const struct fs_path_config android_files[] = {
+
+     { 00750, AID_ROOT,      AID_ROOT,      0, "system/bin/uncrypt" },
+     { 00750, AID_ROOT,      AID_ROOT,      0, "system/bin/install-recovery.sh" },
++    { 06755, AID_ROOT,      AID_ROOT,      0, "system/bin/su" },
+     { 00755, AID_ROOT,      AID_SHELL,     0, "system/bin/*" },
+     { 00755, AID_ROOT,      AID_ROOT,      0, "system/lib/valgrind/*" },
+     { 00755, AID_ROOT,      AID_ROOT,      0, "system/lib64/valgrind/*" },
+
+project system/extras/
+diff --git a/su/su.c b/su/su.c
+index 8365379..826acfc 100644
+--- a/su/su.c
++++ b/su/su.c
+@@ -107,11 +107,12 @@ int main(int argc, char **argv)
+
+     /* Until we have something better, only root and the shell can use su. */
+     myuid = getuid();
++    /*
+     if (myuid != AID_ROOT && myuid != AID_SHELL) {
+         fprintf(stderr,"su: uid %d not allowed to su\n", myuid);
+         return 1;
+     }
+-
++    */
+     if(argc < 2) {
+         uid = gid = 0;
+     } else {
+</code>
+       
+       
+设置SELinux权限为Permissive
+
+SELinux常用状态有两个Permissive 和 Enforcing，后者会使APP无法调用su命令，前者可以。 
+
+查询当前SELinux状态：
+<code bash>
+adb shell getenforce
+</code>
+
+==== 参考 ==
+[[http://blog.csdn.net/kangear/article/details/51872653]]

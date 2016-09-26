@@ -2,6 +2,8 @@
 
   * 函数StringSplit(分割字符串到一个字符串数组中，其中该数组第0位为分割后字符串的个数) 
   * 函数StringSplit_Struct(以定义一个新结构的方式来实现该函数)
+
+----
 ==== ====
 <code c>
 #include <stdio.h>

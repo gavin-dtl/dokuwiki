@@ -1,0 +1,24 @@
+===== 安装ctags/cscope/doxygen/colordiff =====
+{{tag>ubuntu}}
+
+----
+==== ==
+
+<WRAP center round download 80%>
+{{移居linux:doxygen-1.8.11.linux.bin.tar.gz}}
+
+{{移居linux:ctags-5.8.tar.gz}}
+
+{{移居linux:cscope-15.8b.tar.gz}}
+
+{{移居linux:colordiff.tar.gz}}
+</WRAP>
+
+
+
+
+  - 解压
+  - ./configure --prefix=$HOME
+  - make
+  - make install
+

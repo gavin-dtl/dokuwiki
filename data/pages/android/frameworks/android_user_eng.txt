@@ -1,10 +1,38 @@
 ===== android user & eng ==
 {{tag>root}}
 
-----
-==== 区别 ====
-
 android 编译时有eng，user版本的选择，eng 为debug调试版本，user 为release用户版本，userDebug为部分debug版本。
+
+----
+==== 区别 Google 官方描述====
+<code>
+eng This is the default flavor. A plain make is the same as make eng.
+*       Installs modules tagged with: eng, debug, user, and/or development.
+*       Installs non-APK modules that have no tags specified.
+*       Installs APKs according to the product definition files, in addition to tagged APKs.
+*       ro.secure=0
+*       ro.debuggable=1
+*       ro.kernel.android.checkjni=1
+*       adb is enabled by default.
+*       Setupwizard is optional
+user make user
+This is the flavor intended to be the final release bits.
+*       Installs modules tagged with user.
+*       Installs non-APK modules that have no tags specified.
+*       Installs APKs according to the product definition files; tags are ignored for APK modules.
+*       ro.secure=1
+*       ro.debuggable=0
+*       adb is disabled by default.
+*       Enable dex pre-optimization for all TARGET projects in default to speed up device first boot-up
+userdebug make userdebug
+The same as user, except:
+*       Also installs modules tagged with debug.
+*       ro.debuggable=1
+*       adb is enabled by default.
+</code>
+其实就是eng可以输出更多的调试信息，但是性能上user要稍微好点
+
+
 ==== 查看版本 ====
 <code bash>
 shell@android:/ $ cat default.prop

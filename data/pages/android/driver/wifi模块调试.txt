@@ -1,5 +1,6 @@
 ===== wifi模块调试 =====
 
+----
 ==== 调试一般步骤 ====
   - 编译对应wifi模块
   - WPA_SUPPLICANT + WPA_CLI User Guide (可ifconfig wlan0 up 查看supplicant logcat信息)

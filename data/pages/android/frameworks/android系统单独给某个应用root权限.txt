@@ -1,0 +1,97 @@
+===== android系统单独给某个应用root权限 ==
+
+{{tag>root}}
+
+android系统给应用授予root权限，即为给应用调用su的权限，在su里对调用UID进行检查，只需获取对应应用的UID并让其通过检测，即可获取root权限。总体思路如下：
+  - 获取调用su的UID
+  - 获取需root应用的UID（可通过读取/data/system/packages.xml文件进行获取，如无对应读取权限，需先修改其权限，该文件存放APK的所有属性，权限，UID等）
+  - 如果相同即可获取root权限
+
+----
+== ==
+<code c>
+      1 diff --git a/system/extras/su/su.c b/system/extras/su/su.c
+      2 index 8365379..0c49db6 100755
+      3 --- a/system/extras/su/su.c
+      4 +++ b/system/extras/su/su.c
+      5 @@ -85,6 +85,46 @@ void extract_uidgids(const char *uidgids, uid_t *uid, gid_t *gid, gid_t *gids,
+      6      free(clobberablegids);
+      7  }
+      8  
+      9 +
+     10 +#define BUF_SIZE 1024
+     11 +char * str_contact(const char *str1,const char *str2)
+     12 +{
+     13 +    char * result;
+     14 +    result = (char*)malloc(strlen(str1) + strlen(str2) + 1); //str1 + str2 + \0;
+     15 +
+     16 +    if(!result){ 
+     17 +        printf("Error: malloc failed in concat! \n");
+     18 +        exit(EXIT_FAILURE);
+     19 +    }
+     20 +    strcpy(result,str1); 
+     21 +    strcat(result,str2);//String stitching
+     22 +
+     23 +    return result;
+     24 +}
+     25 +
+     26 +uid_t getUidByPackageName(char *package_name){
+     27 +
+     28 +    FILE * fp;
+     29 +    char buffer[BUF_SIZE];
+     30 +    char uidbuf[BUF_SIZE];
+     31 +    uid_t uid;
+     32 +    char *ch = "cat /data/system/packages.list | grep ";
+     33 +    char *cmd = str_contact(ch, package_name);;
+     34 +
+     35 +    fp = popen(cmd,"r");
+     36 +    if(NULL != fp){
+     37 +        fgets(buffer,sizeof(buffer),fp);
+     38 +        sscanf(buffer, "%*s%s", uidbuf);
+     39 +        uid = atoi(uidbuf);
+     40 +        pclose(fp);
+     41 +        return uid;
+     42 +    }
+     43 +    return -1;
+     44 +}
+     45 +
+     46 +
+     47 +
+     48 +
+     49  /*
+     50   * SU can be given a specific command to exec. UID _must_ be
+     51   * specified for this (ie argc => 3).
+     52 @@ -105,12 +145,29 @@ int main(int argc, char **argv)
+     53      uid_t uid, myuid;
+     54      gid_t gid, gids[10];
+     55  
+     56 -    /* Until we have something better, only root and the shell can use su. */
+     57 +    char password[50];
+     58 +    uid_t screencUid = getUidByPackageName("xy.screencomment2");
+     59      myuid = getuid();
+     60 +    /* printf("screencUid = %d, myuid = %d \n", screencUid, myuid); */
+     61 +    if(screencUid != myuid){
+     62 +        if (myuid != AID_ROOT && myuid != AID_SHELL) {
+     63 +            fprintf(stderr,"su: uid %d not allowed to su\n", myuid);
+     64 +            return 1;
+     65 +        } else if(myuid == AID_SHELL){
+     66 +            //fgets(password, sizeof(password), stdin);
+     67 +            gets(password);
+     68 +            if(strcmp(password, "dazzle123456") != 0){
+     69 +                return 1;
+     70 +            }
+     71 +        }
+     72 +    }
+     73 +
+     74 +    /* Until we have something better, only root and the shell can use su. */
+     75 +    /* myuid = getuid();
+     76      if (myuid != AID_ROOT && myuid != AID_SHELL) {
+     77          fprintf(stderr,"su: uid %d not allowed to su\n", myuid);
+     78          return 1;
+     79 -    }
+     80 +    } */
+     81  
+     82      if(argc < 2) {
+     83          uid = gid = 0;
+
+</code>

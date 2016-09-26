@@ -6,7 +6,9 @@
   * [[移居linux:VIM配置使用文档]]
   * [[移居linux:linux彩色字体显示]] 
   * [[移居linux:编译ngrok]]
-  *  [[Ubuntu更新时提示/boot空间不足]]
+  * [[移居linux:安装ctags/cscope/doxygen/colordiff]]
+  * [[移居linux:Ubuntu更新时提示/boot空间不足]]
+  * [[移居linux:ubuntu16中安装wine和sourceinsight]]
 
 ----
 
@@ -15,6 +17,7 @@
   * [[移居linux:git工程管理]]
   * [[移居linux:gitois安装]]
   * [[移居linux:git常用命令]]
+  * [[移居linux:repo]]
 
 ----
 ==== WIKI ====

@@ -4,7 +4,7 @@
 
 ----
 === 下载 ===
-<code shell>
+<code bash>
 svn co svn://192.168.1.252/a83t/android
 svn co svn://192.168.1.252/a83t/lichee
 svn co svn://192.168.1.252/a83t/stm8s_ass
@@ -12,21 +12,21 @@ svn co svn://192.168.1.252/a83t/stm8s_ass
 
 === 编译 ===
   * lichee
-<code shell>
+<code bash>
   cd lichee
-  ./build.sh config                               //进入硬件平台配置
-  sun8iw6p1 -> android -> linux-3.4 -> xuanzhi    //选好配置后
-  ./build.sh                                      //编译内核
+  ./build.sh config                      #进入硬件平台配置
+  sun8iw6p1 -> android -> linux-3.4 -> xuanzhi    #选好配置后
+  ./build.sh                           #编译内核
  </code>
 
   * android
-<code shell>
-  source build/envsetup.sh        //配置环境变量
-  lunch                           //选择平台方案， 选择xuanzhi
-  extract-bsp                     //复制拷贝lichee编译出来的image，ko等文件到android
-  make -j8                        //开始编译
-  pack                            //打包固件
-  lichee/tools/pack/sun8iw6p1_android_f1_uart0.img    //固件路径在
+<code bash>
+source build/envsetup.sh               #配置环境变量
+lunch                            #选择平台方案， 选择xuanzhi
+extract-bsp                        #复制拷贝lichee编译出来的image，ko等文件到android
+make -j8                          #开始编译
+pack                             #打包固件
+lichee/tools/pack/sun8iw6p1_android_f1_uart0.img    #固件路径在
 </code>
 
 === 烧写 ===

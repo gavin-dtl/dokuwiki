@@ -1,3 +1,5 @@
 ==== Misc ====
   * [[android:misc:android stu]] 
   * [[android:misc:source insight 常用快捷键]] 
+  * [[android:misc:android studio 使用技巧及设置]]
+  * [[android:misc:android studio 阅读源码]]

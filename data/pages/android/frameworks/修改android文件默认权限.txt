@@ -1,6 +1,9 @@
 ===== 修改android文件默认权限 ===== 
   * system/core/include/private/android_filesystem_config.h
 
+----
+==== ==
+
 <code cpp>
 static const struct fs_path_config android_files[] = {
     { 00440, AID_ROOT,      AID_SHELL,     0, "system/etc/init.goldfish.rc" },

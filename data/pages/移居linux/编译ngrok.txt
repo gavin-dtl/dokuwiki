@@ -6,6 +6,9 @@ wget http://golangtc.com/static/go/1.4.2/go1.4.2.src.tar.gz
 wget http://golangtc.com/static/go/1.5/go1.5.src.tar.gz
 </code>
 
+----
+==== ==
+
 ==== 配置环境变量 ====
 <code bash>
 export GOROOT=$HOME/go 

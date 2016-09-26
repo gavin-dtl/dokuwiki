@@ -1,0 +1,12 @@
+===== android常见编译出错 ====
+{{tag>make}}
+
+----
+==== ==
+
+<code bash>
+No private recovery resources for TARGET_DEVICE
+</code>
+ 
+解决：
+去相应的out文件夹下删掉生成文件，或者修改要build的文件。

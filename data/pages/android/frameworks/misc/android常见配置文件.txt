@@ -1,0 +1,1179 @@
+===== Android常见配置文件 =====
+
+android 常见配置文件
+
+----
+==== 音频系统管理文件 ===
+audio_polic.conf 在系统中通常在以下两个目录，优先加载vendor下配置文件，管理系统支持的如蓝牙，hdmi，usb等音频支持 
+<code c>
+// AudioPolicyManager.cpp
+#define AUDIO_POLICY_VENDOR_CONFIG_FILE  "/vendor/etc/audio_policy.conf"
+#define AUDIO_POLICY_CONFIG_FILE         "/system/etc/audio_policy.conf"
+</code>
+<hidden>
+<code ini>
+audio_hw_modules {
+  primary {
+    outputs {
+      primary {
+        sampling_rates 44100
+        channel_masks AUDIO_CHANNEL_OUT_STEREO
+        formats AUDIO_FORMAT_PCM_16_BIT
+        devices AUDIO_DEVICE_OUT_EARPIECE|AUDIO_DEVICE_OUT_SPEAKER|AUDIO_DEVICE_OUT_WIRED_HEADSET|AUDIO_DEVICE_OUT_WIRED_HEADPHONE|AUDIO_DEVICE_OUT_ALL_SCO|AUDIO_DEVICE_OUT_AUX_DIGITAL|AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET
+        flags AUDIO_OUTPUT_FLAG_PRIMARY
+      }
+      hdmi {
+        sampling_rates 44100|48000
+        channel_masks dynamic
+        formats AUDIO_FORMAT_PCM_16_BIT
+        devices AUDIO_DEVICE_OUT_AUX_DIGITAL
+        flags AUDIO_OUTPUT_FLAG_DIRECT
+      }
+    }
+    inputs {
+      primary {
+        sampling_rates 8000|11025|16000|22050|24000|32000|44100|48000
+        channel_masks AUDIO_CHANNEL_IN_MONO|AUDIO_CHANNEL_IN_STEREO|AUDIO_CHANNEL_IN_VOICE_UPLINK|AUDIO_CHANNEL_IN_VOICE_DNLINK|AUDIO_CHANNEL_IN_VOICE
+        formats AUDIO_FORMAT_PCM_16_BIT
+        devices AUDIO_DEVICE_IN_BUILTIN_MIC|AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET|AUDIO_DEVICE_IN_WIRED_HEADSET|AUDIO_DEVICE_IN_BACK_MIC|AUDIO_DEVICE_IN_AF|AUDIO_DEVICE_IN_VOICE_CALL|AUDIO_DEVICE_IN_FM
+      }
+    }
+  }
+  a2dp {
+    outputs {
+      a2dp {
+        sampling_rates 44100
+        channel_masks AUDIO_CHANNEL_OUT_STEREO
+        formats AUDIO_FORMAT_PCM_16_BIT
+        devices AUDIO_DEVICE_OUT_ALL_A2DP
+      }
+    }
+  }
+  usb {
+    outputs {
+      usb_accessory {
+        sampling_rates 44100
+        channel_masks AUDIO_CHANNEL_OUT_STEREO
+        formats AUDIO_FORMAT_PCM_16_BIT
+        devices AUDIO_DEVICE_OUT_USB_ACCESSORY
+      }
+      usb_device {
+        sampling_rates 44100
+        channel_masks AUDIO_CHANNEL_OUT_STEREO
+        formats AUDIO_FORMAT_PCM_16_BIT
+        devices AUDIO_DEVICE_OUT_USB_DEVICE
+      }
+    }
+    inputs {
+      usb_device {
+        sampling_rates dynamic
+        channel_masks AUDIO_CHANNEL_IN_STEREO
+        formats AUDIO_FORMAT_PCM_16_BIT
+        devices AUDIO_DEVICE_IN_USB_DEVICE
+      }
+    }
+  }
+  r_submix {
+    outputs {
+      submix {
+        sampling_rates 48000
+        channel_masks AUDIO_CHANNEL_OUT_STEREO
+        formats AUDIO_FORMAT_PCM_16_BIT
+        devices AUDIO_DEVICE_OUT_REMOTE_SUBMIX
+      }
+    }
+    inputs {
+      submix {
+        sampling_rates 48000
+        channel_masks AUDIO_CHANNEL_IN_STEREO
+        formats AUDIO_FORMAT_PCM_16_BIT
+        devices AUDIO_DEVICE_IN_REMOTE_SUBMIX
+      }
+    }
+  }
+}
+
+</code>
+</hidden>
+
+----
+==== 混音管理配置文件 ===
+mixer_paths.xml/ac100paths.xml(A83) 管理tinyMixer混管理器音量等。
+<hidden>
+<code xml>
+<mixer>
+  <!-- These are the initial mixer settings -->
+  <ctl name="External Speaker Switch" value="1" />
+  <ctl name="Headphone Switch" value="0" />
+  <ctl name="Earpiece Switch" value="0" />
+  
+  <ctl name="speaker volume" value="23" />
+
+
+  <!-- These are commonly used control sequences -->
+  <path name="aif1.0-dac">
+    <ctl name="AIF1IN0R Mux" value="AIF1_DA0R" />
+    <ctl name="AIF1IN0L Mux" value="AIF1_DA0L" />
+    <ctl name="DACR Mixer AIF1DA0R Switch" value="1" />
+    <ctl name="DACL Mixer AIF1DA0L Switch" value="1" />
+  </path>
+
+  <path name="adc-aif1.0">
+    <ctl name="AIF1OUT0L Mux" value="AIF1_AD0L" />
+    <ctl name="AIF1OUT0R Mux" value="AIF1_AD0R" />
+    <ctl name="AIF1 AD0L Mixer ADCL Switch" value="1" />
+    <ctl name="AIF1 AD0R Mixer ADCR Switch" value="1" />
+    <ctl name="ADCR Mux" value="ADC" />
+    <ctl name="ADCL Mux" value="ADC" />
+  </path>
+
+  <path name="dac-headphone">
+    <ctl name="HP_R Mux" value="DACR HPR Switch" />
+    <ctl name="HP_L Mux" value="DACL HPL Switch" />
+  </path>
+
+  <path name="mixer-headphone">
+    <ctl name="HP_R Mux" value="Right Analog Mixer HPR Switch" />
+    <ctl name="HP_L Mux" value="Left Analog Mixer HPL Switch" />
+  </path>
+
+  <path name="dac-mixer">
+    <ctl name="Right Output Mixer DACR Switch" value="1" />
+    <ctl name="Left Output Mixer DACL Switch" value="1" />
+  </path>
+
+  <path name="mixer-speaker">
+    <ctl name="SPK_L Mux" value="MIXEL Switch" />
+    <ctl name="SPK_R Mux" value="MIXER Switch" />
+  </path>
+
+
+  <path name="media-speaker">
+    <path name="aif1.0-dac" />
+    <path name="dac-mixer" />
+    <path name="mixer-speaker" />
+    <ctl name="External Speaker Switch" value="1" />
+  </path>
+
+  <path name="media-speaker-off">
+    <path name="aif1.0-dac" />
+    <path name="dac-mixer" />
+    <path name="mixer-speaker" />
+    <ctl name="External Speaker Switch" value="0" />
+  </path>
+
+  <path name="media-headphones">
+    <path name="aif1.0-dac" />
+    <path name="dac-headphone" />
+    <ctl name="Headphone Switch" value="1" />
+  </path>
+
+  <path name="media-single-speaker">
+  	<ctl name="AIF1IN0R Mux" value="AIF1_DA0R" />
+    <ctl name="AIF1IN0L Mux" value="AIF1_DA0L" />
+    <ctl name="DACR Mixer AIF1DA0R Switch" value="1" />
+    <ctl name="DACL Mixer AIF1DA0L Switch" value="1" />
+    <ctl name="Left Output Mixer DACR Switch" value="1" />
+    <ctl name="Left Output Mixer DACL Switch" value="1" />
+    <ctl name="SPK_L Mux" value="MIXEL Switch" />
+    <ctl name="External Speaker Switch" value="1" />
+  </path>
+ 	<!-- phone ring -->
+  <path name="phone-ring-voice">
+    <path name="aif1.0-dac" />
+    <path name="dac-mixer" />
+    <path name="mixer-speaker" />
+    <path name="dac-headphone" />
+    <ctl name="Headphone Switch" value="1" />
+    <ctl name="External Speaker Switch" value="1" />
+  </path>
+    <!-- capture -->
+  <path name="media-main-mic">
+    <path name="adc-aif1.0" />
+    <ctl name="LEFT ADC input Mixer MIC1 boost Switch" value="1" />
+    <ctl name="RIGHT ADC input Mixer MIC1 boost Switch" value="1" />
+    <ctl name="MIC1 boost amplifier gain" value="4" />
+  </path>
+
+  <path name="media-digital-mic">
+    <ctl name="AIF1OUT0L Mux" value="AIF1_AD0L" />
+    <ctl name="AIF1OUT0R Mux" value="AIF1_AD0R" />
+    <ctl name="AIF1 AD0L Mixer ADCL Switch" value="1" />
+    <ctl name="AIF1 AD0R Mixer ADCR Switch" value="1" />
+    <ctl name="ADCR Mux" value="DMIC" />
+    <ctl name="ADCL Mux" value="DMIC" />
+  </path>
+
+  <path name="media-headset-mic">
+    <path name="adc-aif1.0" />
+    <ctl name="RIGHT ADC input Mixer MIC2 boost Switch" value="1" />
+    <ctl name="LEFT ADC input Mixer MIC2 boost Switch" value="1" />
+    <ctl name="MIC2 SRC" value="MIC2" />
+    <ctl name="MIC2 boost amplifier gain" value="4" />
+  </path>
+
+  <!-- dbb phone path -->
+  <path name="digital-phone-speaker">
+  <ctl name="AIF2 ADC volume" value="159" />
+  <ctl name="LEFT ADC input Mixer MIC1 boost Switch" value="1" />
+  <ctl name="ADCL Mux" value="ADC" />
+  <ctl name="AIF2 ADL Mixer ADCL Switch" value="1" />
+  <ctl name="AIF2OUTL Mux" value="AIF2_ADCL" />
+
+  <ctl name="AIF2INL Mux" value="AIF2_DACL" />
+  <ctl name="AIF2INL Mux switch aif2inl aif2Switch" value="1" />
+  <ctl name="DACL Mixer AIF2DACL Switch" value="1" />
+  <ctl name="Right Output Mixer DACL Switch" value="1" />
+  <ctl name="Left Output Mixer DACL Switch" value="1" />
+
+  <ctl name="SPK_L Mux" value="MIXEL Switch" />
+  <ctl name="SPK_R Mux" value="MIXER Switch" />
+  <ctl name="External Speaker Switch" value="1" />
+  </path>
+
+  <path name="digital-phone-headset">
+  <ctl name="AIF2 ADC volume" value="159" />
+  <ctl name="MIC2 SRC" value="MIC2" />
+  <ctl name="LEFT ADC input Mixer MIC2 boost Switch" value="1" />
+  <ctl name="ADCL Mux" value="ADC" />
+  <ctl name="AIF2 ADL Mixer ADCL Switch" value="1" />
+  <ctl name="AIF2OUTL Mux" value="AIF2_ADCL" />
+
+  <ctl name="AIF2INL Mux" value="AIF2_DACL" />
+  <ctl name="AIF2INL Mux switch aif2inl aif2Switch" value="1" />
+  <ctl name="DACL Mixer AIF2DACL Switch" value="1" />
+  <ctl name="Left Output Mixer DACL Switch" value="1" />
+  <ctl name="Right Output Mixer DACL Switch" value="1" />
+
+  <ctl name="HP_L Mux" value="Left Analog Mixer HPL Switch" />
+  <ctl name="HP_R Mux" value="Right Analog Mixer HPR Switch" />
+  <ctl name="Headphone Switch" value="1" />
+  </path>
+
+  <path name="digital-phone-headphone">
+  <ctl name="AIF2 ADC volume" value="159" />
+  <ctl name="LEFT ADC input Mixer MIC1 boost Switch" value="1" />
+  <ctl name="ADCL Mux" value="ADC" />
+  <ctl name="AIF2 ADL Mixer ADCL Switch" value="1" />
+  <ctl name="AIF2OUTL Mux" value="AIF2_ADCL" />
+
+  <ctl name="AIF2INL Mux" value="AIF2_DACL" />
+  <ctl name="AIF2INL Mux switch aif2inl aif2Switch" value="1" />
+  <ctl name="DACL Mixer AIF2DACL Switch" value="1" />
+  <ctl name="Left Output Mixer DACL Switch" value="1" />
+  <ctl name="Right Output Mixer DACL Switch" value="1" />
+
+  <ctl name="HP_L Mux" value="Left Analog Mixer HPL Switch" />
+  <ctl name="HP_R Mux" value="Right Analog Mixer HPR Switch" />
+  <ctl name="Headphone Switch" value="1" />
+  </path>
+
+  <path name="digital-phone-bt">
+  <ctl name="AIF2INL Mux" value="AIF2_DACL" />
+  <ctl name="AIF2INL Mux switch aif2inl aif2Switch" value="1" />
+  <ctl name="AIF2 ADR Mixer AIF2 DACL Switch" value="1" />
+  <ctl name="AIF3OUT Mux" value="AIF2 ADC right channel" />
+
+  <ctl name="AIF2INR Mux VIR switch aif2inr aif3Switch" value="1" />
+  <ctl name="AIF2 ADL Mixer AIF2 DACR Switch" value="1" />
+  <ctl name="AIF2OUTL Mux" value="AIF2_ADCL" />
+  </path>
+
+  <path name="digital-phone-earpiece">
+  <ctl name="AIF2 ADC volume" value="159" />
+  <ctl name="LEFT ADC input Mixer MIC1 boost Switch" value="1" />
+  <ctl name="ADCL Mux" value="ADC" />
+  <ctl name="AIF2 ADL Mixer ADCL Switch" value="1" />
+  <ctl name="AIF2OUTL Mux" value="AIF2_ADCL" />
+
+  <ctl name="AIF2INL Mux" value="AIF2_DACL" />
+  <ctl name="AIF2INL Mux switch aif2inl aif2Switch" value="1" />
+  <ctl name="DACL Mixer AIF2DACL Switch" value="1" />
+
+  <ctl name="EAR Mux" value="DACL" />
+  <ctl name="Earpiece Switch" value="1" />
+  </path>
+<!-- capture when in call with dbb-->
+  <path name="capture-dbb-phone-mainmic">
+  <ctl name="AIF1 AD0L Mixer ADCL Switch" value="1" />
+  <ctl name="AIF1 AD0L Mixer AIF2 DACL Switch" value="1" />
+  <ctl name="AIF1OUT0L Mux" value="AIF1_AD0L" />
+  </path>
+  <path name="capture-dbb-phone-headsetmic">
+  <ctl name="AIF1 AD0L Mixer ADCL Switch" value="1" />
+  <ctl name="AIF1 AD0L Mixer AIF2 DACL Switch" value="1" />
+  <ctl name="AIF1OUT0L Mux" value="AIF1_AD0L" />
+  </path>
+  <path name="capture-dbb-phone-btmic">
+  <ctl name="AIF1 AD0L Mixer AIF2 DACL Switch" value="1" />
+  <ctl name="AIF1 AD0L Mixer AIF2 DACR Switch" value="1" />
+  <ctl name="AIF1OUT0L Mux" value="AIF1_AD0L" />
+  </path>
+
+ <!-- abb phone path -->
+  <path name="analog-mainmic">
+    <ctl name="Line Out Mixer MIC1 boost Switch" value="1" />
+  </path>
+
+  <path name="analog-headsetmic">
+  	<ctl name="MIC2 SRC" value="MIC2" />
+    <ctl name="Line Out Mixer MIC2 boost Switch" value="1" />
+  </path>
+
+  <path name="analog-phonein">
+  	<ctl name="Left Output Mixer LINEINL-LINEINR Switch" value="1" />
+    <ctl name="Right Output Mixer LINEINL-LINEINR Switch" value="1" />
+  </path>
+  <path name="mixer-earpiece">
+    <ctl name="EAR Mux" value="Right Analog Mixer" />
+  </path>
+
+  <path name="analog-phone-speaker">
+    <path name="analog-mainmic" />
+    <path name="analog-phonein" />
+    <path name="mixer-speaker"  />
+    <ctl name="External Speaker Switch" value="1" />
+  </path>
+
+  <path name="analog-phone-headset">
+    <path name="analog-headsetmic" />
+    <path name="analog-phonein" />
+    <path name="mixer-headphone" />
+    <ctl name="Headphone Switch" value="1" />
+  </path>
+
+  <path name="analog-phone-headphone">
+    <path name="analog-mainmic" />
+    <path name="analog-phonein" />
+    <path name="mixer-headphone" />
+    <ctl name="Headphone Switch" value="1" />
+  </path>
+
+  <path name="analog-phone-earpiece">
+    <path name="analog-mainmic" />
+    <path name="analog-phonein" />
+    <path name="mixer-earpiece" />
+    <ctl name="Earpiece Switch" value="1" />
+  </path>
+
+  <path name="analog-phone-bt">
+    <ctl name="LEFT ADC input Mixer LININL-R Switch" value="1" />
+    <ctl name="ADCL Mux" value="ADC" />
+    <ctl name="AIF2 ADL Mixer ADCL Switch" value="1" />
+    <ctl name="AIF3OUT Mux" value="AIF2 ADC left channel" />
+
+    <ctl name="AIF2INL Mux switch aif2inl aif2Switch" value="1" />
+    <ctl name="AIF2INR Mux VIR switch aif2inr aif3Switch" value="1" />
+	<ctl name="DACR Mixer AIF2DACR Switch" value="1" />
+	<ctl name="Right Output Mixer DACR Switch" value="1" />
+	<ctl name="Line Out Mixer Rout_Mixer_Switch" value="1" />
+  </path>
+
+  <path name="abb-phone-keytone-speaker">
+    <path name="aif1.0-dac" />
+    <path name="dac-mixer" />
+  </path>
+
+  <path name="abb-phone-keytone-headphones">
+    <path name="aif1.0-dac" />
+    <path name="dac-mixer" />
+  </path>
+
+  <path name="abb-phone-keytone-bt">
+
+  </path>
+
+  <path name="abb-phone-keytone-earpiece">
+
+  </path>
+
+  <!-- capture when in call with abb-->
+  <path name="capture-abb-phone-mainmic">
+    <ctl name="AIF1OUT0L Mux" value="AIF1_AD0L" />
+    <ctl name="AIF1 AD0L Mixer ADCL Switch" value="1" />
+    <ctl name="ADCL Mux" value="ADC" />
+    <ctl name="LEFT ADC input Mixer MIC1 boost Switch" value="1" />
+    <ctl name="LEFT ADC input Mixer LININL-R Switch" value="1" />
+  </path>
+
+  <path name="capture-abb-phone-headsetmic">
+    <ctl name="AIF1OUT0L Mux" value="AIF1_AD0L" />
+    <ctl name="AIF1 AD0L Mixer ADCL Switch" value="1" />
+    <ctl name="ADCL Mux" value="ADC" />
+    <ctl name="LEFT ADC input Mixer MIC2 boost Switch" value="1" />
+    <ctl name="LEFT ADC input Mixer LININL-R Switch" value="1" />
+  </path>
+
+  <path name="capture-abb-phone-btmic">
+    <ctl name="AIF1OUT0L Mux" value="AIF1_AD0L" />
+    <ctl name="AIF1 AD0L Mixer ADCL Switch" value="1" />
+    <ctl name="AIF1 AD0L Mixer AIF2 DACR Switch" value="1" />
+  </path>
+
+  <path name="com-ap-bt">
+  <ctl name="AIF1IN0L Mux" value="AIF1_DA0L" />
+  <ctl name="AIF2 ADL Mixer AIF1 DA0L Switch" value="1" />
+  <ctl name="AIF2 ADL Mixer AIF1 DA0L Switch" value="1" />
+  <ctl name="AIF3OUT Mux" value="AIF2 ADC left channel" />
+  </path>
+  <path name="com-bt-ap">
+  <ctl name="AIF2INR Mux switch aif2inr aif2Switch" value="1" />
+  <ctl name="AIF2INR Mux VIR switch aif2inr aif3Switch" value="1" />
+  <ctl name="AIF1 AD0L Mixer AIF2 DACR Switch" value="1" />
+  <ctl name="AIF1OUT0L Mux" value="AIF1_AD0L" />
+  </path>
+  <path name="null">
+  </path>
+</mixer>
+
+</code>
+</hidden>
+
+----
+==== 视频编码参数管理文件 =====
+media_profiles.xml 管理视频支持编码分辨率，及各分辨率下的码流，帧数，音频信息等
+<hidden>
+<code xml>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2010 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<!DOCTYPE MediaSettings [
+<!ELEMENT MediaSettings (CamcorderProfiles,
+                         EncoderOutputFileFormat+,
+                         VideoEncoderCap+,
+                         AudioEncoderCap+,
+                         VideoDecoderCap,
+                         AudioDecoderCap)>
+<!ELEMENT CamcorderProfiles (EncoderProfile+, ImageEncoding+, ImageDecoding, Camera)>
+<!ELEMENT EncoderProfile (Video, Audio)>
+<!ATTLIST EncoderProfile quality (high|low) #REQUIRED>
+<!ATTLIST EncoderProfile fileFormat (mp4|3gp) #REQUIRED>
+<!ATTLIST EncoderProfile duration (30|60) #REQUIRED>
+<!ATTLIST EncoderProfile cameraId (0|1) #REQUIRED>
+<!ELEMENT Video EMPTY>
+<!ATTLIST Video codec (h264|h263|m4v) #REQUIRED>
+<!ATTLIST Video bitRate CDATA #REQUIRED>
+<!ATTLIST Video width CDATA #REQUIRED>
+<!ATTLIST Video height CDATA #REQUIRED>
+<!ATTLIST Video frameRate CDATA #REQUIRED>
+<!ELEMENT Audio EMPTY>
+<!ATTLIST Audio codec (amrnb|amrwb|aac) #REQUIRED>
+<!ATTLIST Audio bitRate CDATA #REQUIRED>
+<!ATTLIST Audio sampleRate CDATA #REQUIRED>
+<!ATTLIST Audio channels (1|2) #REQUIRED>
+<!ELEMENT ImageEncoding EMPTY>
+<!ATTLIST ImageEncoding quality (90|80|70|60|50|40) #REQUIRED>
+<!ELEMENT ImageDecoding EMPTY>
+<!ATTLIST ImageDecoding memCap CDATA #REQUIRED>
+<!ELEMENT Camera EMPTY>
+<!ATTLIST Camera previewFrameRate CDATA #REQUIRED>
+<!ELEMENT EncoderOutputFileFormat EMPTY>
+<!ATTLIST EncoderOutputFileFormat name (mp4|3gp) #REQUIRED>
+<!ELEMENT VideoEncoderCap EMPTY>
+<!ATTLIST VideoEncoderCap name (h264|h263|m4v|wmv) #REQUIRED>
+<!ATTLIST VideoEncoderCap enabled (true|false) #REQUIRED>
+<!ATTLIST VideoEncoderCap minBitRate CDATA #REQUIRED>
+<!ATTLIST VideoEncoderCap maxBitRate CDATA #REQUIRED>
+<!ATTLIST VideoEncoderCap minFrameWidth CDATA #REQUIRED>
+<!ATTLIST VideoEncoderCap maxFrameWidth CDATA #REQUIRED>
+<!ATTLIST VideoEncoderCap minFrameHeight CDATA #REQUIRED>
+<!ATTLIST VideoEncoderCap maxFrameHeight CDATA #REQUIRED>
+<!ATTLIST VideoEncoderCap minFrameRate CDATA #REQUIRED>
+<!ATTLIST VideoEncoderCap maxFrameRate CDATA #REQUIRED>
+<!ELEMENT AudioEncoderCap EMPTY>
+<!ATTLIST AudioEncoderCap name (amrnb|amrwb|aac|wma) #REQUIRED>
+<!ATTLIST AudioEncoderCap enabled (true|false) #REQUIRED>
+<!ATTLIST AudioEncoderCap minBitRate CDATA #REQUIRED>
+<!ATTLIST AudioEncoderCap maxBitRate CDATA #REQUIRED>
+<!ATTLIST AudioEncoderCap minSampleRate CDATA #REQUIRED>
+<!ATTLIST AudioEncoderCap maxSampleRate CDATA #REQUIRED>
+<!ATTLIST AudioEncoderCap minChannels (1|2) #REQUIRED>
+<!ATTLIST AudioEncoderCap maxChannels (1|2) #REQUIRED>
+<!ELEMENT VideoDecoderCap EMPTY>
+<!ATTLIST VideoDecoderCap name (wmv) #REQUIRED>
+<!ATTLIST VideoDecoderCap enabled (true|false) #REQUIRED>
+<!ELEMENT AudioDecoderCap EMPTY>
+<!ATTLIST AudioDecoderCap name (wma) #REQUIRED>
+<!ATTLIST AudioDecoderCap enabled (true|false) #REQUIRED>
+<!ELEMENT VideoEditorCap EMPTY>
+<!ATTLIST VideoEditorCap maxInputFrameWidth CDATA #REQUIRED>
+<!ATTLIST VideoEditorCap maxInputFrameHeight CDATA #REQUIRED>
+<!ATTLIST VideoEditorCap maxOutputFrameWidth CDATA #REQUIRED>
+<!ATTLIST VideoEditorCap maxOutputFrameHeight CDATA #REQUIRED>
+<!ATTLIST VideoEditorCap maxPrefetchYUVFrames CDATA #REQUIRED>
+<!ELEMENT ExportVideoProfile EMPTY>
+<!ATTLIST ExportVideoProfile name (h264|h263|m4v) #REQUIRED>
+<!ATTLIST ExportVideoProfile profile CDATA #REQUIRED>
+<!ATTLIST ExportVideoProfile level CDATA #REQUIRED>
+]>
+<!--
+     This file is used to declare the multimedia profiles and capabilities
+     on an android-powered device.
+-->
+<MediaSettings>
+    <!-- Each camcorder profile defines a set of predefined configuration parameters -->
+    <CamcorderProfiles cameraId="0">
+
+        <EncoderProfile quality="low" fileFormat="3gp" duration="30">
+            <Video codec="h264"
+                   bitRate="360000"
+                   width="176"
+                   height="144"
+                   frameRate="30" />
+            <Audio codec="amrnb"
+                   bitRate="12200"
+                   sampleRate="8000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <EncoderProfile quality="qcif" fileFormat="3gp" duration="30">
+            <Video codec="h264"
+                   bitRate="360000"
+                   width="176"
+                   height="144"
+                   frameRate="30" />
+            <Audio codec="amrnb"
+                   bitRate="12200"
+                   sampleRate="8000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <EncoderProfile quality="high" fileFormat="mp4" duration="60">
+            <Video codec="h264"
+                   bitRate="8000000"
+                   width="1280"
+                   height="720"
+                   frameRate="30" />
+            <Audio codec="amrnb"
+                   bitRate="96000"
+                   sampleRate="48000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <EncoderProfile quality="cif" fileFormat="mp4" duration="30">
+            <Video codec="h264"
+                   bitRate="1200000"
+                   width="352"
+                   height="288"
+                   frameRate="30" />
+            <Audio codec="amrnb"
+                   bitRate="12200"
+                   sampleRate="8000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <EncoderProfile quality="timelapselow" fileFormat="3gp" duration="60">
+            <Video codec="h264"
+                   bitRate="360000"
+                   width="176"
+                   height="144"
+                   frameRate="20" />
+            <Audio codec="amrnb"
+                   bitRate="12200"
+                   sampleRate="8000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <EncoderProfile quality="timelapseqcif" fileFormat="3gp" duration="60">
+            <Video codec="h264"
+                   bitRate="360000"
+                   width="176"
+                   height="144"
+                   frameRate="20" />
+            <Audio codec="amrnb"
+                   bitRate="12200"
+                   sampleRate="8000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <EncoderProfile quality="timelapse480p" fileFormat="3gp" duration="60">
+            <Video codec="h264"
+                   bitRate="360000"
+                   width="640"
+                   height="480"
+                   frameRate="20" />
+            <Audio codec="amrnb"
+                   bitRate="12200"
+                   sampleRate="8000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <EncoderProfile quality="timelapsehigh" fileFormat="3gp" duration="60">
+            <Video codec="h264"
+                   bitRate="360000"
+                   width="640"
+                   height="480"
+                   frameRate="20" />
+            <Audio codec="amrnb"
+                   bitRate="12200"
+                   sampleRate="8000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <EncoderProfile quality="480p" fileFormat="mp4" duration="30">
+            <Video codec="h264"
+                   bitRate="360000"
+                   width="640"
+                   height="480"
+                   frameRate="20" />
+            <Audio codec="amrnb"
+                   bitRate="12200"
+                   sampleRate="8000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <EncoderProfile quality="720p" fileFormat="mp4" duration="60">
+            <Video codec="h264"
+                   bitRate="8000000"
+                   width="1280"
+                   height="720"
+                   frameRate="30" />
+            <Audio codec="amrnb"
+                   bitRate="96000"
+                   sampleRate="48000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <!--<EncoderProfile quality="1080p" fileFormat="mp4" duration="60">
+            <Video codec="h264"
+                   bitRate="8000000"
+                   width="1920"
+                   height="1080"
+                   frameRate="30" />
+            <Audio codec="amrnb"
+                   bitRate="96000"
+                   sampleRate="48000"
+                   channels="1" />
+        </EncoderProfile>-->
+
+        <ImageEncoding quality="90" />
+        <ImageEncoding quality="80" />
+        <ImageEncoding quality="70" />
+        <ImageDecoding memCap="20000000" />
+
+    </CamcorderProfiles>
+
+    <CamcorderProfiles cameraId="1">
+
+        <EncoderProfile quality="low" fileFormat="3gp" duration="30">
+            <Video codec="h264"
+                   bitRate="360000"
+                   width="176"
+                   height="144"
+                   frameRate="20" />
+            <Audio codec="amrnb"
+                   bitRate="12200"
+                   sampleRate="8000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <EncoderProfile quality="qcif" fileFormat="3gp" duration="30">
+            <Video codec="h264"
+                   bitRate="360000"
+                   width="176"
+                   height="144"
+                   frameRate="20" />
+            <Audio codec="amrnb"
+                   bitRate="12200"
+                   sampleRate="8000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <EncoderProfile quality="high" fileFormat="mp4" duration="60">
+            <Video codec="h264"
+                   bitRate="8000000"
+                   width="1280"
+                   height="720"
+                   frameRate="30" />
+            <Audio codec="amrnb"
+                   bitRate="96000"
+                   sampleRate="48000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <EncoderProfile quality="cif" fileFormat="mp4" duration="30">
+            <Video codec="h264"
+                   bitRate="1200000"
+                   width="352"
+                   height="288"
+                   frameRate="30" />
+            <Audio codec="amrnb"
+                   bitRate="12200"
+                   sampleRate="8000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <EncoderProfile quality="timelapselow" fileFormat="3gp" duration="60">
+            <Video codec="h264"
+                   bitRate="360000"
+                   width="176"
+                   height="144"
+                   frameRate="20" />
+            <Audio codec="amrnb"
+                   bitRate="12200"
+                   sampleRate="8000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <EncoderProfile quality="timelapseqcif" fileFormat="3gp" duration="60">
+            <Video codec="h264"
+                   bitRate="36000"
+                   width="176"
+                   height="144"
+                   frameRate="20" />
+            <Audio codec="amrnb"
+                   bitRate="12200"
+                   sampleRate="8000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <EncoderProfile quality="timelapse480p" fileFormat="3gp" duration="60">
+            <Video codec="h264"
+                   bitRate="360000"
+                   width="640"
+                   height="480"
+                   frameRate="20" />
+            <Audio codec="amrnb"
+                   bitRate="12200"
+                   sampleRate="8000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <EncoderProfile quality="timelapsehigh" fileFormat="3gp" duration="60">
+            <Video codec="h264"
+                   bitRate="360000"
+                   width="640"
+                   height="480"
+                   frameRate="20" />
+            <Audio codec="amrnb"
+                   bitRate="12200"
+                   sampleRate="8000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <EncoderProfile quality="480p" fileFormat="mp4" duration="30">
+            <Video codec="h264"
+                   bitRate="360000"
+                   width="640"
+                   height="480"
+                   frameRate="20" />
+            <Audio codec="amrnb"
+                   bitRate="12200"
+                   sampleRate="8000"
+                   channels="1" />
+        </EncoderProfile>
+
+       <EncoderProfile quality="720p" fileFormat="mp4" duration="60">
+            <Video codec="h264"
+                   bitRate="8000000"
+                   width="1280"
+                   height="720"
+                   frameRate="30" />
+            <Audio codec="amrnb"
+                   bitRate="96000"
+                   sampleRate="48000"
+                   channels="1" />
+        </EncoderProfile>
+
+        <!--<EncoderProfile quality="1080p" fileFormat="mp4" duration="60">
+            <Video codec="h264"
+                   bitRate="8000000"
+                   width="1920"
+                   height="1080"
+                   frameRate="30" />
+            <Audio codec="amrnb"
+                   bitRate="96000"
+                   sampleRate="48000"
+                   channels="1" />
+        </EncoderProfile>-->
+
+        <ImageEncoding quality="90" />
+        <ImageEncoding quality="80" />
+        <ImageEncoding quality="70" />
+        <ImageDecoding memCap="20000000" />
+
+    </CamcorderProfiles>
+
+    <EncoderOutputFileFormat name="3gp" />
+    <EncoderOutputFileFormat name="mp4" />
+
+    <!--
+         If a codec is not enabled, it is invisible to the applications
+         In other words, the applications won't be able to use the codec
+         or query the capabilities of the codec at all if it is disabled
+    -->
+    <VideoEncoderCap name="h264" enabled="true"
+        minBitRate="192000" maxBitRate="1048576000"
+        minFrameWidth="176"     maxFrameWidth="1920"
+        minFrameHeight="144" maxFrameHeight="1080"
+        minFrameRate="5" maxFrameRate="40" />
+
+    <VideoEncoderCap name="h263" enabled="true"
+        minBitRate="192000" maxBitRate="420000"
+        minFrameWidth="176" maxFrameWidth="352"
+        minFrameHeight="144" maxFrameHeight="288"
+        minFrameRate="5" maxFrameRate="20" />
+
+    <VideoEncoderCap name="m4v" enabled="true"
+        minBitRate="192000" maxBitRate="420000"
+        minFrameWidth="176" maxFrameWidth="352"
+        minFrameHeight="144" maxFrameHeight="288"
+        minFrameRate="5" maxFrameRate="20" />
+
+    <AudioEncoderCap name="amrnb" enabled="true"
+        minBitRate="5525" maxBitRate="12200"
+        minSampleRate="8000" maxSampleRate="8000"
+        minChannels="1" maxChannels="1" />
+
+     <AudioEncoderCap name="aac" enabled="true"
+        minBitRate="5525" maxBitRate="256000"
+        minSampleRate="8000" maxSampleRate="48000"
+        minChannels="1" maxChannels="2" />
+
+    <!--
+        FIXME:
+        We do not check decoder capabilities at present
+        At present, we only check whether windows media is visible
+        for TEST applications. For other applications, we do
+        not perform any checks at all.
+    -->
+    <VideoDecoderCap name="wmv" enabled="false"/>
+    <AudioDecoderCap name="wma" enabled="false"/>
+
+    <!--
+        The VideoEditor Capability configuration:
+        - maxInputFrameWidth: maximum video width of imported video clip.
+        - maxInputFrameHeight: maximum video height of imported video clip.
+        - maxOutputFrameWidth: maximum video width of exported video clip.
+        - maxOutputFrameHeight: maximum video height of exported video clip.
+        - maxPrefetchYUVFrames: maximum prefetch YUV frames for encoder,
+        used to limit the amount of memory for prefetched YUV frames.
+        For this platform, it allows maximum 30MB(3MB per 1080p frame x 10
+        frames) memory.
+    -->
+    <VideoEditorCap  maxInputFrameWidth="352"
+        maxInputFrameHeight="288" maxOutputFrameWidth="352"
+        maxOutputFrameHeight="288" maxPrefetchYUVFrames="6  "/>
+    <!--
+        The VideoEditor Export codec profile and level values
+        correspond to the values in OMX_Video.h.
+        E.g. for h264, profile value 1 means OMX_VIDEO_AVCProfileBaseline
+        and  level 4096 means OMX_VIDEO_AVCLevel41.
+        Please note that the values are in decimal.
+        These values are for video encoder.
+    -->
+    <!--
+      Codec = h.264, Baseline profile, level 4.1
+    -->
+    <ExportVideoProfile name="h264" profile= "1" level="16"/>
+    <!--
+      Codec = h.263, Baseline profile, level 0
+    -->
+    <ExportVideoProfile name="h263" profile= "1" level="1"/>
+    <!--
+      Codec = mpeg4, Simple profile, level 5
+    -->
+    <ExportVideoProfile name="m4v" profile= "1" level="4"/>
+</MediaSettings>
+</code>
+</hidden>
+
+
+----
+==== 摄像头管理文件（A83） ====
+camera.cfg 配置摄像头的分辨路及各分辨路预览大小等。
+<hidden>
+<code ini>
+;-------------------------------------------------------------------------------
+; 用于camera的配置
+;
+; 采用格式:
+; key = key_value
+; 注意: 每个key需要顶格写;
+;		key_value紧跟着key后面的等号后面, 位于同一行中;
+;		key_value限制大小为256字节以内;
+;		
+;------------------------------------------------------------------------------- 
+
+;------------------------------------------------------------------------------- 
+; exif information of "make" and "model"
+;------------------------------------------------------------------------------- 
+key_camera_exif_make = MAKE_AllWinner
+key_camera_exif_model = MODEL_ibt
+
+;------------------------------------------------------------------------------- 
+; 1 for single camera, 2 for double camera
+;------------------------------------------------------------------------------- 
+number_of_camera = 1
+
+;------------------------------------------------------------------------------- 
+; CAMERA_FACING_BACK
+; gc2035
+;------------------------------------------------------------------------------- 
+camera_id = 0
+
+;------------------------------------------------------------------------------- 
+; 1 for CAMERA_FACING_FRONT
+; 0 for CAMERA_FACING_BACK
+;------------------------------------------------------------------------------- 
+camera_facing = 0
+
+;------------------------------------------------------------------------------- 
+; 1 for camera without isp(using built-in isp of Axx)
+; 0 for camera with isp
+;------------------------------------------------------------------------------- 
+use_builtin_isp = 0
+
+;------------------------------------------------------------------------------- 
+; camera orientation (0, 90, 180, 270)
+;------------------------------------------------------------------------------- 
+camera_orientation = 0
+
+;------------------------------------------------------------------------------- 
+; driver device name
+;------------------------------------------------------------------------------- 
+camera_device = /dev/video0
+
+;------------------------------------------------------------------------------- 
+; device id 
+; for two camera devices with one CSI
+;------------------------------------------------------------------------------- 
+device_id = 0
+
+used_preview_size = 1
+key_support_preview_size = 640x480
+key_default_preview_size = 640x480
+
+used_picture_size = 1
+key_support_picture_size = 640x480
+key_default_picture_size = 640x480
+;key_support_picture_size = 1600x1200,640x480
+;key_default_picture_size = 1600x1200
+
+used_flash_mode = 0
+key_support_flash_mode = on,off,auto,red-eye,torch
+key_default_flash_mode = off
+
+used_color_effect=1
+key_support_color_effect = none,mono,negative,sepia,aqua
+key_default_color_effect = none
+
+used_frame_rate = 1
+key_support_frame_rate = 25
+key_default_frame_rate = 25
+
+used_focus_mode = 0
+key_support_focus_mode = auto,infinity,macro,fixed
+key_default_focus_mode = auto
+
+used_scene_mode = 0
+key_support_scene_mode = auto,portrait,landscape,night,night-portrait,theatre,beach,snow,sunset,steadyphoto,fireworks,sports,party,candlelight,barcode
+key_default_scene_mode = auto
+
+used_white_balance = 1
+key_support_white_balance = auto,incandescent,fluorescent,warm-fluorescent,daylight,cloudy-daylight
+key_default_white_balance = auto
+
+used_exposure_compensation = 1
+key_max_exposure_compensation = 3
+key_min_exposure_compensation = -3
+key_step_exposure_compensation = 1
+key_default_exposure_compensation = 0
+
+used_zoom = 1
+key_zoom_supported = true
+key_smooth_zoom_supported = false
+key_zoom_ratios = 100,120,150,200,230,250,300
+key_max_zoom = 30
+key_default_zoom = 0
+
+key_horizonal_view_angle = 48
+key_vertical_view_angle = 48
+
+;------------------------------------------------------------------------------- 
+; CAMERA_FACING_FRONT
+; gc0308
+;------------------------------------------------------------------------------- 
+camera_id = 1
+
+;------------------------------------------------------------------------------- 
+; 1 for camera without isp(using built-in isp of Axx)
+; 0 for camera with isp
+;------------------------------------------------------------------------------- 
+use_builtin_isp = 0
+
+;------------------------------------------------------------------------------- 
+; 1 for CAMERA_FACING_FRONT
+; 0 for CAMERA_FACING_BACK
+;------------------------------------------------------------------------------- 
+camera_facing = 1
+
+;------------------------------------------------------------------------------- 
+; camera orientation (0, 90, 180, 270)
+;------------------------------------------------------------------------------- 
+camera_orientation = 270
+
+;------------------------------------------------------------------------------- 
+; driver device name
+;------------------------------------------------------------------------------- 
+camera_device = /dev/video0
+
+;------------------------------------------------------------------------------- 
+; device id 
+; for two camera devices with one CSI
+;------------------------------------------------------------------------------- 
+device_id = 1
+
+used_preview_size = 1
+key_support_preview_size = 640x480
+key_default_preview_size = 640x480
+
+used_picture_size = 1
+key_support_picture_size = 640x480
+key_default_picture_size = 640x480
+
+used_flash_mode = 0
+key_support_flash_mode = on,off,auto
+key_default_flash_mode = on
+
+used_color_effect= 1
+key_support_color_effect = none,mono,negative,sepia,aqua
+key_default_color_effect = none
+
+used_frame_rate = 1
+key_support_frame_rate = 10
+key_default_frame_rate = 10
+
+used_focus_mode = 0
+key_support_focus_mode = auto,infinity,macro,fixed
+key_default_focus_mode = auto
+
+used_scene_mode = 0
+key_support_scene_mode = auto,portrait,landscape,night,night-portrait,theatre,beach,snow,sunset,steadyphoto,fireworks,sports,party,candlelight,barcode
+key_default_scene_mode = auto
+
+used_white_balance = 1
+key_support_white_balance = auto,incandescent,fluorescent,warm-fluorescent,daylight,cloudy-daylight
+key_default_white_balance = auto
+
+used_exposure_compensation = 1
+key_max_exposure_compensation = 3
+key_min_exposure_compensation = -3
+key_step_exposure_compensation = 1
+key_default_exposure_compensation = 0
+
+used_zoom = 1
+key_zoom_supported = true
+key_smooth_zoom_supported = false
+key_zoom_ratios = 100,120,150,200,230,250,300
+key_max_zoom = 30
+key_default_zoom = 0
+
+key_horizonal_view_angle = 44.6
+key_vertical_view_angle = 44.6
+</code>
+</hidden>
+
+----
+
+==== 配置WIFI模块PID&UID（Mstar） ===
+mstar配置根据pid等加载对应的wifi驱动
+<hidden>
+<code ini>
+=====
+wifi_vendor_name=RTL8192EU
+order=1
+count_vid_pid=1
+vid_pid=0x0bda:0x818b
+sta=1
+softap=1
+p2p=1
+=====
+wifi_vendor_name=MT7662STA
+order=2
+count_vid_pid=2
+vid_pid=0x0e8d:0x7632
+vid_pid=0x0e8d:0x7662
+sta=1
+softap=1
+p2p=1
+=====
+wifi_vendor_name=MT7603STA
+order=3
+count_vid_pid=1
+vid_pid=0x0e8d:0x7603
+sta=1
+softap=1
+p2p=1
+=====
+wifi_vendor_name=RAL5370
+order=4
+count_vid_pid=4
+vid_pid=0x148f:0x5370
+vid_pid=0x148f:0x5372
+vid_pid=0x148f:0x3070
+vid_pid=0x148f:0x5572
+sta=1
+softap=1
+p2p=1
+=====
+wifi_vendor_name=RTL8188ETV
+order=5
+count_vid_pid=2
+vid_pid=0x0bda:0x0179
+vid_pid=0x0bda:0x8179
+sta=1
+softap=1
+p2p=1
+=====
+wifi_vendor_name=RTL8812AUS
+order=6
+count_vid_pid=2
+vid_pid=0x0bda:0x8812
+vid_pid=0x0bda:0x881a
+sta=1
+softap=1
+p2p=1
+=====
+wifi_vendor_name=BCM43569
+order=7
+count_vid_pid=2
+vid_pid=0x0a5c:0xbd27
+vid_pid=0x0a5c:0x0bdc
+sta=1
+softap=1
+p2p=1
+=====
+wifi_vendor_name=MT7601STA
+order=8
+count_vid_pid=1
+vid_pid=0x148f:0x7601
+sta=1
+softap=1
+p2p=1
+====
+wifi_vendor_name=RTL8723BU
+order=8
+count_vid_pid=1
+vid_pid=0x0bda:0xb720
+sta=1
+softap=1
+p2p=1
+</code>
+</hidden>
+
+
+
+

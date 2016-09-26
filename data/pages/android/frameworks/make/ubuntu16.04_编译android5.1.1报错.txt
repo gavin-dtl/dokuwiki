@@ -1,0 +1,29 @@
+===== ubuntu16.04_编译android5.1.1报错 ===
+
+{{tag>ubuntu}}
+
+----
+===报错 ==
+<code bash>
+recipe commences before first targe
+</code>
+GNU make的问题,gnu make 3.8.1是为android编译修改过或者是优化过的， 所以新版本的ubuntu上用的是更高版本的gnu make  ， 所以导致在编译时出问题。
+
+去以下网址下载 3.8.1,http://ftp.gnu.org/gnu/make/;解压，进入3.8.1目录，执行 ./configure ; sudo make install 之后即可. make -version 检查make版本号
+<WRAP left round download 100%>
+{{ :android:frameworks:make:make-3.81.tar.bz2 |}}
+
+{{ :android:frameworks:make:make-3.81.tar.gz |}}
+</WRAP>
+
+
+参考:[[http://blog.csdn.net/elitemouse/article/details/51719481]]
+
+===报错 ==
+<code bash>
+unsupported reloc 43
+</code>
+<code bash>
+cp /usr/bin/ld.gold prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.11-4.6/x86_64-linux/bin/ld  
+</code>
+参考:[[http://blog.csdn.net/ermuzhi/article/details/51889024]]

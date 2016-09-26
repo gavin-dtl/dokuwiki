@@ -1,5 +1,6 @@
 ===== 禁止屏幕旋转 =====
 
+==== ==
 
   * base/services/core/java/com/android/server/wm/WindowManagerService.java
 <code cpp>

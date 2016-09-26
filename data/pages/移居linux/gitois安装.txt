@@ -1,5 +1,7 @@
 ===== gitois安装 =====
 
+{{tag>git}}
+
 ----
 ====下载安装gitosis ====
 <code bash>
@@ -37,7 +39,7 @@
 <code bash>
 	sudo su - gitServer
 	gitosis-init < /tmp/id_rsa.pub
-	sudo chmod a+x ~gitServer/repositories/gitosis-admin.git/hooks/post-update
+	sudo chmod a+x repositories/gitosis-admin.git/hooks/post-update
 </code>
 eixt 退出 gitServer用户
 

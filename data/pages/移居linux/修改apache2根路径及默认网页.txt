@@ -1,6 +1,9 @@
 ====== 修改apache2根路径及默认网页 ======
 
-===== 一、修改根路径 =====
+{{tag>wiki}}
+
+----
+==== 一、修改根路径 ====
 
   - 修改根路径，/etc/apache2/sites-available/000-default.conf，中的DocumentRoot/var/www/修改为想要的目录，比如：DocumentRoot/home/disk/www/html
   - 添加访问权限

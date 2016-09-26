@@ -1,5 +1,7 @@
 ===== android 启动应用 =====
 
+----
+==== ==
 <code java>
 	ResolveInfo res = mAllApps.get(position); //get packagename and activity 
 	String pkg = res.activityInfo.packageName ; 

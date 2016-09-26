@@ -17,6 +17,8 @@ rsync -vare ssh jono@192.168.0.2:/home/jono/importantfiles/* /home/jono/backup/
   find pathname -options 
   find . -name 
   find -name '.git*' |xargs rm -rf
+  
+  find . -iname *.mk | xargs  grep --color -Inrs "p"
 </code>
 
 === 字符串替换 ===

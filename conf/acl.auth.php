@@ -10,3 +10,6 @@
 *	@read	1
 start	@ALL	1
 work:炫智:*	@ALL	1
+me:*	water	16
+water:*	water	16
+water:*	@read	0

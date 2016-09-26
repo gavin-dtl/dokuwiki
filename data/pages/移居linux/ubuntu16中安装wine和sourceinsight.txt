@@ -1,0 +1,30 @@
+===== ubuntu16中安装wine和sourceinsight ==
+
+----
+==== 安装wine ===
+<code bash>
+sudo apt-get install wine
+</code>
+
+==== 安装sourceinsight ===
+
+<code bash>
+wine ~/Desktop/Si35Setup.exe
+</code>
+
+搜wine启动Configure Wine
+
+添加一个路径，这样source insight建工程的时候才能看到。
+
+4.启动source insight建立工程
+
+
+#!/bin/bash
+
+wine "c:\Program Files\Source Insight 3\Insight3.exe" 
+
+将该脚本添加到用户寻找命令的路径上，我在~/.profile的最后添加了该脚本的路劲
+
+vim ~/.profile
+
+在最后一行添加了该脚本的路劲/home/liuwei/work，注销登录后就可以运行脚本的名字来启动source insight了，我的脚本的名字是insight.sh，所以我登录后在终端输入insight.sh就可以启动source insight了。 
